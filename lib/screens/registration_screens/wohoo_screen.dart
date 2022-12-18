@@ -27,7 +27,7 @@ class WohooScreen extends StatelessWidget {
                   Image.asset("assets/images/registration_done.png"),
                   const Spacer(),
                   const UnderPictureBody(
-                    body: "You done it Registration compelete",
+                    body: "You have done it Registration compelete",
                     title: "Woohoo!",
                   ),
                   const Spacer(),
