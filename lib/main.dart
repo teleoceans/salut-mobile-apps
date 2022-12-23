@@ -1,38 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/providers/favorites_provider.dart';
-import 'package:salute/screens/faq_screen/about_us.dart';
-import 'package:salute/screens/faq_screen/app_feedback.dart';
-import 'package:salute/screens/faq_screen/faq.dart';
-import 'package:salute/screens/faq_screen/policy_screen.dart';
-import 'package:salute/screens/faq_screen/terms_of_use_screen.dart';
-import 'package:salute/screens/home_screens/favorites_screen.dart';
-import 'package:salute/screens/profile_screens/account_info_screen.dart';
-import 'package:salute/screens/profile_screens/add_address_screen.dart';
-import 'package:salute/screens/profile_screens/change_email.dart';
-import 'package:salute/screens/profile_screens/change_password.dart';
-import 'package:salute/screens/profile_screens/no_address_screen.dart';
-import 'package:salute/screens/profile_screens/settings_screen.dart';
-import 'package:salute/screens/registration_screens/facing_problem_screen.dart';
-import 'package:salute/screens/registration_screens/allow_location_screen.dart';
-import 'package:salute/screens/registration_screens/check_email.dart';
-import 'package:salute/screens/registration_screens/enter_code_screen.dart';
-import 'package:salute/screens/registration_screens/forget_password.dart';
-import 'package:salute/screens/registration_screens/help_tkafol_screen.dart';
-import 'package:salute/screens/registration_screens/order_anywhere_screen.dart';
-import 'package:salute/screens/registration_screens/sign_in_screen.dart';
-import 'package:salute/screens/registration_screens/signup_screen.dart';
-import 'package:salute/screens/registration_screens/welcome_screen.dart';
-import 'package:salute/screens/registration_screens/wohoo_screen.dart';
-import 'package:salute/screens/home_screens/cart_screen.dart';
-import 'package:salute/screens/home_screens/catering_screen.dart';
-import 'package:salute/screens/home_screens/home_screen.dart';
-import 'package:salute/screens/home_screens/profile_screen.dart';
-import 'package:salute/screens/shopping_screens/checkout_screen.dart';
-import 'package:salute/screens/shopping_screens/product_screen.dart';
-import 'package:salute/screens/shopping_screens/track_order_screen.dart';
+import 'package:salute/data/providers/ui_provider.dart';
+import 'package:salute/view/components/default_button.dart';
+import 'package:salute/view/components/default_form_field.dart';
+import 'package:salute/view/components/shopping_components/social_media_container.dart';
+import 'package:salute/view/screens/faq_screen/about_us.dart';
+import 'package:salute/view/screens/faq_screen/app_feedback.dart';
+import 'package:salute/view/screens/faq_screen/faq.dart';
+import 'package:salute/view/screens/faq_screen/policy_screen.dart';
+import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
+import 'package:salute/view/screens/home_screens/favorites_screen.dart';
+import 'package:salute/view/screens/profile_screens/account_info_screen.dart';
+import 'package:salute/view/screens/profile_screens/add_address_screen.dart';
+import 'package:salute/view/screens/profile_screens/change_email.dart';
+import 'package:salute/view/screens/profile_screens/change_password.dart';
+import 'package:salute/view/screens/profile_screens/no_address_screen.dart';
+import 'package:salute/view/screens/profile_screens/notifications_screen.dart';
+import 'package:salute/view/screens/profile_screens/settings_screen.dart';
+import 'package:salute/view/screens/registration_screens/facing_problem_screen.dart';
+import 'package:salute/view/screens/registration_screens/allow_location_screen.dart';
+import 'package:salute/view/screens/registration_screens/check_email.dart';
+import 'package:salute/view/screens/registration_screens/enter_code_screen.dart';
+import 'package:salute/view/screens/registration_screens/forget_password.dart';
+import 'package:salute/view/screens/registration_screens/help_tkafol_screen.dart';
+import 'package:salute/view/screens/registration_screens/order_anywhere_screen.dart';
+import 'package:salute/view/screens/registration_screens/sign_in_screen.dart';
+import 'package:salute/view/screens/registration_screens/signup_screen.dart';
+import 'package:salute/view/screens/registration_screens/welcome_screen.dart';
+import 'package:salute/view/screens/registration_screens/wohoo_screen.dart';
+import 'package:salute/view/screens/home_screens/cart_screen.dart';
+import 'package:salute/view/screens/home_screens/catering_screen.dart';
+import 'package:salute/view/screens/home_screens/home_screen.dart';
+import 'package:salute/view/screens/home_screens/profile_screen.dart';
+import 'package:salute/view/screens/shopping_screens/bon_appetit_screen.dart';
+import 'package:salute/view/screens/shopping_screens/cancel_order_screen.dart';
+import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
+import 'package:salute/view/screens/shopping_screens/order_details_screen.dart';
+import 'package:salute/view/screens/shopping_screens/order_history_screen.dart';
+import 'package:salute/view/screens/shopping_screens/product_screen.dart';
+import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
 
-import 'components/global_drawer.dart';
+import 'view/components/global_drawer.dart';
 import 'constants.dart';
 
 void main() {
@@ -47,7 +57,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => FavoritesProvider(),
+          create: (_) => UiProvider(),
         ),
       ],
       child: MaterialApp(
@@ -97,6 +107,11 @@ class MyApp extends StatelessWidget {
               const ProductDetailsScreen(),
           CheckoutScreen.routeName: (context) => const CheckoutScreen(),
           TrackOrderScreen.routeName: (context) => const TrackOrderScreen(),
+          OrderDetailsScreen.routeName: (context) => const OrderDetailsScreen(),
+          BonAppetitScreen.routeName: (context) => const BonAppetitScreen(),
+          CancelOrderScreen.routeName: (context) => const CancelOrderScreen(),
+          OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
+          NotifictaionScreen.routeName: (context) => const NotifictaionScreen(),
         },
         home: const WelcomeScreen(),
       ),
@@ -129,11 +144,195 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        if (currentIndex != 0) {
+          setPage(0);
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
         extendBodyBehindAppBar: currentIndex == 3 || currentIndex == 1,
         drawer: currentIndex == 3 || currentIndex == 1 || currentIndex == 2
             ? null
-            : const GlobalDrawer(),
+            : GlobalDrawer(
+                inviteOnTap: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text(
+                        "Invite your friends and family",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      content: Wrap(
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Copy link :",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        await Clipboard.setData(
+                                          const ClipboardData(text: ""),
+                                        ).then(
+                                          (_) {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "link was copied successfully",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          },
+                                        );
+                                      },
+                                      child: const DefaultFormField(
+                                        keyboardType: TextInputType.none,
+                                        enabled: false,
+                                        borderRadius: 12,
+                                        suffixIcon: Icon(Icons.copy),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              const ShareViaSocialMedia(),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              DefaultButton(
+                                margin: 16,
+                                text: "Close",
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                tkafolOnTap: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/tkafol_drawer.png",
+                            width: 50,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "You have",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          RichText(
+                            text: const TextSpan(
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 40,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "200.00",
+                                ),
+                                TextSpan(
+                                  text: "  pt",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          const Text(
+                            "What is Tkafol",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      content: const Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                      actions: [
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 16.0,
+                            left: 50,
+                            right: 50,
+                          ),
+                          child: DefaultButton(
+                            text: "Get it",
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ))
+                      ],
+                    ),
+                  );
+                },
+                favoritesOnTap: () {
+                  Navigator.pop(context);
+                  setPage(1);
+                },
+              ),
         appBar: currentIndex == 2
             ? null
             : currentIndex == 1
@@ -174,7 +373,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         actions: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                NotifictaionScreen.routeName,
+                              );
+                            },
                             icon: const Icon(
                               Icons.notifications,
                               size: 28,
@@ -182,9 +386,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           IconButton(
                             onPressed: () {},
-                            icon: const Icon(
-                              size: 28,
-                              Icons.favorite,
+                            iconSize: 28,
+                            icon: Image.asset(
+                              'assets/images/contact_us_white.png',
                             ),
                           ),
                         ],
@@ -282,5 +486,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-      );
+      ),
+    );
+  }
 }
