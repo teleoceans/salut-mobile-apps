@@ -5,7 +5,7 @@ import 'package:salute/view/components/shopping_components/horizontal_calendar.d
 import 'package:salute/view/components/shopping_components/time_period_row.dart';
 import 'package:salute/constants.dart';
 
-import '../../../data/providers/ui_provider.dart';
+import '../../../data/providers/products_provider.dart';
 
 class ScheduleDeliveryContainer extends StatelessWidget {
   const ScheduleDeliveryContainer({super.key});
@@ -33,7 +33,7 @@ class ScheduleDeliveryContainer extends StatelessWidget {
               Icon(
                 FontAwesomeIcons.clock,
                 size: 20,
-                color: Provider.of<UiProvider>(context).deliverNow
+                color: Provider.of<ProductsProvider>(context).wantsNow
                     ? kNotUsedColor
                     : kPrimaryColor,
               ),
@@ -43,7 +43,7 @@ class ScheduleDeliveryContainer extends StatelessWidget {
               Text(
                 "Scheduale for later",
                 style: TextStyle(
-                  color: Provider.of<UiProvider>(context).deliverNow
+                  color: Provider.of<ProductsProvider>(context).wantsNow
                       ? kNotUsedColor
                       : const Color.fromARGB(255, 63, 63, 63),
                   fontWeight: FontWeight.bold,
@@ -53,14 +53,15 @@ class ScheduleDeliveryContainer extends StatelessWidget {
               const Spacer(),
               GestureDetector(
                 onTap: () {
-                  if (Provider.of<UiProvider>(context, listen: false)
-                          .deliverNow ==
-                      true) {
-                    Provider.of<UiProvider>(context, listen: false)
-                        .toggleDeilverNowValue();
+                  if (Provider.of<ProductsProvider>(context, listen: false)
+                      .wantsNow) {
+                    Provider.of<ProductsProvider>(context, listen: false)
+                        .toggleDeliverStatus();
+                    Provider.of<ProductsProvider>(context, listen: false)
+                        .setDeliveryMethond = 'deliver for later:';
                   }
                 },
-                child: Provider.of<UiProvider>(context).deliverNow
+                child: Provider.of<ProductsProvider>(context).wantsNow
                     ? const CircleAvatar(
                         radius: 15,
                         backgroundColor: Colors.black,

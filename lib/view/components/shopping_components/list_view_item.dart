@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/default_button.dart';
-import 'package:salute/constants.dart';
 
 import '../../../data/models/food_product.dart';
-import '../../../data/providers/ui_provider.dart';
 
 class ListViewItem extends StatefulWidget {
   const ListViewItem({super.key, required this.product, required this.forFav});
@@ -44,16 +43,17 @@ class _ListViewItemState extends State<ListViewItem> {
                     backgroundColor: Colors.white,
                     child: IconButton(
                       onPressed: () {
-                        Provider.of<UiProvider>(context, listen: false)
+                        Provider.of<ProductsProvider>(context, listen: false)
                             .toggleFavStatus(widget.product);
                       },
                       icon: Icon(
-                        Provider.of<UiProvider>(context, listen: false)
+                        Provider.of<ProductsProvider>(context, listen: false)
                                 .findProductById(widget.product.id)
                                 .isFav
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: Provider.of<UiProvider>(context, listen: false)
+                        color: Provider.of<ProductsProvider>(context,
+                                    listen: false)
                                 .findProductById(widget.product.id)
                                 .isFav
                             ? Colors.pink
@@ -72,10 +72,10 @@ class _ListViewItemState extends State<ListViewItem> {
                           topLeft: Radius.circular(30),
                           bottomRight: Radius.circular(18)),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "30% off",
-                        style: TextStyle(color: Colors.black),
+                        "${widget.product.discount!.toInt()}% off",
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   )
@@ -115,7 +115,8 @@ class _ListViewItemState extends State<ListViewItem> {
                       ? DefaultButton(
                           text: "Remove",
                           onTap: () {
-                            Provider.of<UiProvider>(context, listen: false)
+                            Provider.of<ProductsProvider>(context,
+                                    listen: false)
                                 .toggleCartStatus(widget.product);
                           },
                           width: 160,
@@ -127,84 +128,15 @@ class _ListViewItemState extends State<ListViewItem> {
                       : DefaultButton(
                           text: "Add To Cart",
                           onTap: () {
-                            Provider.of<UiProvider>(context, listen: false)
+                            Provider.of<ProductsProvider>(context,
+                                    listen: false)
                                 .toggleCartStatus(widget.product);
                           },
                           width: 160,
                           height: 40,
                           textSize: 17,
                         )
-                  : Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            child: const Text(
-                              "-",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                              ),
-                            ),
-                            onPressed: () {
-                              if (widget.product.quantity > 1) {
-                                setState(() {
-                                  widget.product.quantity--;
-                                });
-                              } else {
-                                Provider.of<UiProvider>(context, listen: false)
-                                    .toggleCartStatus(widget.product);
-                              }
-                            },
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text(
-                              widget.product.quantity.toString(),
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            child: const Text(
-                              "+",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                              ),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                widget.product.quantity++;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                  : const SizedBox(),
             ],
           )
         ],

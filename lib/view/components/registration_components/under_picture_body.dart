@@ -20,7 +20,7 @@ class UnderPictureBody extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 32,
+            fontSize: 30,
             color: Colors.black,
           ),
         ),

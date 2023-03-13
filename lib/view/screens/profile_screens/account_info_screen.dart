@@ -13,20 +13,10 @@ class AccountInfoScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: kArrowBack(context),
         title: const Text(
           "Account Info",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: kAppBarTitleStyle,
         ),
       ),
       body: Padding(
@@ -46,6 +36,7 @@ class AccountInfoScreen extends StatelessWidget {
               height: 16,
             ),
             DefaultFormField(
+              enabled: false,
               focusColor: Colors.black,
               keyboardType: TextInputType.none,
             ),
@@ -64,6 +55,7 @@ class AccountInfoScreen extends StatelessWidget {
               height: 16,
             ),
             DefaultFormField(
+              enabled: false,
               focusColor: Colors.black,
               keyboardType: TextInputType.none,
             ),
@@ -85,6 +77,7 @@ class AccountInfoScreen extends StatelessWidget {
               height: 12,
             ),
             DatePickerField(
+              enabled: false,
               focusColor: Colors.black,
               prefixColor: kPrimaryColor,
             )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:salute/data/models/category.dart';
 
 class CategoryListView extends StatelessWidget {
@@ -16,8 +17,11 @@ class CategoryListView extends StatelessWidget {
             child: CircleAvatar(
               radius: 50,
               backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage(
+              backgroundImage: AdvancedNetworkImage(
                 categories[index].imageUrl,
+                timeoutDuration: const Duration(seconds: 3),
+                retryLimit: 2,
+                fallbackAssetImage: 'assets/images/pizza.png',
               ),
             ),
           ),

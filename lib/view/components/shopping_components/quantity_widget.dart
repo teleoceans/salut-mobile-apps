@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/current_product_provider.dart';
 
 import '../../../constants.dart';
 
@@ -34,11 +36,8 @@ class _QuantityWidgetState extends State<QuantityWidget> {
               ),
             ),
             onPressed: () {
-              if (widget.object.quantity > 1) {
-                setState(() {
-                  widget.object.quantity--;
-                });
-              }
+              Provider.of<CurrentItemProvider>(context, listen: false)
+                  .decrementQuantity(widget.object);
             },
           ),
         ),
@@ -52,7 +51,10 @@ class _QuantityWidgetState extends State<QuantityWidget> {
           ),
           child: Center(
             child: Text(
-              widget.object.quantity.toString(),
+              Provider.of<CurrentItemProvider>(context, listen: false)
+                  .food
+                  .quantity
+                  .toString(),
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25,
@@ -76,9 +78,8 @@ class _QuantityWidgetState extends State<QuantityWidget> {
               ),
             ),
             onPressed: () {
-              setState(() {
-                widget.object.quantity++;
-              });
+              Provider.of<CurrentItemProvider>(context, listen: false)
+                  .incrementQuantity(widget.object);
             },
           ),
         ),

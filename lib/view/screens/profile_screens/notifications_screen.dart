@@ -1,61 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
+import 'package:salute/data/providers/notifications_provider.dart';
 import 'package:salute/view/components/profile_components/notification_list_view.dart';
 
-import '../../../data/providers/ui_provider.dart';
-
-class NotifictaionScreen extends StatelessWidget {
+class NotifictaionScreen extends StatefulWidget {
   const NotifictaionScreen({super.key});
   static const String routeName = "NotifictaionScreen";
+
+  @override
+  State<NotifictaionScreen> createState() => _NotifictaionScreenState();
+}
+
+class _NotifictaionScreenState extends State<NotifictaionScreen> {
+  Future<void> loadData() async {
+    if (!Provider.of<NotificationProvider>(context, listen: false).isCalled) {
+      await Provider.of<NotificationProvider>(context, listen: false)
+          .fetchNotifications()
+          .then((value) {
+        Provider.of<NotificationProvider>(context, listen: false).setIsCalled =
+            true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Container(
-            color: Colors.transparent,
-            child: SafeArea(
-              child: Column(
-                children: const [
-                  Expanded(child: SizedBox()),
-                  TabBar(
-                    unselectedLabelColor: Colors.grey,
-                    labelColor: Colors.black,
-                    indicatorColor: kPrimaryColor,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    tabs: [
-                      Tab(text: "All"),
-                      Tab(text: "Discounts"),
-                      Tab(text: "Announcements"),
-                    ],
-                  ),
-                ],
-              ),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 30,
             ),
+            onPressed: () {
+              Provider.of<NotificationProvider>(context, listen: false)
+                  .seeAllNotificaitons();
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          bottom: const TabBar(
+            unselectedLabelColor: Colors.grey,
+            labelColor: Colors.black,
+            indicatorColor: kPrimaryColor,
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            tabs: [
+              Tab(text: "All"),
+              Tab(text: "Discounts"),
+              Tab(text: "Announcements"),
+            ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            NotifcationListView(
-              notifications: Provider.of<UiProvider>(context, listen: false)
-                  .allNotifications,
-            ),
-            NotifcationListView(
-              notifications: Provider.of<UiProvider>(context, listen: false)
-                  .discountsNotificationList,
-            ),
-            NotifcationListView(
-              notifications: Provider.of<UiProvider>(context, listen: false)
-                  .announcementsNotificationList,
-            ),
-          ],
-        ),
+        body: FutureBuilder(
+            future: loadData(),
+            builder: (context, snapshot) {
+              return TabBarView(
+                children: [
+                  snapshot.connectionState == ConnectionState.waiting
+                      ? kCircularLoadingProgress
+                      : NotifcationListView(
+                          notifications: Provider.of<NotificationProvider>(
+                                  context,
+                                  listen: false)
+                              .allNotifications,
+                        ),
+                  NotifcationListView(
+                    notifications: Provider.of<NotificationProvider>(context,
+                            listen: false)
+                        .discountNotification,
+                  ),
+                  NotifcationListView(
+                    notifications: Provider.of<NotificationProvider>(context,
+                            listen: false)
+                        .announcementNotifications,
+                  ),
+                ],
+              );
+            }),
       ),
     );
   }

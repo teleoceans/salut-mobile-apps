@@ -41,21 +41,6 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
                     fontSize: 18,
                   ),
                 ),
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        color: Colors.black.withOpacity(0.1),
-                      )
-                    ],
-                  ),
-                ),
                 Radio(
                     activeColor: Colors.green,
                     focusColor: Colors.green,
@@ -79,21 +64,6 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
-                  ),
-                ),
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        color: Colors.black.withOpacity(0.1),
-                      )
-                    ],
                   ),
                 ),
                 Radio(
@@ -121,21 +91,6 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
                     fontSize: 18,
                   ),
                 ),
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        color: Colors.black.withOpacity(0.1),
-                      )
-                    ],
-                  ),
-                ),
                 Radio(
                     activeColor: Colors.green,
                     focusColor: Colors.green,
@@ -150,65 +105,6 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ExtrasCheckBox extends StatefulWidget {
-  const ExtrasCheckBox({super.key});
-
-  @override
-  State<ExtrasCheckBox> createState() => _ExtrasCheckBoxState();
-}
-
-class _ExtrasCheckBoxState extends State<ExtrasCheckBox> {
-  bool currentValue = false;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "title       ",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-            ),
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 3,
-                  color: Colors.black.withOpacity(0.1),
-                )
-              ],
-            ),
-          ),
-          Theme(
-            data: ThemeData().copyWith(
-              unselectedWidgetColor: Colors.black,
-            ),
-            child: Checkbox(
-                activeColor: Colors.green,
-                value: currentValue,
-                onChanged: (value) {
-                  setState(() {
-                    currentValue = value!;
-                  });
-                }),
-          ),
-        ],
       ),
     );
   }

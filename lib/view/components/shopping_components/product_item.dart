@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/food_product.dart';
-import 'package:salute/data/providers/ui_provider.dart';
+import 'package:salute/view/screens/shopping_screens/catering_product_screen.dart';
 import 'package:salute/view/screens/shopping_screens/product_screen.dart';
 
+import '../../../data/providers/products_provider.dart';
+
 class FoodProductItem extends StatefulWidget {
-  const FoodProductItem({super.key, required this.food});
+  const FoodProductItem({
+    super.key,
+    required this.food,
+    required this.isCatering,
+  });
+  final bool isCatering;
   final FoodProduct food;
 
   @override
@@ -18,7 +25,13 @@ class _FoodProductItemState extends State<FoodProductItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, ProductDetailsScreen.routeName),
+      onTap: () => Navigator.pushNamed(
+        context,
+        widget.isCatering
+            ? CateringProductScreen.routeName
+            : ProductDetailsScreen.routeName,
+        arguments: widget.food.id,
+      ),
       child: Column(
         children: [
           Container(
@@ -40,19 +53,22 @@ class _FoodProductItemState extends State<FoodProductItem> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: CircleAvatar(
+                    radius: 18,
                     backgroundColor: Colors.white,
                     child: IconButton(
                       onPressed: () {
-                        Provider.of<UiProvider>(context, listen: false)
+                        Provider.of<ProductsProvider>(context, listen: false)
                             .toggleFavStatus(widget.food);
                       },
                       icon: Icon(
-                        Provider.of<UiProvider>(context, listen: false)
+                        Provider.of<ProductsProvider>(context, listen: false)
                                 .findProductById(widget.food.id)
                                 .isFav
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: Provider.of<UiProvider>(context, listen: false)
+                        size: 18,
+                        color: Provider.of<ProductsProvider>(context,
+                                    listen: false)
                                 .findProductById(widget.food.id)
                                 .isFav
                             ? Colors.pink
@@ -68,13 +84,14 @@ class _FoodProductItemState extends State<FoodProductItem> {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(18)),
+                        topLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(18),
+                      ),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "30% off",
-                        style: TextStyle(color: Colors.black),
+                        "${widget.food.discount!.toInt()}% off",
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   )
@@ -113,6 +130,7 @@ class _FoodProductItemState extends State<FoodProductItem> {
                               TextSpan(
                                 text: '${widget.food.price} LE',
                                 style: const TextStyle(
+                                  fontSize: 14,
                                   decoration: TextDecoration.lineThrough,
                                 ),
                               ),
@@ -135,16 +153,17 @@ class _FoodProductItemState extends State<FoodProductItem> {
                   backgroundColor: Colors.white,
                   child: IconButton(
                     onPressed: () {
-                      Provider.of<UiProvider>(context, listen: false)
+                      Provider.of<ProductsProvider>(context, listen: false)
                           .toggleCartStatus(widget.food);
                     },
                     icon: Icon(
                       Icons.add_shopping_cart_rounded,
-                      color: Provider.of<UiProvider>(context, listen: false)
-                              .findProductById(widget.food.id)
-                              .isAddedtoCart
-                          ? kPrimaryColor
-                          : Colors.grey,
+                      color:
+                          Provider.of<ProductsProvider>(context, listen: false)
+                                  .findProductById(widget.food.id)
+                                  .isAddedtoCart
+                              ? kPrimaryColor
+                              : Colors.grey,
                     ),
                   ),
                 ),

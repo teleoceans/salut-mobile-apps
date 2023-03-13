@@ -13,22 +13,10 @@ class OrderHistoryScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: kPrimaryColor,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+          leading: kArrowBack(context),
           title: const Text(
             "Orders",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-            ),
+            style: kAppBarTitleStyle,
           ),
           bottom: const TabBar(
             unselectedLabelColor: Colors.grey,

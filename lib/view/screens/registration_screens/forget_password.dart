@@ -1,13 +1,44 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/registration_components/under_picture_body.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/registration_screens/check_email.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
+class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
   static const String routeName = "ForgetPasswordScreen";
+
+  @override
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+}
+
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  bool isLoading = false;
+  final TextEditingController emailController = TextEditingController();
+  void resetPassword() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Provider.of<AuthProvider>(context, listen: false)
+        .sendCodeToUserMailForChangePassword(email: emailController.text)
+        .then((value) {
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.pushNamed(context, CheckYourEmailScreen.routeName);
+    }).catchError((error) {
+      setState(() {
+        isLoading = false;
+      });
+      log(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,23 +71,24 @@ class ForgetPasswordScreen extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const DefaultFormField(
+              DefaultFormField(
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 focusColor: kPrimaryColor,
                 textColor: Colors.black,
               ),
               const Spacer(),
-              DefaultButton(
-                text: "Send",
-                onTap: () {
-                  Navigator.pushNamed(context, CheckYourEmailScreen.routeName);
-                },
-              ),
+              isLoading
+                  ? kCircularLoadingProgress
+                  : DefaultButton(
+                      text: "Send",
+                      onTap: resetPassword,
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Remember password",
+                    "Remember password?",
                     style: TextStyle(
                       color: Colors.black,
                     ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
 
 import '../../../constants.dart';
-import '../../../data/providers/ui_provider.dart';
 
 class TimePeriodRow extends StatefulWidget {
   const TimePeriodRow({super.key});
@@ -41,6 +41,9 @@ class _TimePeriodRowState extends State<TimePeriodRow> {
       // ignore: use_build_context_synchronously
       var dt = DateFormat("h:mm").parse(picked.format(context));
       var finaltime = DateFormat('HH:mma').format(dt);
+      Provider.of<ProductsProvider>(context, listen: false)
+          .addDateAndTime(finaltime);
+
       setState(() {
         time = finaltime.toString();
       });
@@ -53,12 +56,13 @@ class _TimePeriodRowState extends State<TimePeriodRow> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextButton(
-          onPressed:
-              Provider.of<UiProvider>(context).deliverNow ? null : _selectTime,
+          onPressed: Provider.of<ProductsProvider>(context).wantsNow
+              ? null
+              : _selectTime,
           child: Text(
             "Time Period",
             style: TextStyle(
-              color: Provider.of<UiProvider>(context).deliverNow
+              color: Provider.of<ProductsProvider>(context).wantsNow
                   ? kNotUsedColor
                   : const Color.fromARGB(255, 20, 20, 20),
               fontSize: 18,
@@ -68,7 +72,7 @@ class _TimePeriodRowState extends State<TimePeriodRow> {
         ),
         const Spacer(),
         Text(
-          Provider.of<UiProvider>(context).deliverNow ? '' : time,
+          Provider.of<ProductsProvider>(context).wantsNow ? '' : time,
           style: const TextStyle(
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,

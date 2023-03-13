@@ -1,210 +1,209 @@
 import 'package:flutter/material.dart';
-import 'package:salute/view/components/default_button.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/helpers/shared_preferences.dart';
+import 'package:salute/data/models/order_status.dart';
+import 'package:salute/data/providers/auth_provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/data/providers/shopping_provider.dart';
 import 'package:salute/view/components/shopping_components/recieved_order_container.dart';
 import 'package:salute/view/components/shopping_components/tracking_component.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/tracking_model.dart';
-import 'package:salute/view/screens/shopping_screens/cancel_order_screen.dart';
 
-class TrackOrderScreen extends StatelessWidget {
+class TrackOrderScreen extends StatefulWidget {
   const TrackOrderScreen({super.key});
   static const String routeName = "TrackOrderScreen";
+
+  @override
+  State<TrackOrderScreen> createState() => _TrackOrderScreenState();
+}
+
+class _TrackOrderScreenState extends State<TrackOrderScreen> {
+  bool isLoading = false;
+  bool isSuccess = true;
+  OrderStatus? orderStatus;
+  ProductsProvider? lastOrderProvider;
+  bool first = true;
+  Future<void> getLastOrderStatus() async {
+    isSuccess = true;
+    setState(() {
+      isLoading = true;
+    });
+    if (!Provider.of<ProductsProvider>(context, listen: false)
+        .isLastOrderCalled) {
+      String token =
+          Provider.of<AuthProvider>(context, listen: false).authToken;
+      int id = await SharedPreferencesHelper.getLastOrderId();
+      // ignore: use_build_context_synchronously
+      await lastOrderProvider!
+          .getLastOrder(
+        token: token,
+        id: id,
+      )
+          .then((value) {
+        lastOrderProvider!.setIsLastOrderCalled = true;
+        orderStatus = lastOrderProvider!.orderStatus;
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (first) {
+      lastOrderProvider = Provider.of<ProductsProvider>(context, listen: false);
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    lastOrderProvider!.setIsLastOrderCalled = false;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 30,
-            color: kPrimaryColor,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text(
-          "Delivery Status",
-          style: TextStyle(
-            color: Color(0xFF666666),
-            fontSize: 21,
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              const Text(
-                "Estimated Delivery",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const Text(
-                "17 Oct, 2022 / 1:30 PM",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                  ),
-                  children: [
-                    TextSpan(text: 'Order Number'),
-                    TextSpan(
-                      text: ' #510',
-                      style: TextStyle(color: kPrimaryColor),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: ListView(
-                  children: const [
-                    TrackingOrder(
-                      trackingModel: TrackingModel(
-                          isActived: true,
-                          time: "00:00 AM",
-                          title: "title",
-                          subTitle:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    TrackingOrder(
-                      trackingModel: TrackingModel(
-                          isActived: true,
-                          time: "00:00 AM",
-                          title: "title",
-                          subTitle:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    TrackingOrder(
-                      trackingModel: TrackingModel(
-                          isActived: true,
-                          time: "00:00 AM",
-                          title: "title",
-                          subTitle:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    TrackingOrder(
-                      trackingModel: TrackingModel(
-                          isActived: true,
-                          time: "00:00 AM",
-                          title: "title",
-                          subTitle:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    RecievedOrderContainer(),
-                    SizedBox(
-                      height: 12,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: DefaultButton(
-                      backgroundColor: Colors.transparent,
-                      textColor: kPrimaryColor,
-                      borderColor: kPrimaryColor,
-                      text: "Cancel Order",
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            content: const Text(
-                              "Are you sure you want to cancel your order ?",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                              ),
+    return WillPopScope(
+      onWillPop: () async {
+        Provider.of<ShoppingProvider>(context, listen: false)
+            .setIsTrackingOrder = false;
+        return true;
+      },
+      child: FutureBuilder(
+          future: getLastOrderStatus(),
+          builder: (context, snapshot) {
+            return snapshot.connectionState == ConnectionState.waiting
+                ? const Scaffold(
+                    body: kCircularLoadingProgress,
+                  )
+                : orderStatus == null
+                    ? const Scaffold(
+                        body: Center(
+                          child: Text(
+                            "No Orders has been Placed yet",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
                             ),
-                            actions: [
-                              Row(
+                          ),
+                        ),
+                      )
+                    : Scaffold(
+                        appBar: AppBar(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          leading: kArrowBack(context),
+                          title: const Text(
+                            "Delivery Status",
+                            style: kAppBarTitleStyle,
+                          ),
+                        ),
+                        body: SafeArea(
+                          child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
                                 children: [
-                                  Expanded(
-                                    child: DefaultButton(
-                                      margin: 4,
-                                      text: "Yes",
-                                      textColor: kPrimaryColor,
-                                      backgroundColor: Colors.transparent,
-                                      onTap: () {
-                                        Navigator.pushNamed(context,
-                                            CancelOrderScreen.routeName);
-                                      },
+                                  Text(
+                                    orderStatus!.dateString,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
                                     ),
                                   ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
+                                      children: [
+                                        const TextSpan(text: 'Order Number'),
+                                        TextSpan(
+                                          text: ' #${orderStatus!.id}',
+                                          style: const TextStyle(
+                                              color: kPrimaryColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
                                   Expanded(
-                                      child: DefaultButton(
-                                    margin: 4,
-                                    text: "No",
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ))
+                                    child: ListView(
+                                      children: [
+                                        TrackingOrder(
+                                          trackingModel: TrackingModel(
+                                              isActived:
+                                                  orderStatus!.statusId >= 1,
+                                              time:
+                                                  "${orderStatus!.pendingTime}",
+                                              title: "Pending",
+                                              subTitle:
+                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        TrackingOrder(
+                                          trackingModel: TrackingModel(
+                                              isActived:
+                                                  orderStatus!.statusId >= 2,
+                                              time: "00:00 AM",
+                                              title: "Confirmed",
+                                              subTitle:
+                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        TrackingOrder(
+                                          trackingModel: TrackingModel(
+                                              isActived:
+                                                  orderStatus!.statusId >= 3,
+                                              time: "00:00 AM",
+                                              title: "Out for delivery ",
+                                              subTitle:
+                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        TrackingOrder(
+                                          trackingModel: TrackingModel(
+                                              isActived:
+                                                  orderStatus!.statusId >= 4,
+                                              time: "00:00 AM",
+                                              title: "Delivered",
+                                              subTitle:
+                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                        ),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                        const RecievedOrderContainer(),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
                                 ],
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
-                    child: DefaultButton(
-                      text: "Edit Order",
-                      onTap: () {
-                        int count = 0;
-                        Navigator.popUntil(context, (_) => count++ >= 2);
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+                              )),
+                        ),
+                      );
+          }),
     );
   }
 }

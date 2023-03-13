@@ -23,13 +23,7 @@ class AboutUsScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor,
-          ),
-        ),
+        leading: kArrowBack(context),
       ),
       body: SafeArea(
         child: Column(

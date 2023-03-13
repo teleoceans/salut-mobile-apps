@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/view/screens/faq_screen/about_us.dart';
 import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
 import 'package:salute/view/screens/profile_screens/settings_screen.dart';
@@ -35,10 +37,11 @@ class GlobalDrawer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        "Roba Ibrahim",
-                        style: TextStyle(
+                        Provider.of<AuthProvider>(context, listen: false)
+                            .userName,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 34,
                           color: Colors.black,

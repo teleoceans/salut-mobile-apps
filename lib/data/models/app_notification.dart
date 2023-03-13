@@ -1,10 +1,11 @@
 class AppNotification {
-  final bool isSeen;
+  bool isSeen;
   final String title;
   final NotifcationCategory category;
   final String? imageUrl;
-
-  const AppNotification({
+  final int id;
+  AppNotification({
+    required this.id,
     required this.title,
     required this.isSeen,
     this.imageUrl,

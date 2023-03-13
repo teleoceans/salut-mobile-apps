@@ -15,7 +15,6 @@ class DefaultFormField extends StatelessWidget {
     this.focusColor,
     this.unFocusColor,
     this.maxCharacters,
-    this.textStyle,
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText,
@@ -23,6 +22,8 @@ class DefaultFormField extends StatelessWidget {
     this.borderRadius,
     this.hintText,
     this.enabled,
+    this.textStyle,
+    this.hintStyle,
   }) : super(key: key);
   final String? labelText;
   final TextInputType keyboardType;
@@ -36,13 +37,14 @@ class DefaultFormField extends StatelessWidget {
   final Color? unFocusColor;
   final Color? focusColor;
   final int? maxCharacters;
-  final TextStyle? textStyle;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool? obscureText;
   final Color? textColor;
   final double? borderRadius;
   final bool? enabled;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +67,14 @@ class DefaultFormField extends StatelessWidget {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 100)),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? 100,
+          ),
+        ),
         alignLabelWithHint: true,
         labelText: labelText,
         hintText: hintText,
+        hintStyle: hintStyle,
         labelStyle: const TextStyle(color: Colors.black),
         fillColor: Colors.white,
         focusedBorder: OutlineInputBorder(
@@ -77,6 +83,7 @@ class DefaultFormField extends StatelessWidget {
             color: focusColor ?? Colors.white,
           ),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         enabledBorder: OutlineInputBorder(

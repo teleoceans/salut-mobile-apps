@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salute/constants.dart';
 
-class PaymentMethodsContainer extends StatefulWidget {
+class PaymentMethodsContainer extends StatelessWidget {
   const PaymentMethodsContainer({
     super.key,
   });
-
-  @override
-  State<PaymentMethodsContainer> createState() =>
-      _PaymentMethodsContainerState();
-}
-
-class _PaymentMethodsContainerState extends State<PaymentMethodsContainer> {
-  int currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,39 +42,6 @@ class _PaymentMethodsContainerState extends State<PaymentMethodsContainer> {
             Row(
               children: [
                 const Icon(
-                  Icons.credit_card,
-                  color: kPrimaryColor,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                const Text(
-                  "Credit / Debit card",
-                  style: TextStyle(
-                    color: Color(0xFF666666),
-                    fontSize: 15,
-                  ),
-                ),
-                const Spacer(),
-                Radio(
-                  activeColor: Colors.green,
-                  focusColor: Colors.green,
-                  value: 0,
-                  groupValue: currentValue,
-                  onChanged: (value) {
-                    setState(() {
-                      currentValue = value!;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const Icon(
                   FontAwesomeIcons.dollarSign,
                   color: kPrimaryColor,
                 ),
@@ -101,12 +60,8 @@ class _PaymentMethodsContainerState extends State<PaymentMethodsContainer> {
                   activeColor: Colors.green,
                   focusColor: Colors.green,
                   value: 1,
-                  groupValue: currentValue,
-                  onChanged: (value) {
-                    setState(() {
-                      currentValue = value!;
-                    });
-                  },
+                  groupValue: 1,
+                  onChanged: (value) {},
                 ),
               ],
             ),

@@ -1,153 +1,217 @@
 import 'package:flutter/material.dart';
-import 'package:salute/view/components/shopping_components/catering_tab_view.dart';
-import 'package:salute/data/models/catering_category.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/auth_provider.dart';
+import 'dart:async';
+import 'package:salute/data/providers/category_provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/view/components/default_form_field.dart';
+import 'package:salute/view/components/shopping_components/category_list_view.dart';
+import 'package:salute/view/components/shopping_components/food_grid_view.dart';
+import 'package:salute/view/components/shopping_components/food_promotions.dart';
+import 'package:salute/constants.dart';
+import 'package:salute/data/models/food_promotion.dart';
+import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
 
-import '../../components/default_form_field.dart';
-import '../../../constants.dart';
+import '../../../data/helpers/shared_preferences.dart';
+import '../../../data/providers/addresses_provider.dart';
 
-class CateringScreen extends StatelessWidget {
-  const CateringScreen({super.key});
-  static const String routeName = "CateringScreen";
+class CateringScreen extends StatefulWidget {
+  const CateringScreen({
+    super.key,
+  });
+  static const String routeName = "HomeScreen";
+
+  static const List<FoodPromotion> promotions = [
+    FoodPromotion(
+      percentage: '15%',
+      code: 'MO15OFF',
+      onWhichCategory: "All Pasta and Pizza",
+      imageUrl: "assets/images/food_promotion.jpg",
+    ),
+    FoodPromotion(
+      percentage: '15%',
+      code: 'MO15OFF',
+      onWhichCategory: "All Pasta and Pizza",
+      imageUrl: "assets/images/food_promotion.jpg",
+    ),
+    FoodPromotion(
+      percentage: '15%',
+      code: 'MO15OFF',
+      onWhichCategory: "All Pasta and Pizza",
+      imageUrl: "assets/images/food_promotion.jpg",
+    ),
+  ];
+
+  @override
+  State<CateringScreen> createState() => _CateringScreenState();
+}
+
+class _CateringScreenState extends State<CateringScreen> {
+  Future<void> loadData() async {
+    Provider.of<AuthProvider>(context, listen: false).setUserName =
+        await SharedPreferencesHelper.getUserName();
+    // ignore: use_build_context_synchronously
+    Provider.of<AuthProvider>(context, listen: false).setUserName =
+        // ignore: use_build_context_synchronously
+        Provider.of<AuthProvider>(context, listen: false)
+            .userName
+            .split(' ')[0];
+    // ignore: use_build_context_synchronously
+    if (!Provider.of<ProductsProvider>(context, listen: false)
+        .isCateringCalled) {
+      // ignore: use_build_context_synchronously
+      await Provider.of<CategoryProvider>(context, listen: false)
+          .getTakeawayCategoriesFromApi()
+          .then((_) => Provider.of<ProductsProvider>(context, listen: false)
+                  .getCateringProducts()
+                  .then(
+                (_) {
+                  Provider.of<ProductsProvider>(context, listen: false)
+                      .setIsCalled = true;
+                },
+              ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 60,
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                child: Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(16),
-                  child: DefaultFormField(
-                    borderRadius: 16,
-                    unFocusColor: Colors.transparent,
-                    focusColor: Colors.black.withOpacity(0.2),
-                    textColor: Colors.black,
-                    keyboardType: TextInputType.text,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      size: 28,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications,
-                color: kPrimaryColor,
-                size: 28,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Image.asset("assets/images/support_icon.png"),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 12.0,
-            horizontal: 16,
-          ),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.location_on,
-                color: kPrimaryColor,
-              ),
-              Text(
-                "  Deliver to ",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-              Text(
-                " 123,ABC, Address address ",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: DefaultTabController(
-            length: 3,
-            initialIndex: 0,
-            child: Column(
-              children: [
-                const TabBar(
-                  indicatorColor: kPrimaryColor,
-                  labelColor: kPrimaryColor,
-                  unselectedLabelColor: Colors.black,
-                  labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  tabs: [
-                    Tab(
-                      text: "Mashy",
-                    ),
-                    Tab(
-                      text: "Hamam",
-                    ),
-                    Tab(
-                      text: "Food",
-                    ),
-                  ],
-                ),
-                MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true,
-                  child: Expanded(
-                    child: TabBarView(
-                      children: [
-                        CateringTabView(
-                          cateringProduct: CateringProduct(
-                            index: 0,
-                            title: 'Mashy',
-                            price: 150,
-                            imageUrl: 'assets/images/product_detail_screen.png',
-                            ingredients:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
+    return FutureBuilder(
+        future: loadData(),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: kCircularLoadingProgress,
+                  )
+                : ListView(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(16),
+                        child: Material(
+                          elevation: 5,
+                          borderRadius: BorderRadius.circular(16),
+                          child: DefaultFormField(
+                            borderRadius: 16,
+                            unFocusColor: Colors.transparent,
+                            focusColor: Colors.black.withOpacity(0.2),
+                            textColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              size: 28,
+                              color: kPrimaryColor,
+                            ),
                           ),
                         ),
-                        CateringTabView(
-                          cateringProduct: CateringProduct(
-                            index: 0,
-                            title: 'Hamam',
-                            price: 150,
-                            imageUrl: 'assets/images/product_detail_screen.png',
-                            ingredients:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12.0,
+                          horizontal: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              color: kPrimaryColor,
+                            ),
+                            const Text(
+                              "  Deliver to ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AddressesScreen.routeName);
+                              },
+                              child: Text(
+                                Provider.of<AddressesProvider>(context)
+                                            .currentAddress ==
+                                        null
+                                    ? "Add Address"
+                                    : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            Image.asset(
+                              'assets/images/arrow_down.png',
+                              width: 12,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16.0,
+                          right: 16.0,
+                          bottom: 16,
+                        ),
+                        child: Text(
+                          "Welcome, ${Provider.of<AuthProvider>(context, listen: false).userName}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26,
                           ),
                         ),
-                        CateringTabView(
-                          cateringProduct: CateringProduct(
-                            index: 0,
-                            title: 'Food',
-                            price: 150,
-                            imageUrl: 'assets/images/product_detail_screen.png',
-                            ingredients:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 16,
+                        ),
+                        child: Text(
+                          "Categories",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
+                      ),
+                      SizedBox(
+                        height: 127,
+                        width: MediaQuery.of(context).size.width,
+                        child: CategoryListView(
+                          categories: Provider.of<CategoryProvider>(context)
+                              .takeawayCategories,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        height: 200,
+                        child: const FoodPromotionListView(
+                            foodPromotions: CateringScreen.promotions),
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        height: 420,
+                        child: FoodGridView(
+                          isCatering: true,
+                          food: Provider.of<ProductsProvider>(context)
+                              .cateringProduct,
+                          
+                        ),
+                      ),
+                    ],
+                  ));
   }
 }

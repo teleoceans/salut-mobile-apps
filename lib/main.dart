@@ -1,11 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/data/providers/ui_provider.dart';
+import 'package:salute/data/helpers/shared_preferences.dart';
+import 'package:salute/data/providers/addresses_provider.dart';
+import 'package:salute/data/providers/category_provider.dart';
+import 'package:salute/data/providers/current_product_provider.dart';
+import 'package:salute/data/providers/notifications_provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/data/providers/shopping_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/shopping_components/social_media_container.dart';
+import 'package:salute/view/components/shopping_components/tkafol_container.dart';
 import 'package:salute/view/screens/faq_screen/about_us.dart';
 import 'package:salute/view/screens/faq_screen/app_feedback.dart';
 import 'package:salute/view/screens/faq_screen/faq.dart';
@@ -16,7 +25,7 @@ import 'package:salute/view/screens/profile_screens/account_info_screen.dart';
 import 'package:salute/view/screens/profile_screens/add_address_screen.dart';
 import 'package:salute/view/screens/profile_screens/change_email.dart';
 import 'package:salute/view/screens/profile_screens/change_password.dart';
-import 'package:salute/view/screens/profile_screens/no_address_screen.dart';
+import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
 import 'package:salute/view/screens/profile_screens/notifications_screen.dart';
 import 'package:salute/view/screens/profile_screens/settings_screen.dart';
 import 'package:salute/view/screens/registration_screens/facing_problem_screen.dart';
@@ -36,29 +45,64 @@ import 'package:salute/view/screens/home_screens/home_screen.dart';
 import 'package:salute/view/screens/home_screens/profile_screen.dart';
 import 'package:salute/view/screens/shopping_screens/bon_appetit_screen.dart';
 import 'package:salute/view/screens/shopping_screens/cancel_order_screen.dart';
+import 'package:salute/view/screens/shopping_screens/catering_product_screen.dart';
 import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_details_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_history_screen.dart';
 import 'package:salute/view/screens/shopping_screens/product_screen.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
 
+import 'data/providers/auth_provider.dart';
 import 'view/components/global_drawer.dart';
 import 'constants.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  final String authToken = await SharedPreferencesHelper.getSavedUser();
+  log(authToken);
+  runApp(
+    MyApp(
+      authtoken: authToken,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    this.authtoken,
+  });
+  final String? authtoken;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => UiProvider(),
+          create: (_) => CurrentItemProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => ProductsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ShoppingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddressesProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => NotificationProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -70,6 +114,7 @@ class MyApp extends StatelessWidget {
           textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         ),
         routes: {
+          WelcomeScreen.routeName: (context) => const WelcomeScreen(),
           HomeScreen.routeName: (context) => const HomeScreen(),
           CateringScreen.routeName: (context) => const CateringScreen(),
           ProfileScreen.routeName: (context) => const ProfileScreen(),
@@ -80,7 +125,7 @@ class MyApp extends StatelessWidget {
           CheckYourEmailScreen.routeName: (context) =>
               const CheckYourEmailScreen(),
           EnterCodeScreen.routeName: (context) => const EnterCodeScreen(),
-          SignUpScreen.routeName: (context) => SignUpScreen(),
+          SignUpScreen.routeName: (context) => const SignUpScreen(),
           AllowLocationScreen.routeName: (context) =>
               const AllowLocationScreen(),
           OrderAnywhereScreen.routeName: (context) =>
@@ -90,7 +135,11 @@ class MyApp extends StatelessWidget {
           FacingProblemScreen.routeName: (context) =>
               const FacingProblemScreen(),
           WohooScreen.routeName: (context) => const WohooScreen(),
-          MyHomePage.routeName: (context) => const MyHomePage(),
+          MyHomePage.routeName: (context) => MyHomePage(
+                authToken: authtoken!,
+              ),
+          CateringProductScreen.routeName: (context) =>
+              const CateringProductScreen(),
           FaqScreen.routeName: (context) => const FaqScreen(),
           AboutUsScreen.routeName: (context) => const AboutUsScreen(),
           TermsOfUseScreen.routeName: (context) => const TermsOfUseScreen(),
@@ -101,7 +150,7 @@ class MyApp extends StatelessWidget {
           ChangeEmailScreen.routeName: (context) => const ChangeEmailScreen(),
           ChangePasswordScreen.routeName: (context) =>
               const ChangePasswordScreen(),
-          NoAddressScreen.routeName: (context) => const NoAddressScreen(),
+          AddressesScreen.routeName: (context) => const AddressesScreen(),
           AddAddressScreen.routeName: (context) => const AddAddressScreen(),
           ProductDetailsScreen.routeName: (context) =>
               const ProductDetailsScreen(),
@@ -113,22 +162,27 @@ class MyApp extends StatelessWidget {
           OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
           NotifictaionScreen.routeName: (context) => const NotifictaionScreen(),
         },
-        home: const WelcomeScreen(),
+        home: authtoken != ""
+            ? MyHomePage(
+                authToken: authtoken!,
+              )
+            : const WelcomeScreen(),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({super.key, this.authToken});
   static const String routeName = "HomePage";
+  final String? authToken;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentIndex = 0;
-
+  int lastIndex = 0;
   final List<Widget> pages = [
     const HomeScreen(),
     const FavoritesScreen(),
@@ -138,25 +192,42 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void setPage(int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    Provider.of<ShoppingProvider>(context, listen: false).setCurrentIndex =
+        index;
   }
 
+  bool isFirst = true;
   @override
   Widget build(BuildContext context) {
+    if (isFirst) {
+      Provider.of<AuthProvider>(context, listen: false).setAuthToken =
+          widget.authToken!;
+      isFirst = false;
+    }
+    int currentIndex = Provider.of<ShoppingProvider>(context).currentIndex;
     return WillPopScope(
       onWillPop: () async {
-        if (currentIndex != 0) {
+        if (Provider.of<ShoppingProvider>(context, listen: false)
+            .isTrackingOrder) {
+          Navigator.pushNamed(context, TrackOrderScreen.routeName);
+          return false;
+        } else if (currentIndex != 0) {
           setPage(0);
+          return false;
+        } else if (currentIndex == 5) {
+          setPage(lastIndex);
           return false;
         } else {
           return true;
         }
       },
       child: Scaffold(
-        extendBodyBehindAppBar: currentIndex == 3 || currentIndex == 1,
-        drawer: currentIndex == 3 || currentIndex == 1 || currentIndex == 2
+        extendBody: true,
+        extendBodyBehindAppBar:
+            Provider.of<ShoppingProvider>(context).currentIndex == 3 ||
+                Provider.of<ShoppingProvider>(context).currentIndex == 1,
+        drawer: Provider.of<ShoppingProvider>(context).currentIndex == 3 ||
+                Provider.of<ShoppingProvider>(context).currentIndex == 1
             ? null
             : GlobalDrawer(
                 inviteOnTap: () {
@@ -177,45 +248,41 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Column(
                             children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Copy link :",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        await Clipboard.setData(
-                                          const ClipboardData(text: ""),
-                                        ).then(
-                                          (_) {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                    "link was copied successfully",
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.CENTER,
-                                                timeInSecForIosWeb: 1,
-                                                textColor: Colors.white,
-                                                fontSize: 16.0);
-                                          },
-                                        );
-                                      },
-                                      child: const DefaultFormField(
-                                        keyboardType: TextInputType.none,
-                                        enabled: false,
-                                        borderRadius: 12,
-                                        suffixIcon: Icon(Icons.copy),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                "Copy link",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  await Clipboard.setData(
+                                    const ClipboardData(text: ""),
+                                  ).then(
+                                    (_) {
+                                      Fluttertoast.showToast(
+                                          msg: "link was copied successfully",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 1,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    },
+                                  );
+                                },
+                                child: const DefaultFormField(
+                                  keyboardType: TextInputType.none,
+                                  enabled: false,
+                                  borderRadius: 12,
+                                  suffixIcon: Icon(Icons.copy),
+                                ),
                               ),
                               const SizedBox(
                                 height: 32,
@@ -245,87 +312,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pop(context);
                   showDialog(
                     context: context,
-                    builder: (context) => AlertDialog(
-                      title: Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/tkafol_drawer.png",
-                            width: 50,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          const Text(
-                            "You have",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          RichText(
-                            text: const TextSpan(
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 40,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "200.00",
-                                ),
-                                TextSpan(
-                                  text: "  pt",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 24,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const Text(
-                            "What is Tkafol",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      content: const Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      actions: [
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 16.0,
-                            left: 50,
-                            right: 50,
-                          ),
-                          child: DefaultButton(
-                            text: "Get it",
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ))
-                      ],
-                    ),
+                    builder: (context) => const TkafolComponent(),
                   );
                 },
                 favoritesOnTap: () {
@@ -333,69 +320,66 @@ class _MyHomePageState extends State<MyHomePage> {
                   setPage(1);
                 },
               ),
-        appBar: currentIndex == 2
-            ? null
-            : currentIndex == 1
+        appBar: Provider.of<ShoppingProvider>(context).currentIndex == 1
+            ? AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+              )
+            : Provider.of<ShoppingProvider>(context).currentIndex == 3
                 ? AppBar(
                     elevation: 0,
                     backgroundColor: Colors.transparent,
-                  )
-                : currentIndex == 3
-                    ? AppBar(
-                        elevation: 0,
-                        backgroundColor: Colors.transparent,
-                        leading: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: kPrimaryColor,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            setPage(0);
-                          },
-                        ),
-                        title: const Text(
-                          "My Cart",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                          ),
-                        ),
-                      )
-                    : AppBar(
-                        elevation: 0,
-                        centerTitle: true,
-                        backgroundColor: kPrimaryColor,
-                        title: Image.asset(
-                          "assets/images/salut_text_white.png",
-                          width: 80,
-                        ),
-                        actions: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                NotifictaionScreen.routeName,
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.notifications,
-                              size: 28,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            iconSize: 28,
-                            icon: Image.asset(
-                              'assets/images/contact_us_white.png',
-                            ),
-                          ),
-                        ],
+                    leading: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: kPrimaryColor,
+                        size: 30,
                       ),
+                      onPressed: () {
+                        setPage(0);
+                      },
+                    ),
+                    title: const Text(
+                      "My Cart",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
+                    ),
+                  )
+                : AppBar(
+                    elevation: 0,
+                    centerTitle: true,
+                    backgroundColor: kPrimaryColor,
+                    title: Image.asset(
+                      "assets/images/salut_text_white.png",
+                      width: 80,
+                    ),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, NotifictaionScreen.routeName);
+                        },
+                        icon: const Icon(
+                          Icons.notifications,
+                          size: 28,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        iconSize: 28,
+                        icon: Image.asset(
+                          'assets/images/contact_us_white.png',
+                        ),
+                      ),
+                    ],
+                  ),
         //extendBody: true,
-        body: pages[currentIndex],
-        floatingActionButton: currentIndex == 3
+        body: pages[Provider.of<ShoppingProvider>(context).currentIndex],
+        floatingActionButton: MediaQuery.of(context).viewInsets.bottom != 0.0 ||
+                Provider.of<ShoppingProvider>(context).currentIndex == 3
             ? null
             : SizedBox(
                 height: 70,
@@ -411,7 +395,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: currentIndex == 3
+        bottomNavigationBar: Provider.of<ShoppingProvider>(context)
+                    .currentIndex ==
+                3
             ? null
             : BottomAppBar(
                 notchMargin: 10,
@@ -422,12 +408,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     IconButton(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 8),
-                      iconSize: currentIndex == 0 ? 43 : 40,
+                      iconSize:
+                          Provider.of<ShoppingProvider>(context).currentIndex ==
+                                  0
+                              ? 43
+                              : 40,
                       onPressed: () {
                         setPage(0);
                       },
                       icon: Image.asset(
-                        currentIndex == 0
+                        Provider.of<ShoppingProvider>(context).currentIndex == 0
                             ? 'assets/images/home_focused.png'
                             : 'assets/images/home_unfocused.png',
                       ),
@@ -440,9 +430,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         horizontal: 0,
                         vertical: 8,
                       ),
-                      iconSize: currentIndex == 1 ? 45 : 41,
+                      iconSize:
+                          Provider.of<ShoppingProvider>(context).currentIndex ==
+                                  1
+                              ? 45
+                              : 41,
                       icon: Image.asset(
-                        currentIndex == 1
+                        Provider.of<ShoppingProvider>(context).currentIndex == 1
                             ? 'assets/images/favorite_focused.png'
                             : 'assets/images/favorite_unfocused.png',
                       ),
@@ -463,10 +457,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 8),
-                      iconSize: currentIndex == 3 ? 43 : 40,
+                      iconSize:
+                          Provider.of<ShoppingProvider>(context).currentIndex ==
+                                  3
+                              ? 43
+                              : 40,
                       icon: Image.asset(
-                        currentIndex == 3
-                            ? 'assets/images/cart_focused.png'
+                        Provider.of<ProductsProvider>(context).cartItems.isEmpty
+                            ? 'assets/images/cart_empty_unfocused.png'
                             : 'assets/images/cart_unfocused.png',
                       ),
                     ),
@@ -476,9 +474,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 8),
-                      iconSize: currentIndex == 4 ? 43 : 40,
+                      iconSize:
+                          Provider.of<ShoppingProvider>(context).currentIndex ==
+                                  4
+                              ? 43
+                              : 40,
                       icon: Image.asset(
-                        currentIndex == 4
+                        Provider.of<ShoppingProvider>(context).currentIndex == 4
                             ? 'assets/images/profile_focused.png'
                             : 'assets/images/profile_unfocused.png',
                       ),

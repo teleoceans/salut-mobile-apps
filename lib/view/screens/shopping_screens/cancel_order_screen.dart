@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
+import 'package:salute/data/providers/shopping_provider.dart';
+import 'package:salute/main.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/registration_components/under_picture_body.dart';
 import 'package:salute/view/components/shopping_components/cancel_reason.dart';
+import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
 
 class CancelOrderScreen extends StatelessWidget {
   const CancelOrderScreen({super.key});
@@ -30,7 +34,12 @@ class CancelOrderScreen extends StatelessWidget {
                 ),
                 DefaultButton(
                   text: "Need Support",
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const HelpAlertDialog(),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 20,
@@ -40,8 +49,10 @@ class CancelOrderScreen extends StatelessWidget {
                   textColor: kPrimaryColor,
                   backgroundColor: Colors.transparent,
                   onTap: () {
-                    int count = 0;
-                    Navigator.popUntil(context, (_) => count++ >= 4);
+                    Provider.of<ShoppingProvider>(context, listen: false)
+                        .setCurrentIndex = 0;
+                    kReplaceAllCurrentScreens(context,
+                        routeName: MyHomePage.routeName);
                   },
                 ),
               ],

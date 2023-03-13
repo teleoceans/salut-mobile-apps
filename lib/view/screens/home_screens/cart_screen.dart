@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/shopping_components/cart_list_view.dart';
 import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
 
-import '../../../data/providers/ui_provider.dart';
+import '../../../data/providers/addresses_provider.dart';
 import '../../components/registration_components/under_picture_body.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   static const String routeName = "CartScreen";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,7 +19,7 @@ class CartScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 16.0,
         ),
-        child: Provider.of<UiProvider>(context).cartItems.isEmpty
+        child: Provider.of<ProductsProvider>(context).cartItems.isEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -43,7 +45,8 @@ class CartScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CartListView(
-                      cartItems: Provider.of<UiProvider>(context).cartItems,
+                      cartItems:
+                          Provider.of<ProductsProvider>(context).cartItems,
                     ),
                   ),
                   const SizedBox(
@@ -53,8 +56,8 @@ class CartScreen extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             "Cart Total",
                             style: TextStyle(
                               color: Colors.black,
@@ -63,8 +66,11 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "300.00",
-                            style: TextStyle(
+                            Provider.of<ProductsProvider>(context,
+                                    listen: false)
+                                .calculateFinalPrice()
+                                .toStringAsFixed(2),
+                            style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -77,8 +83,8 @@ class CartScreen extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             "Delivery address:",
                             style: TextStyle(
                               color: Colors.black,
@@ -87,8 +93,8 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "2464 Royal Ln. Mesa,\n New Jersey 45463",
-                            style: TextStyle(
+                            "${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.streetName}",
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 12,
                             ),
@@ -101,8 +107,6 @@ class CartScreen extends StatelessWidget {
                       DefaultButton(
                         text: "Checkout",
                         onTap: () {
-                          Provider.of<UiProvider>(context, listen: false)
-                              .caluclateTotalPrice();
                           Navigator.pushNamed(
                               context, CheckoutScreen.routeName);
                         },

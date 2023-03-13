@@ -11,11 +11,13 @@ class DatePickerField extends StatefulWidget {
     this.validator,
     this.prefixColor,
     this.focusColor,
+    this.enabled,
   });
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final Color? prefixColor;
   final Color? focusColor;
+  final bool? enabled;
   @override
   State<DatePickerField> createState() => _DatePickerField();
 }
@@ -40,7 +42,7 @@ class _DatePickerField extends State<DatePickerField> {
       },
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(1930),
       lastDate: DateTime(2101),
     );
     if (picked != null) {
@@ -53,6 +55,8 @@ class _DatePickerField extends State<DatePickerField> {
   @override
   Widget build(BuildContext context) {
     return DefaultFormField(
+      enabled: widget.enabled,
+      textColor: Colors.white,
       focusColor: widget.focusColor,
       controller: widget.controller,
       keyboardType: TextInputType.none,

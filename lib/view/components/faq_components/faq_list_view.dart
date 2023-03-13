@@ -15,18 +15,11 @@ class FaqListView extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: const TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 28, color: Colors.black),
+          style: kAppBarTitleStyle,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor,
-          ),
-        ),
+        leading: kArrowBack(context),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(

@@ -1,19 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/data/providers/ui_provider.dart';
+import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
 
 import '../../../constants.dart';
+import '../../../data/models/address.dart';
+import '../../../data/providers/addresses_provider.dart';
+import '../../../data/providers/products_provider.dart';
 import '../../components/profile_components/address_container.dart';
-import '../../components/shopping_components/order_reciept_container.dart';
 import '../../components/shopping_components/payment_method_container.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
+class OrderDetailsScreen extends StatefulWidget {
   const OrderDetailsScreen({
     super.key,
   });
   static const String routeName = "OrderDetailsScreen";
+
+  @override
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+}
+
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  bool isLoading = false;
+  bool isSuccess = true;
+  void placeOrder() async {
+    isSuccess = true;
+    setState(() {
+      isLoading = true;
+    });
+    Address currentAddress =
+        Provider.of<AddressesProvider>(context, listen: false).currentAddress!;
+    String token = await SharedPreferencesHelper.getSavedUser();
+    // ignore: use_build_context_synchronously
+    await Provider.of<ProductsProvider>(context, listen: false)
+        .createOrder(
+      token: token,
+      address: currentAddress,
+    )
+        .catchError((error) {
+      isSuccess = false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Something went wrong. Try again later")),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }).then((value) {
+      setState(() {
+        isLoading = false;
+      });
+      if (isSuccess) {
+        Navigator.pushReplacementNamed(
+          context,
+          TrackOrderScreen.routeName,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +65,10 @@ class OrderDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor,
-            size: 30,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: kArrowBack(context),
         title: const Text(
           "Checkout",
-          style: TextStyle(color: Colors.black, fontSize: 24),
+          style: kAppBarTitleStyle,
         ),
       ),
       body: SafeArea(
@@ -44,9 +81,11 @@ class OrderDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  const AddressContainer(
+                  AddressContainer(
                     margin: 16,
-                    address: "2464 Royal Ln. Mesa, New Jersey 45463",
+                    address:
+                        Provider.of<AddressesProvider>(context, listen: false)
+                            .currentAddress,
                     suffixText: "Change",
                   ),
                   const SizedBox(
@@ -56,9 +95,10 @@ class OrderDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  OrderReceiptContainer(
-                    foodProducts: Provider.of<UiProvider>(context).cartItems,
-                  ),
+                  // OrderReceiptContainer(
+                  //   foodProducts:
+                  //       Provider.of<ShoppingProvider>(context).cartItems,
+                  // ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -108,6 +148,9 @@ class OrderDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
@@ -126,7 +169,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${Provider.of<UiProvider>(context, listen: false).totalPrice} LE",
+                          "${Provider.of<ProductsProvider>(context, listen: false).calculateFinalPrice()} LE",
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 28,
@@ -153,16 +196,13 @@ class OrderDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            DefaultButton(
-              text: "Place Order",
-              onTap: () {
-                Navigator.pushReplacementNamed(
-                  context,
-                  TrackOrderScreen.routeName,
-                );
-              },
-              margin: 16,
-            ),
+            isLoading
+                ? kCircularLoadingProgress
+                : DefaultButton(
+                    text: "Place Order",
+                    onTap: placeOrder,
+                    margin: 16,
+                  ),
             const SizedBox(
               height: 16,
             )

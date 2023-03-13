@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salute/constants.dart';
 import 'package:salute/view/components/registration_components/password_field.dart';
 
 import '../../components/default_button.dart';
@@ -13,20 +14,10 @@ class ChangeEmailScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: kArrowBack(context),
         title: const Text(
           "Change email",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: kAppBarTitleStyle,
         ),
       ),
       body: Padding(
@@ -46,6 +37,7 @@ class ChangeEmailScreen extends StatelessWidget {
               height: 16,
             ),
             const DefaultFormField(
+              textColor: Colors.black,
               focusColor: Colors.black,
               keyboardType: TextInputType.none,
             ),
@@ -64,6 +56,7 @@ class ChangeEmailScreen extends StatelessWidget {
               height: 16,
             ),
             const DefaultFormField(
+              textColor: Colors.black,
               focusColor: Colors.black,
               keyboardType: TextInputType.none,
             ),
@@ -82,6 +75,7 @@ class ChangeEmailScreen extends StatelessWidget {
               height: 16,
             ),
             const PasswordFormField(
+              textColor: Colors.black,
               focusColor: Colors.black,
               color: Colors.black,
               confirmPassword: true,

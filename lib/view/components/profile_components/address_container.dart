@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:salute/view/screens/profile_screens/no_address_screen.dart';
+import 'package:salute/data/models/address.dart';
+import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
 
 class AddressContainer extends StatelessWidget {
   const AddressContainer({
     super.key,
-    required this.address,
+    this.address,
     this.onPressed,
     this.suffixText,
     this.margin,
   });
-  final String address;
+  final Address? address;
   final String? suffixText;
   final VoidCallback? onPressed;
   final double? margin;
@@ -31,31 +32,47 @@ class AddressContainer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Address",
+          if (address == null)
+            const Expanded(
+              child: Center(
+                child: Text(
+                  "No Added Addresses",
                   style: TextStyle(
-                    color: Color.fromARGB(255, 63, 63, 63),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  address,
-                  style: const TextStyle(color: Colors.black54),
-                ),
-              ],
+              ),
+            )
+          else
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${address!.addressName} (${address!.area.areaName})",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    "apartment: ${address!.apartmentNumber}, floor: ${address!.floorNumber}, ${address!.buildNumber} ${address!.streetName} st.",
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, NoAddressScreen.routeName);
+              Navigator.pushNamed(context, AddressesScreen.routeName);
             },
             child: Text(
               suffixText ?? "Add",

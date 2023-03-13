@@ -4,7 +4,6 @@ import 'package:salute/constants.dart';
 
 import '../../components/default_form_field.dart';
 import '../../components/registration_components/under_picture_body.dart';
-import '../../../main.dart';
 
 class EnterCodeScreen extends StatelessWidget {
   const EnterCodeScreen({super.key});
@@ -36,8 +35,11 @@ class EnterCodeScreen extends StatelessWidget {
                   children: const [
                     Expanded(
                       child: DefaultFormField(
+                        textColor: Colors.black,
                         textStyle: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Colors.black),
                         unFocusColor: kPrimaryColor,
                         focusColor: kPrimaryColor,
                         keyboardType: TextInputType.number,
@@ -117,11 +119,11 @@ class EnterCodeScreen extends StatelessWidget {
               DefaultButton(
                 text: "Continue",
                 onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
-                    ModalRoute.withName(MyHomePage.routeName),
-                  );
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   //MaterialPageRoute(builder: (context) => const MyHomePage()),
+                  // //  ModalRoute.withName(MyHomePage.routeName),
+                  // );
                 },
               ),
             ],

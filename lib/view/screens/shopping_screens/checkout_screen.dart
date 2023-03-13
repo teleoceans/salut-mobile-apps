@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/profile_components/address_container.dart';
 import 'package:salute/view/components/shopping_components/delivery_now_container.dart';
@@ -16,14 +18,7 @@ class CheckoutScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor,
-            size: 30,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: kArrowBack(context),
         title: const Text(
           "Checkout",
           style: TextStyle(color: Colors.black, fontSize: 24),
@@ -37,9 +32,9 @@ class CheckoutScreen extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              const AddressContainer(
+               AddressContainer(
                 margin: 16,
-                address: "2464 Royal Ln. Mesa, New Jersey 45463",
+                address: Provider.of<AddressesProvider>(context, listen: false).currentAddress,
                 suffixText: "Change",
               ),
               const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
 import 'package:salute/view/screens/shopping_screens/bon_appetit_screen.dart';
 
 class RecievedOrderContainer extends StatefulWidget {
@@ -73,63 +74,7 @@ class _RecievedOrderContainerState extends State<RecievedOrderContainer> {
                       });
                       showDialog(
                         context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text(
-                            'Didn’t receive your meal?',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          content: Wrap(
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/support_icon.png',
-                                        width: 30,
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const Text(
-                                        "Chat with us",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/phone_call.png',
-                                        width: 30,
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const Text(
-                                        "Give us a call",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                        builder: (context) => const HelpAlertDialog(),
                       );
                     }),
                 const Text(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
-import 'package:salute/data/providers/ui_provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
 
 class DeliveryNowContainer extends StatelessWidget {
   const DeliveryNowContainer({super.key});
@@ -33,7 +33,7 @@ class DeliveryNowContainer extends StatelessWidget {
                   Icon(
                     FontAwesomeIcons.boltLightning,
                     size: 18,
-                    color: Provider.of<UiProvider>(context).deliverNow
+                    color: Provider.of<ProductsProvider>(context).wantsNow
                         ? const Color(0xFFFFD600)
                         : kNotUsedColor,
                   ),
@@ -43,7 +43,7 @@ class DeliveryNowContainer extends StatelessWidget {
                   Text(
                     "Lightning Delivery",
                     style: TextStyle(
-                      color: Provider.of<UiProvider>(context).deliverNow
+                      color: Provider.of<ProductsProvider>(context).wantsNow
                           ? const Color.fromARGB(255, 63, 63, 63)
                           : kNotUsedColor,
                       fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class DeliveryNowContainer extends StatelessWidget {
               Text(
                 "        20 mins to your doorstep",
                 style: TextStyle(
-                    color: Provider.of<UiProvider>(context).deliverNow
+                    color: Provider.of<ProductsProvider>(context).wantsNow
                         ? const Color(0xFF666666)
                         : kNotUsedColor),
               )
@@ -66,13 +66,15 @@ class DeliveryNowContainer extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (Provider.of<UiProvider>(context, listen: false).deliverNow ==
-                  false) {
-                Provider.of<UiProvider>(context, listen: false)
-                    .toggleDeilverNowValue();
+              if (!Provider.of<ProductsProvider>(context, listen: false)
+                  .wantsNow) {
+                Provider.of<ProductsProvider>(context, listen: false)
+                    .toggleDeliverStatus();
+                Provider.of<ProductsProvider>(context, listen: false)
+                    .setDeliveryMethond = "deliver now";
               }
             },
-            child: Provider.of<UiProvider>(context).deliverNow
+            child: Provider.of<ProductsProvider>(context).wantsNow
                 ? const CircleAvatar(
                     backgroundColor: Colors.green,
                     radius: 15,

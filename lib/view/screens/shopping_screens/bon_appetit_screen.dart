@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
+import 'package:salute/data/providers/shopping_provider.dart';
+import 'package:salute/main.dart';
 import 'package:salute/view/components/default_button.dart';
+import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
 
 class BonAppetitScreen extends StatelessWidget {
   const BonAppetitScreen({super.key});
@@ -27,7 +31,12 @@ class BonAppetitScreen extends StatelessWidget {
               const Spacer(),
               DefaultButton(
                 text: "Need Support",
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const HelpAlertDialog(),
+                  );
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -38,7 +47,12 @@ class BonAppetitScreen extends StatelessWidget {
                 borderColor: kPrimaryColor,
                 backgroundColor: Colors.transparent,
                 onTap: () {
-                  Navigator.pop(context);
+                  Provider.of<ShoppingProvider>(context, listen: false)
+                      .setCurrentIndex = 0;
+                  kReplaceAllCurrentScreens(
+                    context,
+                    routeName: MyHomePage.routeName,
+                  );
                 },
               ),
             ],

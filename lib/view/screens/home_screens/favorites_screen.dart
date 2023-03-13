@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/view/components/shopping_components/favorites_list_view.dart';
 
-import '../../../data/providers/ui_provider.dart';
+import '../../../data/providers/products_provider.dart';
 import '../../components/registration_components/under_picture_body.dart';
 import '../../components/shopping_components/food_grid_view.dart';
 
@@ -18,7 +18,7 @@ class FavoritesScreen extends StatelessWidget {
           right: 16,
           bottom: 16,
         ),
-        child: Provider.of<UiProvider>(context).favoriteFood.isEmpty
+        child: Provider.of<ProductsProvider>(context).favoriteFood.isEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -34,7 +34,7 @@ class FavoritesScreen extends StatelessWidget {
                 children: [
                   FavoritesListView(
                     favoritesFood:
-                        Provider.of<UiProvider>(context).favoriteFood,
+                        Provider.of<ProductsProvider>(context).favoriteFood,
                   ),
                   Container(
                     color: Colors.black87,
@@ -74,7 +74,10 @@ class FavoritesScreen extends StatelessWidget {
                   SizedBox(
                     height: 420,
                     child: FoodGridView(
-                        food: Provider.of<UiProvider>(context).food),
+                      isCatering: false,
+                      food: Provider.of<ProductsProvider>(context)
+                          .takeawayProducts,
+                    ),
                   ),
                 ],
               ),

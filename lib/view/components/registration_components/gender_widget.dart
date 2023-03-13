@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 
 class GenderWidget extends StatefulWidget {
   const GenderWidget({super.key, this.textColor});
@@ -37,6 +39,8 @@ class _GenderWidgetState extends State<GenderWidget> {
                   value: 0,
                   groupValue: currentValue,
                   onChanged: (value) {
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .setGender = "Male";
                     setState(() {
                       currentValue = value!;
                     });
@@ -58,6 +62,8 @@ class _GenderWidgetState extends State<GenderWidget> {
                   value: 1,
                   groupValue: currentValue,
                   onChanged: (value) {
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .setGender = "Female";
                     setState(() {
                       currentValue = value!;
                     });

@@ -108,6 +108,7 @@ class _CancelOrderReasonState extends State<CancelOrderReason> {
               ],
             ),
             DefaultFormField(
+              textColor: Colors.black,
               focusNode: textFormFieldFocusNode,
               enabled: currentValue == 2,
               keyboardType:
