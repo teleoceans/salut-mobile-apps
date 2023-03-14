@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/data/models/user.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'dart:async';
 import 'package:salute/data/providers/category_provider.dart';
@@ -12,7 +12,6 @@ import 'package:salute/view/components/shopping_components/food_promotions.dart'
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/food_promotion.dart';
 import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
-
 import '../../../data/helpers/shared_preferences.dart';
 import '../../../data/providers/addresses_provider.dart';
 
@@ -94,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: kCircularLoadingProgress,
                 )
               : ListView(
+            physics: BouncingScrollPhysics(),
                   children: [
                     Container(
                       margin: const EdgeInsets.all(16),
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(16),
                         child: DefaultFormField(
                           borderRadius: 16,
-                          hintText: "Search....",
+                          hintText: "${AppLocalizations.of(context)!.search}",
                           unFocusColor: Colors.transparent,
                           focusColor: Colors.black.withOpacity(0.2),
                           textColor: Colors.black,
@@ -126,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.location_on,
                             color: kPrimaryColor,
                           ),
-                          const Text(
-                            "  Deliver to ",
+                           Text(
+                            "${AppLocalizations.of(context)!.deliver}",
                             style: TextStyle(
                               color: Colors.grey,
                             ),
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Provider.of<AddressesProvider>(context)
                                           .currentAddress ==
                                       null
-                                  ? "Add Address"
+                                  ? "${AppLocalizations.of(context)!.add_addresses}"
                                   : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
                               style: const TextStyle(
                                 color: Colors.black,
@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 16,
                       ),
                       child: Text(
-                        "Welcome, ${Provider.of<AuthProvider>(context, listen: false).userName}",
+                        "${AppLocalizations.of(context)!.welcome} , ${Provider.of<AuthProvider>(context, listen: false).userName}",
                         style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -174,14 +174,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(
                         left: 16,
                         right: 16,
                         bottom: 16,
                       ),
                       child: Text(
-                        "Categories",
+                        "${AppLocalizations.of(context)!.categories}",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,

@@ -5,6 +5,7 @@ import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/registration_components/date_picker_field.dart';
 import 'package:salute/view/components/registration_components/gender_widget.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/helpers/shared_preferences.dart';
 
@@ -44,8 +45,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: kArrowBack(context),
-        title: const Text(
-          "Account Info",
+        title:  Text(
+          "${AppLocalizations.of(context)!.account_info}",
           style: kAppBarTitleStyle,
         ),
       ),
@@ -55,7 +56,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children:  [
             Text(
-              "Name",
+              "${AppLocalizations.of(context)!.name}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -75,7 +76,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               height: 36,
             ),
             Text(
-              "Email",
+              "${AppLocalizations.of(context)!.email}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -95,7 +96,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               height: 36,
             ),
             Text(
-              "Phone Number",
+              "${AppLocalizations.of(context)!.number}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -118,7 +119,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
             //   textColor: Colors.black,
             // ),
             Text(
-              "Gender",
+             "${AppLocalizations.of(context)!.gender}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -138,7 +139,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
               height: 36,
             ),
             Text(
-              "Birthday",
+              "${AppLocalizations.of(context)!.dateOfBirth}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,

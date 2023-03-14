@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/data/models/food_product.dart';
 import 'package:salute/data/models/weight.dart';
+import 'package:salute/data/providers/auth_provider.dart';
+import 'package:salute/data/providers/current_product_provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/main.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/shopping_components/weight_quantity_widget.dart';
-
+import 'package:salute/view/screens/registration_screens/sign_in_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../constants.dart';
 import '../default_button.dart';
 import 'addons_list_view.dart';
 
@@ -19,6 +26,10 @@ class CateringTabView extends StatefulWidget {
 }
 
 class _CateringTabViewState extends State<CateringTabView> {
+  FoodProduct? food;
+  bool isFirst = true;
+  double price2=0;
+
   @override
   void initState() {
     widget.cateringProduct.weight = Weight(mass: 1, quantity: 1);
@@ -27,12 +38,22 @@ class _CateringTabViewState extends State<CateringTabView> {
 
   @override
   Widget build(BuildContext context) {
+    if (isFirst) {
+      isFirst = false;
+      int id = ModalRoute.of(context)!.settings.arguments as int;
+      food = Provider.of<ProductsProvider>(context, listen: false)
+          .findProductById(id);
+      Provider.of<CurrentItemProvider>(context, listen: false)
+          .setCurrentFoodProduct = food!;
+    }
     return Column(
       children: [
         Expanded(
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               Image.asset(widget.cateringProduct.imageUrl),
+              const  SizedBox(height: 15,),
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
                 child: Row(
@@ -57,10 +78,10 @@ class _CateringTabViewState extends State<CateringTabView> {
                   ],
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  "Ingredients",
+                  "${AppLocalizations.of(context)!.ingredients}",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -89,10 +110,10 @@ class _CateringTabViewState extends State<CateringTabView> {
               const SizedBox(
                 height: 16,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Weight:",
+                  "${AppLocalizations.of(context)!.weight}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -128,10 +149,10 @@ class _CateringTabViewState extends State<CateringTabView> {
                 cateringProduct: widget.cateringProduct,
                 mass: 1,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
                 child: Text(
-                  "Type:",
+                  "${AppLocalizations.of(context)!.type}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -146,10 +167,10 @@ class _CateringTabViewState extends State<CateringTabView> {
                   items: widget.cateringProduct.addons ?? [],
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
                 child: Text(
-                  "Beverages:",
+                  "${AppLocalizations.of(context)!.beverages}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -164,10 +185,10 @@ class _CateringTabViewState extends State<CateringTabView> {
                   items: widget.cateringProduct.subProducts ?? [],
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
                 child: Text(
-                  "Description:",
+                  "${AppLocalizations.of(context)!.description}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -178,11 +199,11 @@ class _CateringTabViewState extends State<CateringTabView> {
               const SizedBox(
                 height: 12,
               ),
-              const Padding(
+                Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: DefaultFormField(
                   focusColor: Colors.black,
-                  hintText: 'Type Here',
+                  hintText: "${AppLocalizations.of(context)!.type_here}",
                   borderRadius: 10,
                   keyboardType: TextInputType.text,
                   maxLines: 5,
@@ -197,27 +218,50 @@ class _CateringTabViewState extends State<CateringTabView> {
         DefaultButton(
           padding: 16,
           margin: 16,
-          text: "Add to Cart",
-          onTap: () {},
+          text: "${AppLocalizations.of(context)!.add_cart}",
+          onTap: () {
+            if(Token.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
+              Navigator.pushNamed(context, SignInScreen.routeName);
+            }
+            else{
+              // Provider.of<ProductsProvider>(context, listen: false)
+              //     .toggleCartStatus(widget.cateringProduct!);
+             if(widget.cateringProduct!.quantity!=0){
+               print(widget.cateringProduct!.discount?.toInt());
+               print(price==0?widget.cateringProduct!.price:price);
+               Provider.of<ProductsProvider>(context, listen: false).allProducts.
+               add(FoodProduct(
+                   productType: widget.cateringProduct!.productType,
+                   categoryId: widget.cateringProduct!.categoryId,
+                   id: widget.cateringProduct!.id,
+                   title: widget.cateringProduct!.title,
+                   price: price==0?widget.cateringProduct!.price:price,
+                   isAddedtoCart: true,
+                   discount: widget.cateringProduct!.discount,
+                   availableDiscount: widget.cateringProduct!.availableDiscount,
+                   imageUrl: widget.cateringProduct!.imageUrl,
+                   quantity: widget.cateringProduct!.quantity,
+                   isFav: widget.cateringProduct!.isFav,
+                   addons: widget.cateringProduct!.addons,
+                   afterDiscount: widget.cateringProduct!.afterDiscount,
+                   subProducts: widget.cateringProduct!.subProducts,
+                   description: widget.cateringProduct!.description)
+               );
+             }
+            }
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Add to Cart",
+                Text(
+                  "${AppLocalizations.of(context)!.add_cart}",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              Text(
-                "${widget.cateringProduct.price * widget.cateringProduct.weight!.mass * widget.cateringProduct.weight!.quantity}",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
+                Icon(Icons.add_shopping_cart,color: Colors.white,)
             ],
           ),
         ),

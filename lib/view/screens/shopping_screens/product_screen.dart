@@ -57,6 +57,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       borderRadius: BorderRadius.circular(16),
                       child: DefaultFormField(
                         borderRadius: 16,
+                        hintText: "Search....",
                         unFocusColor: Colors.black.withOpacity(0.1),
                         focusColor: Colors.black.withOpacity(0.2),
                         textColor: Colors.black,
@@ -74,10 +75,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             Expanded(
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(food!.imageUrl),
+                    const  SizedBox(height: 15,),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 16),

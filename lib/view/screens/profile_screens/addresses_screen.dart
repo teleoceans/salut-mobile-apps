@@ -5,6 +5,7 @@ import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/view/components/profile_components/addresses_list_view.dart';
 import 'package:salute/view/screens/profile_screens/add_address_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/default_button.dart';
 import '../../components/registration_components/under_picture_body.dart';
@@ -32,8 +33,8 @@ class _AddressesScreenState extends State<AddressesScreen> {
                     onPressed: () {
                       Navigator.pushNamed(context, AddAddressScreen.routeName);
                     },
-                    child: const Text(
-                      "Add",
+                    child:   Text(
+                      "${AppLocalizations.of(context)!.add}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
@@ -45,8 +46,8 @@ class _AddressesScreenState extends State<AddressesScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: kArrowBack(context),
-        title: const Text(
-          "Addresses",
+        title:   Text(
+          "${AppLocalizations.of(context)!.address}",
           style: kAppBarTitleStyle,
         ),
       ),
@@ -75,13 +76,13 @@ class _AddressesScreenState extends State<AddressesScreen> {
                             children: [
                               Image.asset("assets/images/no_address.png"),
                               const Spacer(),
-                              const UnderPictureBody(
-                                body: "Add one now to use for future orders",
-                                title: "Looks like you didn’t save an address",
+                                UnderPictureBody(
+                                body: "${AppLocalizations.of(context)!.add_addresses}",//mass1_addresses
+                                  title: "${AppLocalizations.of(context)!.add_addresses}",//mass2_addresses
                               ),
                               const Spacer(),
                               DefaultButton(
-                                text: "Add Address",
+                                text: "${AppLocalizations.of(context)!.add_addresses}",
                                 onTap: () {
                                   Navigator.pushNamed(
                                       context, AddAddressScreen.routeName);

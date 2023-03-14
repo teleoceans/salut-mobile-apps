@@ -11,7 +11,7 @@ import 'package:salute/view/components/shopping_components/food_promotions.dart'
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/food_promotion.dart';
 import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../data/helpers/shared_preferences.dart';
 import '../../../data/providers/addresses_provider.dart';
 
@@ -83,6 +83,7 @@ class _CateringScreenState extends State<CateringScreen> {
                     child: kCircularLoadingProgress,
                   )
                 : ListView(
+                    physics: BouncingScrollPhysics(),
                     children: [
                       Container(
                         margin: const EdgeInsets.all(16),
@@ -91,6 +92,7 @@ class _CateringScreenState extends State<CateringScreen> {
                           borderRadius: BorderRadius.circular(16),
                           child: DefaultFormField(
                             borderRadius: 16,
+                            hintText: "${AppLocalizations.of(context)!.search}",
                             unFocusColor: Colors.transparent,
                             focusColor: Colors.black.withOpacity(0.2),
                             textColor: Colors.black,
@@ -114,8 +116,8 @@ class _CateringScreenState extends State<CateringScreen> {
                               Icons.location_on,
                               color: kPrimaryColor,
                             ),
-                            const Text(
-                              "  Deliver to ",
+                              Text(
+                              "${AppLocalizations.of(context)!.deliver}",
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -129,7 +131,7 @@ class _CateringScreenState extends State<CateringScreen> {
                                 Provider.of<AddressesProvider>(context)
                                             .currentAddress ==
                                         null
-                                    ? "Add Address"
+                                    ? "${AppLocalizations.of(context)!.add_addresses}"
                                     : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
                                 style: const TextStyle(
                                   color: Colors.black,
@@ -154,7 +156,7 @@ class _CateringScreenState extends State<CateringScreen> {
                           bottom: 16,
                         ),
                         child: Text(
-                          "Welcome, ${Provider.of<AuthProvider>(context, listen: false).userName}",
+                          "${AppLocalizations.of(context)!.welcome} , ${Provider.of<AuthProvider>(context, listen: false).userName}",
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -162,14 +164,14 @@ class _CateringScreenState extends State<CateringScreen> {
                           ),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(
                           left: 16,
                           right: 16,
                           bottom: 16,
                         ),
                         child: Text(
-                          "Categories",
+                          "${AppLocalizations.of(context)!.categories}",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -210,6 +212,9 @@ class _CateringScreenState extends State<CateringScreen> {
                               .cateringProduct,
                           
                         ),
+                      ),
+                      const SizedBox(
+                        height: 40,
                       ),
                     ],
                   ));

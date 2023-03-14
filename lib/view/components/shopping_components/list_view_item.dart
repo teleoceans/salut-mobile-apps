@@ -74,7 +74,8 @@ class _ListViewItemState extends State<ListViewItem> {
                     ),
                     child: Center(
                       child: Text(
-                        "${widget.product.discount!.toInt()}% off",
+                         "${widget.product.discount!.toInt()}% off",
+
                         style: const TextStyle(color: Colors.black),
                       ),
                     ),

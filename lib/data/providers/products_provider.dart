@@ -10,15 +10,15 @@ import 'package:salute/data/models/food_product.dart';
 import 'package:salute/data/models/order_status.dart';
 
 class ProductsProvider with ChangeNotifier {
-  List<FoodProduct> _allProducts = [];
+  List<FoodProduct> allProducts = [];
   List<FoodProduct> get takeawayProducts {
-    return _allProducts
+    return allProducts
         .where((element) => element.productType == ProductType.takeaway)
         .toList();
   }
 
   List<FoodProduct> get cateringProduct {
-    return _allProducts
+    return allProducts
         .where((element) => element.productType == ProductType.catering)
         .toList();
   }
@@ -134,7 +134,7 @@ class ProductsProvider with ChangeNotifier {
           index++;
         }
 
-        _allProducts = temp;
+        allProducts = temp;
         notifyListeners();
       } else {
         throw "error";
@@ -170,7 +170,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   FoodProduct findProductById(int id) {
-    return _allProducts.firstWhere((element) => element.id == id);
+    return allProducts.firstWhere((element) => element.id == id);
   }
 
   FoodProduct findCateringProductById(int id) {
@@ -187,23 +187,23 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void toggleFavStatus(FoodProduct foodProduct) {
-    int index = _allProducts.indexOf(foodProduct);
-    _allProducts[index].isFav = !_allProducts[index].isFav;
+    int index = allProducts.indexOf(foodProduct);
+    allProducts[index].isFav = !allProducts[index].isFav;
     notifyListeners();
   }
 
   void toggleCartStatus(FoodProduct foodProduct) {
-    int index = _allProducts.indexOf(foodProduct);
-    _allProducts[index].isAddedtoCart = !_allProducts[index].isAddedtoCart;
+    int index = allProducts.indexOf(foodProduct);
+    allProducts[index].isAddedtoCart = !allProducts[index].isAddedtoCart;
     notifyListeners();
   }
 
   List<FoodProduct> get favoriteFood {
-    return _allProducts.where((element) => element.isFav == true).toList();
+    return allProducts.where((element) => element.isFav == true).toList();
   }
 
   List<FoodProduct> get cartItems {
-    return _allProducts
+    return allProducts
         .where((element) => element.isAddedtoCart == true)
         .toList();
   }

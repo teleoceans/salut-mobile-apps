@@ -4,7 +4,7 @@ import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/shopping_components/cart_list_view.dart';
 import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../data/providers/addresses_provider.dart';
 import '../../components/registration_components/under_picture_body.dart';
 
@@ -24,16 +24,15 @@ class CartScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset("assets/images/thank_you.png"),
-                  const UnderPictureBody(
-                    body:
-                        "Seems you haven’t added anything to your cart yet!  Start ordering and add items.",
-                    title: "Your cart is empty",
+                    UnderPictureBody(
+                    body:"${AppLocalizations.of(context)!.cart_not2}",
+                    title: "${AppLocalizations.of(context)!.cart_not1}",
                   ),
                   const SizedBox(
                     height: 32,
                   ),
                   DefaultButton(
-                    text: "Checkout",
+                    text: "${AppLocalizations.of(context)!.checkout}",
                     onTap: () {},
                     backgroundColor: Colors.grey,
                     borderColor: Colors.grey,
@@ -57,8 +56,8 @@ class CartScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Cart Total",
+                          Text(
+                            "${AppLocalizations.of(context)!.total}",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -66,10 +65,10 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            Provider.of<ProductsProvider>(context,
-                                    listen: false)
+                            "${Provider.of<ProductsProvider>(context,
+                                listen: false)
                                 .calculateFinalPrice()
-                                .toStringAsFixed(2),
+                                .toStringAsFixed(2)} LE",
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -84,8 +83,8 @@ class CartScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Delivery address:",
+                          Text(
+                            "${AppLocalizations.of(context)!.address}",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -105,7 +104,7 @@ class CartScreen extends StatelessWidget {
                         height: 32,
                       ),
                       DefaultButton(
-                        text: "Checkout",
+                        text: "${AppLocalizations.of(context)!.checkout}",
                         onTap: () {
                           Navigator.pushNamed(
                               context, CheckoutScreen.routeName);

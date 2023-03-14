@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/providers/notifications_provider.dart';
 import 'package:salute/view/components/profile_components/notification_list_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class NotifictaionScreen extends StatefulWidget {
   const NotifictaionScreen({super.key});
   static const String routeName = "NotifictaionScreen";
@@ -44,7 +44,7 @@ class _NotifictaionScreenState extends State<NotifictaionScreen> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          bottom: const TabBar(
+          bottom:   TabBar(
             unselectedLabelColor: Colors.grey,
             labelColor: Colors.black,
             indicatorColor: kPrimaryColor,
@@ -53,9 +53,9 @@ class _NotifictaionScreenState extends State<NotifictaionScreen> {
               fontSize: 18,
             ),
             tabs: [
-              Tab(text: "All"),
-              Tab(text: "Discounts"),
-              Tab(text: "Announcements"),
+              Tab(text: "${AppLocalizations.of(context)!.cart}"),//all
+              Tab(text: "${AppLocalizations.of(context)!.cart}"),//discounts
+              Tab(text: "${AppLocalizations.of(context)!.cart}"),//announcements
             ],
           ),
         ),

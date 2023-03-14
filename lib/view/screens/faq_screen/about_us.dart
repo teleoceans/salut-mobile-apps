@@ -5,7 +5,7 @@ import 'package:salute/view/screens/faq_screen/app_feedback.dart';
 import 'package:salute/view/screens/faq_screen/faq.dart';
 import 'package:salute/view/screens/faq_screen/policy_screen.dart';
 import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
   static const String routeName = "AboutUsScreen";
@@ -13,8 +13,8 @@ class AboutUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'About Us',
+        title:   Text(
+          '${AppLocalizations.of(context)!.aboutUs}',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
@@ -28,25 +28,24 @@ class AboutUsScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const AboutUsListTile(
-              title: 'FAQ',
+             AboutUsListTile(
+              title: '${AppLocalizations.of(context)!.faq}',
               nextRoute: FaqScreen.routeName,
             ),
-            const AboutUsListTile(
-              title: 'App Feedback',
+             AboutUsListTile(
+              title: '${AppLocalizations.of(context)!.feedback}',
               nextRoute: AppFeedbackScreen.routeName,
             ),
-            const AboutUsListTile(
-              title: 'Terms of use',
+             AboutUsListTile(
+              title: '${AppLocalizations.of(context)!.terms}',
               nextRoute: TermsOfUseScreen.routeName,
             ),
-            const AboutUsListTile(
-              title: 'Privacy Policy',
+             AboutUsListTile(
+              title: '${AppLocalizations.of(context)!.policy}',
               nextRoute: PolicyScreen.routeName,
             ),
             const Spacer(),
-            const Text(
-              'You can also find us',
+             Text('${AppLocalizations.of(context)!.find_us}',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -65,7 +64,7 @@ class AboutUsScreen extends StatelessWidget {
               height: 12,
             ),
             const Text(
-              "version 1.00.1",
+              "version 1.0.0",
               style: TextStyle(
                 color: Colors.black,
               ),

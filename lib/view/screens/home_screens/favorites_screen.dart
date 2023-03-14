@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/view/components/shopping_components/favorites_list_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../data/providers/products_provider.dart';
 import '../../components/registration_components/under_picture_body.dart';
 import '../../components/shopping_components/food_grid_view.dart';
@@ -23,10 +23,9 @@ class FavoritesScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset("assets/images/thank_you.png"),
-                  const UnderPictureBody(
-                    body:
-                        "Seems you haven’t added anything to favorite yet!  Start ordering and click the heart button",
-                    title: "Looks like you didn’t add any favorite yet!",
+                  UnderPictureBody(
+                    body: "${AppLocalizations.of(context)!.favorite_not1}",
+                    title: "${AppLocalizations.of(context)!.favorite_not2}",
                   ),
                 ],
               )
@@ -47,8 +46,8 @@ class FavoritesScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "You may also like",
+                        Text(
+                        "${AppLocalizations.of(context)!.more_pro}",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
@@ -57,8 +56,8 @@ class FavoritesScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text(
-                          "See All",
+                        child: Text(
+                          "${AppLocalizations.of(context)!.search}",//See All
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,

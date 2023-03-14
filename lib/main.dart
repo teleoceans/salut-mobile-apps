@@ -1,10 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/data/helpers/shared_preferences.dart';
+ import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/data/providers/category_provider.dart';
 import 'package:salute/data/providers/current_product_provider.dart';
@@ -29,7 +28,6 @@ import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
 import 'package:salute/view/screens/profile_screens/notifications_screen.dart';
 import 'package:salute/view/screens/profile_screens/settings_screen.dart';
 import 'package:salute/view/screens/registration_screens/facing_problem_screen.dart';
-import 'package:salute/view/screens/registration_screens/allow_location_screen.dart';
 import 'package:salute/view/screens/registration_screens/check_email.dart';
 import 'package:salute/view/screens/registration_screens/enter_code_screen.dart';
 import 'package:salute/view/screens/registration_screens/forget_password.dart';
@@ -51,10 +49,10 @@ import 'package:salute/view/screens/shopping_screens/order_details_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_history_screen.dart';
 import 'package:salute/view/screens/shopping_screens/product_screen.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
-
 import 'data/providers/auth_provider.dart';
 import 'view/components/global_drawer.dart';
 import 'constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 String Token="";
 
@@ -74,12 +72,35 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
     this.authtoken,
   });
   final String? authtoken;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  // @override
+  // void didChangeDependencies() {
+  //   getLocale().then((locale) => {setLocale(locale)});
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +130,19 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        locale: _locale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        localeResolutionCallback: (currentLang, supportLang) {
+          if (currentLang != null) {
+            for (Locale locale in supportLang) {
+              if (locale.languageCode == currentLang.languageCode) {
+                return currentLang;
+              }
+            }
+          }
+          return supportLang.first;
+        },
         theme: ThemeData().copyWith(
           colorScheme: ThemeData()
               .colorScheme
@@ -129,8 +163,6 @@ class MyApp extends StatelessWidget {
               const CheckYourEmailScreen(),
           EnterCodeScreen.routeName: (context) => const EnterCodeScreen(),
           SignUpScreen.routeName: (context) => const SignUpScreen(),
-          // AllowLocationScreen.routeName: (context) =>
-          //     const AllowLocationScreen(),
           OrderAnywhereScreen.routeName: (context) =>
               const OrderAnywhereScreen(),
           HelpWithTkafolScreen.routeName: (context) =>
@@ -139,7 +171,7 @@ class MyApp extends StatelessWidget {
               const FacingProblemScreen(),
           WohooScreen.routeName: (context) => const WohooScreen(),
           MyHomePage.routeName: (context) => MyHomePage(
-                authToken: authtoken!,
+                authToken: widget.authtoken!,
               ),
           CateringProductScreen.routeName: (context) =>
               const CateringProductScreen(),
@@ -165,9 +197,9 @@ class MyApp extends StatelessWidget {
           OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
           NotifictaionScreen.routeName: (context) => const NotifictaionScreen(),
         },
-        home: authtoken != ""
+        home: widget.authtoken != ""
             ? MyHomePage(
-                authToken: authtoken!,
+                authToken: widget.authtoken!,
               )
             : const WelcomeScreen(),
       ),
@@ -342,8 +374,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         setPage(0);
                       },
                     ),
-                    title: const Text(
-                      "My Cart",
+                    title: Text(
+                      "${AppLocalizations.of(context)!.cart}",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -399,8 +431,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Provider.of<ShoppingProvider>(context)
-                    .currentIndex ==
-                3
+                    .currentIndex == 3
             ? null
             : BottomAppBar(
                 notchMargin: 10,

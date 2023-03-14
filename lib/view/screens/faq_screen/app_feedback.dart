@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppFeedbackScreen extends StatelessWidget {
   const AppFeedbackScreen({super.key});
@@ -9,8 +10,8 @@ class AppFeedbackScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "App Feedback",
+        title: Text(
+          '${AppLocalizations.of(context)!.feedback}',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24,
@@ -29,8 +30,8 @@ class AppFeedbackScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "How would you rate Sault!",
+                   Text(
+                    '${AppLocalizations.of(context)!.feedback_mass}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -93,22 +94,22 @@ class AppFeedbackScreen extends StatelessWidget {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children:   [
                         Text(
-                          "Poor",
+                           '${AppLocalizations.of(context)!.poor}',
                           style:
                               TextStyle(color: Color.fromARGB(255, 78, 78, 78)),
                         ),
                         Text(
-                          "Excellent",
+                          '${AppLocalizations.of(context)!.excellent}',
                           style:
                               TextStyle(color: Color.fromARGB(255, 78, 78, 78)),
                         ),
                       ],
                     ),
                   ),
-                  const Text(
-                    "Leave a comment",
+                    Text(
+                     '${AppLocalizations.of(context)!.comment}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -117,8 +118,8 @@ class AppFeedbackScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "Your feedback is important. Let us know your thoughts, suggestions, or if you’ve spotted an issue or a bug.",
+                    Text(
+                      '${AppLocalizations.of(context)!.feedback_mass2}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -127,9 +128,8 @@ class AppFeedbackScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: "Type Here....",
-
+                    decoration:  InputDecoration(
+                      hintText: '${AppLocalizations.of(context)!.type_here}',
                       // alignLabelWithHint: true,
                       labelStyle: TextStyle(color: Colors.black),
                       fillColor: Colors.white,
@@ -140,12 +140,12 @@ class AppFeedbackScreen extends StatelessWidget {
                   ),
                   DefaultButton(
                     margin: 70,
-                    text: "Send Feedback",
+                    text: '${AppLocalizations.of(context)!.feedback_send}',
                     onTap: () {},
                   ),
                   const Spacer(),
-                  const Text(
-                    "Need Help?",
+                    Text(
+                      '${AppLocalizations.of(context)!.help}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -154,8 +154,8 @@ class AppFeedbackScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "For any current order queries, please use our help center.",
+                    Text(
+                      '${AppLocalizations.of(context)!.help_mass}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -172,7 +172,7 @@ class AppFeedbackScreen extends StatelessWidget {
                     margin: 70,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black,
-                    text: "Get Help",
+                    text: '${AppLocalizations.of(context)!.help_get}',
                     onTap: () {},
                   ),
                 ],

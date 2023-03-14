@@ -9,8 +9,6 @@ import 'package:salute/view/components/registration_components/date_picker_field
 import 'package:salute/view/components/registration_components/gender_widget.dart';
 import 'package:salute/view/components/registration_components/sign_with_social_media.dart';
 import 'package:salute/constants.dart';
-import 'package:salute/view/screens/registration_screens/allow_location_screen.dart';
-
 import '../../components/default_form_field.dart';
 import '../../components/registration_components/password_field.dart';
 

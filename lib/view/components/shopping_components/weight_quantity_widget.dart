@@ -15,9 +15,16 @@ class WeightQuantityWidget extends StatefulWidget {
   @override
   State<WeightQuantityWidget> createState() => _WeightQuantityWidget();
 }
-
+double price=0;
 class _WeightQuantityWidget extends State<WeightQuantityWidget> {
   int quantity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    price=0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,14 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
         children: [
           Text(
             "${widget.cateringProduct.weight!.mass} Kg",
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            "${price} LE",
             style: const TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -57,6 +72,8 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
                 setState(() {
                   if (quantity > 0) {
                     quantity--;
+                    price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+                    print(price);
                   }
                 });
               },
@@ -98,6 +115,8 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
               onPressed: () {
                 setState(() {
                   quantity++;
+                  price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+                  print(price);
                 });
               },
             ),

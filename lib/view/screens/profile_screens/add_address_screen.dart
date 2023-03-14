@@ -7,6 +7,7 @@ import 'package:salute/data/models/address.dart';
 import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({super.key});
@@ -137,8 +138,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: kArrowBack(context),
-        title: const Text(
-          "Add Address",
+        title:  Text(
+          "${AppLocalizations.of(context)!.add_addresses}",
           style: kAppBarTitleStyle,
         ),
       ),
@@ -163,10 +164,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Street name",
+                      "${AppLocalizations.of(context)!.street}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -181,9 +182,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: streetNameController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
-
+                      decoration:  InputDecoration(
+                        hintText: "${AppLocalizations.of(context)!.type_here}",
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
                         fillColor: Colors.white,
@@ -214,10 +214,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Building name/number",
+                      "${AppLocalizations.of(context)!.building}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -232,9 +232,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: buildingNameController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
-
+                      decoration:   InputDecoration(
+                        hintText:  "${AppLocalizations.of(context)!.type_here}",
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
                         fillColor: Colors.white,
@@ -252,10 +251,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Floor number",
+                     "${AppLocalizations.of(context)!.floor}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -270,10 +269,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: floorNumberController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
-
-                        // alignLabelWithHint: true,
+                      decoration:  InputDecoration(
+                        hintText:  "${AppLocalizations.of(context)!.type_here}",
                         labelStyle: TextStyle(color: Colors.black),
                         fillColor: Colors.white,
                       ),
@@ -290,10 +287,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Apartment number",
+                    "${AppLocalizations.of(context)!.apartment}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -308,10 +305,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: apartmentNumberController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
-
-                        // alignLabelWithHint: true,
+                      decoration:  InputDecoration(
+                        hintText: "${AppLocalizations.of(context)!.type_here}",
                         labelStyle: TextStyle(color: Colors.black),
                         fillColor: Colors.white,
                       ),
@@ -328,10 +323,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Address name ( My apartment/ My office/ etc..",
+                      "${AppLocalizations.of(context)!.name_addresses}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -346,8 +341,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: addressNameController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
+                      decoration:   InputDecoration(
+                        hintText:"${AppLocalizations.of(context)!.type_here}",
 
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
@@ -366,10 +361,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Landmark nearby",
+                      "${AppLocalizations.of(context)!.landmark}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -384,8 +379,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: landmarkController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
+                      decoration:   InputDecoration(
+                        hintText: "${AppLocalizations.of(context)!.type_here}",
 
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
@@ -404,10 +399,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Mobile Number",
+                      "${AppLocalizations.of(context)!.number}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -422,8 +417,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: phoneNumberController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
+                      decoration:   InputDecoration(
+                        hintText: "${AppLocalizations.of(context)!.type_here}",
 
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
@@ -442,10 +437,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Padding(
+                    Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      "Landline number (optional)",
+                      "${AppLocalizations.of(context)!.landline}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -460,8 +455,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     child: TextFormField(
                       controller: landlineNumberController,
                       style: const TextStyle(color: Colors.black),
-                      decoration: const InputDecoration(
-                        hintText: "Type Here....",
+                      decoration:   InputDecoration(
+                        hintText:"${AppLocalizations.of(context)!.type_here}",
 
                         // alignLabelWithHint: true,
                         labelStyle: TextStyle(color: Colors.black),
@@ -479,7 +474,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ? kCircularLoadingProgress
                 : DefaultButton(
                     margin: 16,
-                    text: "Save Address",
+                    text:  "${AppLocalizations.of(context)!.saved_addresses}",
                     onTap: () {
                       if (addressId != null) {
                         updateAddress();
@@ -523,10 +518,10 @@ class _AreaRadioWidget extends State<AreaRadioWidget> {
           const SizedBox(
             height: 12,
           ),
-          const Padding(
+            Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              "Area",
+              "${AppLocalizations.of(context)!.area}",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 18,
@@ -546,7 +541,7 @@ class _AreaRadioWidget extends State<AreaRadioWidget> {
                     });
                   }),
               Text(
-                "6th of october",
+                "${AppLocalizations.of(context)!.october}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,
@@ -567,7 +562,7 @@ class _AreaRadioWidget extends State<AreaRadioWidget> {
                     });
                   }),
               Text(
-                "Al Shikh Zayed",
+               "${AppLocalizations.of(context)!.zayed}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,
@@ -610,10 +605,10 @@ class _BuildingTypeWidget extends State<BuildingTypeWidget> {
           const SizedBox(
             height: 12,
           ),
-          const Padding(
+            Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              "Building Type",
+              "${AppLocalizations.of(context)!.building_type}",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 18,
@@ -633,7 +628,7 @@ class _BuildingTypeWidget extends State<BuildingTypeWidget> {
                     });
                   }),
               Text(
-                "Apartment",
+                "${AppLocalizations.of(context)!.apartmenta}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,
@@ -654,7 +649,7 @@ class _BuildingTypeWidget extends State<BuildingTypeWidget> {
                     });
                   }),
               Text(
-                "Villa",
+                "${AppLocalizations.of(context)!.villa}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,
@@ -675,7 +670,7 @@ class _BuildingTypeWidget extends State<BuildingTypeWidget> {
                     });
                   }),
               Text(
-                "Office",
+                "${AppLocalizations.of(context)!.office}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,

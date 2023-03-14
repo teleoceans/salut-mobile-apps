@@ -6,6 +6,7 @@ import 'package:salute/view/components/default_button.dart';
 import 'package:salute/main.dart';
 import 'package:salute/view/screens/registration_screens/sign_in_screen.dart';
 import 'package:salute/view/screens/registration_screens/signup_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -57,8 +58,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               const SizedBox(
                 height: 12,
               ),
-              const Text(
-                "Welcome",
+              Text(
+                "${AppLocalizations.of(context)!.welcome}",
                 style: TextStyle(
                   fontSize: 34,
                   color: Colors.white,
@@ -67,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               const Spacer(),
               DefaultButton(
-                text: "Sign in",
+                text: "${AppLocalizations.of(context)!.login}",
                 onTap: () =>
                     Navigator.pushNamed(context, SignInScreen.routeName),
               ),
@@ -76,6 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               DefaultButton(
                 text: "Register",
+                //text: "${AppLocalizations.of(context)!.register}",
                 onTap: () {
                   Navigator.pushReplacementNamed(
                       context, SignUpScreen.routeName);
@@ -88,6 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ? kCircularLoadingProgress
                   : DefaultButton(
                       text: "Continue as a guest",
+                      //text: "${AppLocalizations.of(context)!.guest}",
                       backgroundColor: Colors.transparent,
                       borderColor: Colors.white,
                       onTap: getData,

@@ -8,6 +8,7 @@ class AddonsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) => ExtrasCheckBox(
         isAddon: isAddon,
         item: items[index],
