@@ -86,141 +86,142 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: loadData(),
-        builder: (context, snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? const Center(
-                    child: kCircularLoadingProgress,
-                  )
-                : ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(16),
-                        child: Material(
-                          elevation: 5,
-                          borderRadius: BorderRadius.circular(16),
-                          child: DefaultFormField(
-                            borderRadius: 16,
-                            unFocusColor: Colors.transparent,
-                            focusColor: Colors.black.withOpacity(0.2),
-                            textColor: Colors.black,
-                            keyboardType: TextInputType.text,
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              size: 28,
-                              color: kPrimaryColor,
-                            ),
+      future: loadData(),
+      builder: (context, snapshot) =>
+          snapshot.connectionState == ConnectionState.waiting
+              ? const Center(
+                  child: kCircularLoadingProgress,
+                )
+              : ListView(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(16),
+                      child: Material(
+                        elevation: 5,
+                        borderRadius: BorderRadius.circular(16),
+                        child: DefaultFormField(
+                          borderRadius: 16,
+                          unFocusColor: Colors.transparent,
+                          focusColor: Colors.black.withOpacity(0.2),
+                          textColor: Colors.black,
+                          keyboardType: TextInputType.text,
+                          prefixIcon: const Icon(
+                            Icons.search,
+                            size: 28,
+                            color: kPrimaryColor,
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 16,
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                              color: kPrimaryColor,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 16,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            color: kPrimaryColor,
+                          ),
+                          const Text(
+                            "  Deliver to ",
+                            style: TextStyle(
+                              color: Colors.grey,
                             ),
-                            const Text(
-                              "  Deliver to ",
-                              style: TextStyle(
-                                color: Colors.grey,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AddressesScreen.routeName);
+                            },
+                            child: Text(
+                              Provider.of<AddressesProvider>(context)
+                                          .currentAddress ==
+                                      null
+                                  ? "Add Address"
+                                  : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, AddressesScreen.routeName);
-                              },
-                              child: Text(
-                                Provider.of<AddressesProvider>(context)
-                                            .currentAddress ==
-                                        null
-                                    ? "Add Address"
-                                    : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            Image.asset(
-                              'assets/images/arrow_down.png',
-                              width: 12,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 16.0,
-                          right: 16.0,
-                          bottom: 16,
-                        ),
-                        child: Text(
-                          "Welcome, ${Provider.of<AuthProvider>(context, listen: false).userName}",
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
                           ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                          bottom: 16,
-                        ),
-                        child: Text(
-                          "Categories",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          const SizedBox(
+                            width: 3,
                           ),
+                          Image.asset(
+                            'assets/images/arrow_down.png',
+                            width: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                        right: 16.0,
+                        bottom: 16,
+                      ),
+                      child: Text(
+                        "Welcome, ${Provider.of<AuthProvider>(context, listen: false).userName}",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
                         ),
                       ),
-                      SizedBox(
-                        height: 127,
-                        width: MediaQuery.of(context).size.width,
-                        child: CategoryListView(
-                          categories: Provider.of<CategoryProvider>(context)
-                              .takeawayCategories,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        bottom: 16,
+                      ),
+                      child: Text(
+                        "Categories",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(
-                        height: 16,
+                    ),
+                    SizedBox(
+                      height: 127,
+                      width: MediaQuery.of(context).size.width,
+                      child: CategoryListView(
+                        categories: Provider.of<CategoryProvider>(context)
+                            .takeawayCategories,
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
-                        height: 200,
-                        child: const FoodPromotionListView(
-                            foodPromotions: HomeScreen.promotions),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8,
                       ),
-                      const SizedBox(
-                        height: 28,
+                      height: 200,
+                      child: const FoodPromotionListView(
+                          foodPromotions: HomeScreen.promotions),
+                    ),
+                    const SizedBox(
+                      height: 28,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8,
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
-                        height: 420,
-                        child: FoodGridView(
-                          isCatering: false,
-                          food: Provider.of<ProductsProvider>(context)
-                              .takeawayProducts,
-                        ),
+                      height: 420,
+                      child: FoodGridView(
+                        isCatering: false,
+                        food: Provider.of<ProductsProvider>(context)
+                            .takeawayProducts,
                       ),
-                    ],
-                  ));
+                    ),
+                  ],
+                ),
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/current_product_provider.dart';
 
@@ -36,7 +37,12 @@ class _ExtrasCheckBoxState extends State<ExtrasCheckBox> {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(widget.item.imageUrl)),
+              image: DecorationImage(
+                image: AdvancedNetworkImage(
+                  widget.item.imageUrl,
+                  fallbackAssetImage: "assets/images/product_detail_screen.png",
+                ),
+              ),
               color: Colors.grey,
               borderRadius: BorderRadius.circular(14),
               boxShadow: [

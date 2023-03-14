@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salute/data/models/catering_category.dart';
+import 'package:salute/data/models/food_product.dart';
 import 'package:salute/data/models/weight.dart';
 
 import '../../../constants.dart';
@@ -11,7 +11,7 @@ class WeightQuantityWidget extends StatefulWidget {
     required this.cateringProduct,
   });
   final double mass;
-  final CateringProduct cateringProduct;
+  final FoodProduct cateringProduct;
   @override
   State<WeightQuantityWidget> createState() => _WeightQuantityWidget();
 }

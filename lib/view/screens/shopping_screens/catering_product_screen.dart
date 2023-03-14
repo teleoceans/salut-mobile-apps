@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/shopping_components/catering_tab_view.dart';
-import 'package:salute/data/models/catering_category.dart';
 
+import '../../../data/providers/addresses_provider.dart';
 import '../../components/default_form_field.dart';
 import '../../../constants.dart';
+import '../profile_screens/addresses_screen.dart';
 
-class CateringProductScreen extends StatelessWidget {
+class CateringProductScreen extends StatefulWidget {
   const CateringProductScreen({super.key});
   static const String routeName = "CateringProductScreen";
+
+  @override
+  State<CateringProductScreen> createState() => _CateringProductScreenState();
+}
+
+class _CateringProductScreenState extends State<CateringProductScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,22 +67,30 @@ class CateringProductScreen extends StatelessWidget {
                 horizontal: 16,
               ),
               child: Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.location_on,
                     color: kPrimaryColor,
                   ),
-                  Text(
+                  const Text(
                     "  Deliver to ",
                     style: TextStyle(
                       color: Colors.grey,
                     ),
                   ),
-                  Text(
-                    " 123,ABC, Address address ",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AddressesScreen.routeName);
+                    },
+                    child: Text(
+                      Provider.of<AddressesProvider>(context).currentAddress ==
+                              null
+                          ? "Add Address"
+                          : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -80,69 +98,24 @@ class CateringProductScreen extends StatelessWidget {
             ),
             Expanded(
               child: DefaultTabController(
-                length: 3,
+                length: Provider.of<ProductsProvider>(context, listen: false)
+                    .cateringProduct
+                    .length,
                 initialIndex: 0,
                 child: Column(
                   children: [
-                    const TabBar(
-                      indicatorColor: kPrimaryColor,
-                      labelColor: kPrimaryColor,
-                      unselectedLabelColor: Colors.black,
-                      labelStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                      tabs: [
-                        Tab(
-                          text: "Mashy",
-                        ),
-                        Tab(
-                          text: "Hamam",
-                        ),
-                        Tab(
-                          text: "Food",
-                        ),
-                      ],
-                    ),
+                    TabBar(
+                        indicatorColor: kPrimaryColor,
+                        labelColor: kPrimaryColor,
+                        unselectedLabelColor: Colors.black,
+                        labelStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                        tabs: tabs),
                     MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
                       child: Expanded(
-                        child: TabBarView(
-                          children: [
-                            CateringTabView(
-                              cateringProduct: CateringProduct(
-                                index: 0,
-                                title: 'Mashy',
-                                price: 150,
-                                imageUrl:
-                                    'assets/images/product_detail_screen.png',
-                                ingredients:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
-                              ),
-                            ),
-                            CateringTabView(
-                              cateringProduct: CateringProduct(
-                                index: 0,
-                                title: 'Hamam',
-                                price: 150,
-                                imageUrl:
-                                    'assets/images/product_detail_screen.png',
-                                ingredients:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
-                              ),
-                            ),
-                            CateringTabView(
-                              cateringProduct: CateringProduct(
-                                index: 0,
-                                title: 'Food',
-                                price: 150,
-                                imageUrl:
-                                    'assets/images/product_detail_screen.png',
-                                ingredients:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus aenean amet massa sed at iaculis.",
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: TabBarView(children: tabViews),
                       ),
                     ),
                   ],
@@ -154,4 +127,24 @@ class CateringProductScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> get tabs => List.generate(
+        Provider.of<ProductsProvider>(context, listen: false)
+            .cateringProduct
+            .length,
+        (index) => Tab(
+          text: Provider.of<ProductsProvider>(context, listen: false)
+              .cateringProduct[index]
+              .title,
+        ),
+      );
+  List<Widget> get tabViews => List.generate(
+        Provider.of<ProductsProvider>(context, listen: false)
+            .cateringProduct
+            .length,
+        (index) => CateringTabView(
+          cateringProduct: Provider.of<ProductsProvider>(context, listen: false)
+              .cateringProduct[index],
+        ),
+      );
 }

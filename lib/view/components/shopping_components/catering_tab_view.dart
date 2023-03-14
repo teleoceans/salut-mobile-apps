@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:salute/data/models/food_product.dart';
+import 'package:salute/data/models/weight.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/shopping_components/weight_quantity_widget.dart';
-import 'package:salute/data/models/catering_category.dart';
 
 import '../default_button.dart';
+import 'addons_list_view.dart';
 
-class CateringTabView extends StatelessWidget {
+class CateringTabView extends StatefulWidget {
   const CateringTabView({
     super.key,
     required this.cateringProduct,
   });
-  final CateringProduct cateringProduct;
+  final FoodProduct cateringProduct;
+
+  @override
+  State<CateringTabView> createState() => _CateringTabViewState();
+}
+
+class _CateringTabViewState extends State<CateringTabView> {
+  @override
+  void initState() {
+    widget.cateringProduct.weight = Weight(mass: 1, quantity: 1);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,14 +32,14 @@ class CateringTabView extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              Image.asset(cateringProduct.imageUrl),
+              Image.asset(widget.cateringProduct.imageUrl),
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      cateringProduct.title,
+                      widget.cateringProduct.title,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -33,7 +47,7 @@ class CateringTabView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${cateringProduct.price} LE/KG",
+                      "${widget.cateringProduct.price} LE/KG",
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -57,7 +71,7 @@ class CateringTabView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  cateringProduct.ingredients,
+                  widget.cateringProduct.description,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -90,28 +104,28 @@ class CateringTabView extends StatelessWidget {
                 height: 12,
               ),
               WeightQuantityWidget(
-                cateringProduct: cateringProduct,
+                cateringProduct: widget.cateringProduct,
                 mass: 0.25,
               ),
               const SizedBox(
                 height: 12,
               ),
               WeightQuantityWidget(
-                cateringProduct: cateringProduct,
+                cateringProduct: widget.cateringProduct,
                 mass: 0.5,
               ),
               const SizedBox(
                 height: 12,
               ),
               WeightQuantityWidget(
-                cateringProduct: cateringProduct,
+                cateringProduct: widget.cateringProduct,
                 mass: 0.75,
               ),
               const SizedBox(
                 height: 12,
               ),
               WeightQuantityWidget(
-                cateringProduct: cateringProduct,
+                cateringProduct: widget.cateringProduct,
                 mass: 1,
               ),
               const Padding(
@@ -125,20 +139,12 @@ class CateringTabView extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2.3,
+                child: AddonsListView(
+                  isAddon: true,
+                  items: widget.cateringProduct.addons ?? [],
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
@@ -151,14 +157,12 @@ class CateringTabView extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2.3,
+                child: AddonsListView(
+                  isAddon: true,
+                  items: widget.cateringProduct.subProducts ?? [],
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
@@ -197,8 +201,8 @@ class CateringTabView extends StatelessWidget {
           onTap: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Add to Cart",
                 style: TextStyle(
                   color: Colors.white,
@@ -207,8 +211,8 @@ class CateringTabView extends StatelessWidget {
                 ),
               ),
               Text(
-                "160.00 LE",
-                style: TextStyle(
+                "${widget.cateringProduct.price * widget.cateringProduct.weight!.mass * widget.cateringProduct.weight!.quantity}",
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

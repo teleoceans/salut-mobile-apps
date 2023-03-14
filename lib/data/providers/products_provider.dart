@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/foundation.dart';
@@ -139,10 +140,10 @@ class ProductsProvider with ChangeNotifier {
         throw "error";
       }
     } catch (error) {
+      log(error.toString());
       rethrow;
     }
   }
-
 
   bool _isCateringCalled = false;
   bool get isCateringCalled {
@@ -193,8 +194,7 @@ class ProductsProvider with ChangeNotifier {
 
   void toggleCartStatus(FoodProduct foodProduct) {
     int index = _allProducts.indexOf(foodProduct);
-    _allProducts[index].isAddedtoCart =
-        !_allProducts[index].isAddedtoCart;
+    _allProducts[index].isAddedtoCart = !_allProducts[index].isAddedtoCart;
     notifyListeners();
   }
 
@@ -355,4 +355,6 @@ class ProductsProvider with ChangeNotifier {
       }
     }
   }
+
+  void changeWeight() {}
 }

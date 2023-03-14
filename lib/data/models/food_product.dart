@@ -1,3 +1,5 @@
+import 'package:salute/data/models/weight.dart';
+
 class FoodProduct {
   final int id;
   final String title;
@@ -7,6 +9,7 @@ class FoodProduct {
   final double? afterDiscount;
   final double? discount;
   final String description;
+  Weight? weight;
   List<Addon>? addons;
   List<SubProduct>? subProducts;
   final int categoryId;
