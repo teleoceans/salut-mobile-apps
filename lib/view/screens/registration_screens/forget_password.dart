@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
@@ -54,14 +54,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset("assets/images/forget_password.png"),
-              const UnderPictureBody(
-                body:
-                    "Enter your registered email below to receive password reset and instruction",
-                title: "Forget Password?",
+              UnderPictureBody(
+                body: "${AppLocalizations.of(context)!.password_mass}",
+
+                title:"${AppLocalizations.of(context)!.password_forget}",
               ),
               const Spacer(),
-              const Text(
-                "Enter your email",
+              Text(
+                "${AppLocalizations.of(context)!.enter_email}",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -81,14 +81,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               isLoading
                   ? kCircularLoadingProgress
                   : DefaultButton(
-                      text: "Send",
+                      text: "${AppLocalizations.of(context)!.send}",
                       onTap: resetPassword,
                     ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Remember password?",
+                    Text(
+                    "${AppLocalizations.of(context)!.password_remember}",
                     style: TextStyle(
                       color: Colors.black,
                     ),
@@ -97,8 +97,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      "Sign in",
+                    child:   Text(
+                      "${AppLocalizations.of(context)!.login}",
                       style: TextStyle(
                         color: kPrimaryColor,
                         fontSize: 16,

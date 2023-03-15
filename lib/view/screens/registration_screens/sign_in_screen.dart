@@ -10,7 +10,7 @@ import 'package:salute/view/components/registration_components/custom_check_box.
 import 'package:salute/view/components/registration_components/sign_with_social_media.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/registration_screens/signup_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
   static const String routeName = "SignInScreen";
@@ -88,8 +88,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Text(
-                    "Email",
+                    Text(
+                    "${AppLocalizations.of(context)!.email}",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -102,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   DefaultFormField(
                     validator: (value) {
                       if (value!.isEmpty || !value.contains("@")) {
-                        return "Please enter a valid email address";
+                        return "${AppLocalizations.of(context)!.email_va}";
                       }
                       return null;
                     },
@@ -112,8 +112,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Text(
-                    "Password",
+                    Text(
+                    "${AppLocalizations.of(context)!.password}",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   PasswordFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please enter a valid password";
+                        return "${AppLocalizations.of(context)!.password_va}";
                       }
                       return null;
                     },
@@ -140,16 +140,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CustomCheckBox(
-                        title: "remember me",
+                        CustomCheckBox(
+                        title: "${AppLocalizations.of(context)!.password_remember2}",//password_remember2
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.pushNamed(
                               context, ForgetPasswordScreen.routeName);
                         },
-                        child: const Text(
-                          "Forget Password?",
+                        child:   Text(
+                          "${AppLocalizations.of(context)!.password_forget}",
                           style: TextStyle(
                             color: kTermsAndConditionsColor,
                             fontSize: 16,
@@ -164,7 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   isloading
                       ? kCircularLoadingProgress
                       : DefaultButton(
-                          text: "Sign in",
+                          text: "${AppLocalizations.of(context)!.login}",
                           onTap: login,
                         ),
                   const SizedBox(
@@ -173,8 +173,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Don't have an Account?",
+                        Text(
+                        "${AppLocalizations.of(context)!.have_account}",
                         style: TextStyle(color: Colors.white),
                       ),
                       TextButton(
@@ -182,8 +182,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.pushReplacementNamed(
                               context, SignUpScreen.routeName);
                         },
-                        child: const Text(
-                          "Sign up",
+                        child:   Text(
+                          "${AppLocalizations.of(context)!.signup}",
                           style: TextStyle(
                             color: kTermsAndConditionsColor,
                             fontSize: 16,

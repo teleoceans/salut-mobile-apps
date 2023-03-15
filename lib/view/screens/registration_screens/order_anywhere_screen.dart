@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/registration_screens/help_tkafol_screen.dart';
 import 'dart:io' show Platform;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../components/default_button.dart';
 import '../../components/registration_components/under_picture_body.dart';
 
@@ -29,13 +29,13 @@ class OrderAnywhereScreen extends StatelessWidget {
                 child: Image.asset("assets/images/order_anywhere.png"),
               ),
               const Spacer(),
-              const UnderPictureBody(
-                body: "You done it Registration compelete",
-                title: "Order anywhere",
+                UnderPictureBody(
+                body: "${AppLocalizations.of(context)!.reg_mass1}",
+                title: "${AppLocalizations.of(context)!.order_mass}",
               ),
               const Spacer(),
               DefaultButton(
-                text: "Next",
+                text: "${AppLocalizations.of(context)!.next}",
                 onTap: () {
                   Navigator.pushNamed(context, HelpWithTkafolScreen.routeName);
                 },

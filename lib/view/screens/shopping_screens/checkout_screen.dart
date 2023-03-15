@@ -8,6 +8,7 @@ import 'package:salute/view/components/shopping_components/door_to_door.dart';
 import 'package:salute/view/components/shopping_components/schedule_delivery_container.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/shopping_screens/order_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
@@ -19,8 +20,8 @@ class CheckoutScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: kArrowBack(context),
-        title: const Text(
-          "Checkout",
+        title:   Text(
+          "${AppLocalizations.of(context)!.checkout}",
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
@@ -35,15 +36,15 @@ class CheckoutScreen extends StatelessWidget {
                AddressContainer(
                 margin: 16,
                 address: Provider.of<AddressesProvider>(context, listen: false).currentAddress,
-                suffixText: "Change",
+                suffixText: "${AppLocalizations.of(context)!.change}",
               ),
               const SizedBox(
                 height: 16,
               ),
-              const Padding(
+                Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Add Promo code",
+                  "${AppLocalizations.of(context)!.add_promo}",
                   style: TextStyle(
                     color: Color(0xFF666666),
                     fontWeight: FontWeight.w700,
@@ -71,9 +72,8 @@ class CheckoutScreen extends StatelessWidget {
                 ),
                 child: TextFormField(
                   style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                    hintText: "Type Here....",
-
+                  decoration:  InputDecoration(
+                    hintText: "${AppLocalizations.of(context)!.type_here}",
                     // alignLabelWithHint: true,
                     labelStyle: TextStyle(color: Colors.black),
                     fillColor: Colors.white,
@@ -83,10 +83,10 @@ class CheckoutScreen extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const Padding(
+                Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Delivery",
+                  "${AppLocalizations.of(context)!.delivery}",
                   style: TextStyle(
                     color: Color(0xFF666666),
                     fontWeight: FontWeight.w700,
@@ -105,10 +105,10 @@ class CheckoutScreen extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const Padding(
+                Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  "Delivery method",
+                  "${AppLocalizations.of(context)!.delivery_method}",
                   style: TextStyle(
                     color: Color(0xFF666666),
                     fontWeight: FontWeight.w700,
@@ -124,7 +124,7 @@ class CheckoutScreen extends StatelessWidget {
                 height: 32,
               ),
               DefaultButton(
-                text: "Checkout",
+                text:  "${AppLocalizations.of(context)!.checkout}",
                 onTap: () {
                   Navigator.pushNamed(context, OrderDetailsScreen.routeName);
                 },

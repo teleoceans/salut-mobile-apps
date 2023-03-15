@@ -77,8 +77,8 @@ class _AddressesScreenState extends State<AddressesScreen> {
                               Image.asset("assets/images/no_address.png"),
                               const Spacer(),
                                 UnderPictureBody(
-                                body: "${AppLocalizations.of(context)!.add_addresses}",//mass1_addresses
-                                  title: "${AppLocalizations.of(context)!.add_addresses}",//mass2_addresses
+                                body: "${AppLocalizations.of(context)!.mass1_addresses}",
+                                  title: "${AppLocalizations.of(context)!.mass2_addresses}",
                               ),
                               const Spacer(),
                               DefaultButton(

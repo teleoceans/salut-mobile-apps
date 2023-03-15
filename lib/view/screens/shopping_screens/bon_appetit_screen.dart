@@ -5,7 +5,7 @@ import 'package:salute/data/providers/shopping_provider.dart';
 import 'package:salute/main.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class BonAppetitScreen extends StatelessWidget {
   const BonAppetitScreen({super.key});
   static const String routeName = "BonAppetitScreen";
@@ -19,8 +19,8 @@ class BonAppetitScreen extends StatelessWidget {
             children: [
               Image.asset("assets/images/finished_order.png"),
               const Spacer(),
-              const Text(
-                "Bon appetit",
+              Text(
+                "${AppLocalizations.of(context)!.appetit}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ class BonAppetitScreen extends StatelessWidget {
               ),
               const Spacer(),
               DefaultButton(
-                text: "Need Support",
+                text: "${AppLocalizations.of(context)!.support}",
                 onTap: () {
                   showDialog(
                     context: context,
@@ -42,7 +42,7 @@ class BonAppetitScreen extends StatelessWidget {
                 height: 20,
               ),
               DefaultButton(
-                text: "Finish",
+                text: "${AppLocalizations.of(context)!.finish}",
                 textColor: kPrimaryColor,
                 borderColor: kPrimaryColor,
                 backgroundColor: Colors.transparent,

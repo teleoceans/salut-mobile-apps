@@ -76,8 +76,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: 18,
               ),
               DefaultButton(
-                text: "Register",
-                //text: "${AppLocalizations.of(context)!.register}",
+
+                 text: "${AppLocalizations.of(context)!.register}",
                 onTap: () {
                   Navigator.pushReplacementNamed(
                       context, SignUpScreen.routeName);
@@ -89,8 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               isLoading
                   ? kCircularLoadingProgress
                   : DefaultButton(
-                      text: "Continue as a guest",
-                      //text: "${AppLocalizations.of(context)!.guest}",
+                      text: "${AppLocalizations.of(context)!.guest}",
                       backgroundColor: Colors.transparent,
                       borderColor: Colors.white,
                       onTap: getData,

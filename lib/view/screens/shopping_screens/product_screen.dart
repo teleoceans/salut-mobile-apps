@@ -7,6 +7,7 @@ import 'package:salute/view/components/shopping_components/size_choose_widget.da
 import 'package:salute/view/components/shopping_components/quantity_widget.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/food_product.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/default_form_field.dart';
 import '../../components/shopping_components/addons_list_view.dart';
@@ -57,7 +58,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       borderRadius: BorderRadius.circular(16),
                       child: DefaultFormField(
                         borderRadius: 16,
-                        hintText: "Search....",
+                        hintText: "${AppLocalizations.of(context)!.search}",
                         unFocusColor: Colors.black.withOpacity(0.1),
                         focusColor: Colors.black.withOpacity(0.2),
                         textColor: Colors.black,
@@ -111,10 +112,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               listen: false)
                           .food,
                     ),
-                    const Padding(
+                      Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        "Description",
+                       "${AppLocalizations.of(context)!.description}",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -133,10 +134,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                     const SizeChooseWidget(),
-                    const Padding(
+                      Padding(
                       padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
                       child: Text(
-                        "Addons:",
+                        "${AppLocalizations.of(context)!.addons}",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -151,10 +152,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         items: food!.addons ?? [],
                       ),
                     ),
-                    const Padding(
+                      Padding(
                       padding: EdgeInsets.only(left: 16.0, right: 16, top: 16),
                       child: Text(
-                        "Extras:",
+                        "${AppLocalizations.of(context)!.extras}",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -185,7 +186,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     borderColor: Colors.grey,
                     padding: 16,
                     margin: 16,
-                    text: "Remove",
+                    text: "${AppLocalizations.of(context)!.remove}",
                     onTap: () {
                       Provider.of<ProductsProvider>(context, listen: false)
                           .toggleCartStatus(food!);
@@ -194,7 +195,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 : DefaultButton(
                     padding: 16,
                     margin: 16,
-                    text: "Add to Cart",
+                    text: "${AppLocalizations.of(context)!.add_cart}",
                     onTap: () {
                       Provider.of<ProductsProvider>(context, listen: false)
                           .toggleCartStatus(food!);
@@ -202,8 +203,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Add to Cart",
+                          Text(
+                            "${AppLocalizations.of(context)!.add_cart}",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

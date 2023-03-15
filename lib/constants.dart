@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'main.dart';
 
 const Color kPrimaryColor = Color(0xFF472BBE);
@@ -39,9 +39,9 @@ AppBar kSkipApp(BuildContext context) {
         onTap: () =>
             kReplaceAllCurrentScreens(context, routeName: MyHomePage.routeName),
         child: Row(
-          children: const [
+          children:   [
             Text(
-              "Skip ",
+             "${AppLocalizations.of(context)!.skip}",
               style: kSkipTextStyle,
             ),
             Icon(

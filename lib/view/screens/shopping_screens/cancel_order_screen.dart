@@ -7,6 +7,7 @@ import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/registration_components/under_picture_body.dart';
 import 'package:salute/view/components/shopping_components/cancel_reason.dart';
 import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CancelOrderScreen extends StatelessWidget {
   const CancelOrderScreen({super.key});
@@ -21,9 +22,10 @@ class CancelOrderScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset('assets/images/cancel_order.png'),
-                const UnderPictureBody(
-                  body: 'Let us know the reason! ',
-                  title: 'Your order has been cancelled !',
+                 UnderPictureBody(
+                  body: "${AppLocalizations.of(context)!.reason}",
+                  title: "${AppLocalizations.of(context)!.order_cancelled}",
+
                 ),
                 const SizedBox(
                   height: 20,
@@ -33,7 +35,7 @@ class CancelOrderScreen extends StatelessWidget {
                   height: 32,
                 ),
                 DefaultButton(
-                  text: "Need Support",
+                  text: "${AppLocalizations.of(context)!.support}",
                   onTap: () {
                     showDialog(
                       context: context,
@@ -45,7 +47,7 @@ class CancelOrderScreen extends StatelessWidget {
                   height: 20,
                 ),
                 DefaultButton(
-                  text: "Finish",
+                  text: "${AppLocalizations.of(context)!.finish}",
                   textColor: kPrimaryColor,
                   backgroundColor: Colors.transparent,
                   onTap: () {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/components/registration_components/password_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/default_button.dart';
 import '../../components/default_form_field.dart';
@@ -15,8 +16,8 @@ class ChangeEmailScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: kArrowBack(context),
-        title: const Text(
-          "Change email",
+        title:   Text(
+          "${AppLocalizations.of(context)!.change_email}",
           style: kAppBarTitleStyle,
         ),
       ),
@@ -25,8 +26,8 @@ class ChangeEmailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "New email",
+              Text(
+              "${AppLocalizations.of(context)!.new_email}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -44,8 +45,8 @@ class ChangeEmailScreen extends StatelessWidget {
             const SizedBox(
               height: 36,
             ),
-            const Text(
-              "Confirm new email",
+              Text(
+              "${AppLocalizations.of(context)!.confirm_email}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -63,8 +64,8 @@ class ChangeEmailScreen extends StatelessWidget {
             const SizedBox(
               height: 36,
             ),
-            const Text(
-              "Password",
+              Text(
+              "${AppLocalizations.of(context)!.password}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -85,7 +86,7 @@ class ChangeEmailScreen extends StatelessWidget {
             ),
             DefaultButton(
               margin: 64,
-              text: "Submit",
+              text: "${AppLocalizations.of(context)!.submit}",
               onTap: () {},
             ),
           ],

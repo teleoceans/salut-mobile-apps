@@ -2,7 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:salute/view/screens/registration_screens/facing_problem_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../constants.dart';
 import '../../components/default_button.dart';
 import '../../components/registration_components/under_picture_body.dart';
@@ -30,13 +30,13 @@ class HelpWithTkafolScreen extends StatelessWidget {
                 child: Image.asset("assets/images/tkafol.png"),
               ),
               const Spacer(),
-              const UnderPictureBody(
-                body: "You done it Registration compelete",
-                title: "Help othes with tkafol",
+                UnderPictureBody(
+                body:"${AppLocalizations.of(context)!.reg_mass1}",
+                title: "${AppLocalizations.of(context)!.tkafol_mass}",
               ),
               const Spacer(),
               DefaultButton(
-                text: "Next",
+                text: "${AppLocalizations.of(context)!.next}" ,
                 onTap: () {
                   Navigator.pushNamed(context, FacingProblemScreen.routeName);
                 },

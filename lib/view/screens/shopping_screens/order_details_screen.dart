@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../constants.dart';
 import '../../../data/models/address.dart';
 import '../../../data/providers/addresses_provider.dart';
@@ -66,8 +66,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: kArrowBack(context),
-        title: const Text(
-          "Checkout",
+        title: Text(
+          "${AppLocalizations.of(context)!.checkout}",
           style: kAppBarTitleStyle,
         ),
       ),
@@ -86,7 +86,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     address:
                         Provider.of<AddressesProvider>(context, listen: false)
                             .currentAddress,
-                    suffixText: "Change",
+                    suffixText: "${AppLocalizations.of(context)!.change}",
                   ),
                   const SizedBox(
                     height: 16,
@@ -107,8 +107,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "By placing on order you agree to our ",
+                          Text(
+                          "${AppLocalizations.of(context)!.placing_order}",
                           style: TextStyle(color: Colors.black),
                         ),
                         const SizedBox(
@@ -118,22 +118,22 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {},
-                              child: const Text(
-                                "Terms",
+                              child:   Text(
+                                "${AppLocalizations.of(context)!.terms}",
                                 style: TextStyle(
                                   color: kTermsAndConditionsColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const Text(
-                              " and ",
+                              Text(
+                              "${AppLocalizations.of(context)!.and}",
                               style: TextStyle(color: Colors.black),
                             ),
                             GestureDetector(
                               onTap: () {},
-                              child: const Text(
-                                "Conditions",
+                              child:   Text(
+                                "${AppLocalizations.of(context)!.conditions}",
                                 style: TextStyle(
                                   color: kTermsAndConditionsColor,
                                   fontWeight: FontWeight.bold,
@@ -160,8 +160,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Total",
+                          Text(
+                          "${AppLocalizations.of(context)!.totalt}",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 23,
@@ -181,7 +181,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   Expanded(
                     child: DefaultButton(
-                      text: "Edit Order",
+                      text: "${AppLocalizations.of(context)!.edit_order}",
                       backgroundColor: Colors.transparent,
                       textColor: kPrimaryColor,
                       onTap: () {
@@ -199,7 +199,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             isLoading
                 ? kCircularLoadingProgress
                 : DefaultButton(
-                    text: "Place Order",
+                    text: "${AppLocalizations.of(context)!.place_order}",
                     onTap: placeOrder,
                     margin: 16,
                   ),

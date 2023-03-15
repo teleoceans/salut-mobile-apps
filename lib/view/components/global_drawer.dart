@@ -6,6 +6,7 @@ import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
 import 'package:salute/view/screens/profile_screens/settings_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_history_screen.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'drawer_list_tile.dart';
 
@@ -56,61 +57,61 @@ class GlobalDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: true,
                   assetImage: 'assets/images/track_order.png',
-                  title: 'Track Order',
+                  title:  "${AppLocalizations.of(context)!.track_order}",
                   nextScreen: TrackOrderScreen.routeName,
                 ),
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: true,
                   assetImage: 'assets/images/order_history.png',
-                  title: 'Order history',
+                  title: "${AppLocalizations.of(context)!.history_order}",
                   nextScreen: OrderHistoryScreen.routeName,
                 ),
                 DrawerListTile(
                   isImage: false,
                   icon: Icons.favorite,
-                  title: 'Favourites',
+                  title: "${AppLocalizations.of(context)!.favourites}",
                   nextScreen: "FavoritesScreen.routeName",
                   onTap: favoritesOnTap,
                 ),
                 DrawerListTile(
                   isImage: true,
                   assetImage: 'assets/images/invite.png',
-                  title: 'Invite',
+                  title:  "${AppLocalizations.of(context)!.invite}",
                   onTap: inviteOnTap,
                   nextScreen: "",
                 ),
                 DrawerListTile(
                   isImage: true,
                   assetImage: 'assets/images/tkafol_drawer.png',
-                  title: 'Tkafol',
+                  title: "${AppLocalizations.of(context)!.tkafol}",
                   onTap: tkafolOnTap,
                   nextScreen: '',
                 ),
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: false,
                   icon: Icons.settings,
-                  title: 'Settings',
+                  title:  "${AppLocalizations.of(context)!.settings}",
                   nextScreen: SettingsScreen.routeName,
                 ),
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: true,
                   assetImage: 'assets/images/contact_us_drawer.png',
-                  title: 'Contact us',
+                  title: "${AppLocalizations.of(context)!.contactus}",
                   nextScreen: " SettingsScreen.routeName",
                 ),
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: true,
                   assetImage: "assets/images/about_us_drawer.png",
-                  title: 'About us',
+                  title:"${AppLocalizations.of(context)!.aboutUs}",
                   nextScreen: AboutUsScreen.routeName,
                 ),
-                const DrawerListTile(
+                  DrawerListTile(
                   isImage: true,
                   assetImage: "assets/images/terms_of_use.png",
-                  title: 'Terms of use',
+                  title:"${AppLocalizations.of(context)!.terms}",
                   nextScreen: TermsOfUseScreen.routeName,
                 ),
               ],

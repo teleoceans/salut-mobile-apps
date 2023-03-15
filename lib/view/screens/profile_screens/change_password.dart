@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/registration_components/password_field.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../constants.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -14,8 +14,8 @@ class ChangePasswordScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: kArrowBack(context),
-        title: const Text(
-          "Change Password",
+        title:   Text(
+           "${AppLocalizations.of(context)!.change_password}",
           style:kAppBarTitleStyle,
         ),
       ),
@@ -24,8 +24,8 @@ class ChangePasswordScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Current Password",
+              Text(
+              "${AppLocalizations.of(context)!.current_password}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -44,8 +44,8 @@ class ChangePasswordScreen extends StatelessWidget {
             const SizedBox(
               height: 36,
             ),
-            const Text(
-              "New password",
+              Text(
+              "${AppLocalizations.of(context)!.new_password}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -64,8 +64,8 @@ class ChangePasswordScreen extends StatelessWidget {
             const SizedBox(
               height: 36,
             ),
-            const Text(
-              "Confirm new password",
+              Text(
+              "${AppLocalizations.of(context)!.confirm_password}",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -86,7 +86,7 @@ class ChangePasswordScreen extends StatelessWidget {
             ),
             DefaultButton(
               margin: 64,
-              text: "Submit",
+              text: "${AppLocalizations.of(context)!.submit}",
               onTap: () {},
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/screens/registration_screens/enter_code_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../components/registration_components/under_picture_body.dart';
 
 class CheckYourEmailScreen extends StatelessWidget {
@@ -23,14 +23,14 @@ class CheckYourEmailScreen extends StatelessWidget {
             children: [
               Image.asset("assets/images/check_mail.png"),
               const Spacer(),
-              const UnderPictureBody(
-                body:
-                    "Password has been sent to you email. please check your email and follow instructions",
-                title: "Check you email!",
+              UnderPictureBody(
+                body:"${AppLocalizations.of(context)!.check_email_mass}",
+                  title:"${AppLocalizations.of(context)!.check_email}"
+
               ),
               const Spacer(),
               DefaultButton(
-                text: "Next",
+                text: "${AppLocalizations.of(context)!.next}",
                 onTap: () {
                   Navigator.pushNamed(context, EnterCodeScreen.routeName);
                 },

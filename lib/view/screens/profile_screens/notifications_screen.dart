@@ -53,9 +53,9 @@ class _NotifictaionScreenState extends State<NotifictaionScreen> {
               fontSize: 18,
             ),
             tabs: [
-              Tab(text: "${AppLocalizations.of(context)!.cart}"),//all
-              Tab(text: "${AppLocalizations.of(context)!.cart}"),//discounts
-              Tab(text: "${AppLocalizations.of(context)!.cart}"),//announcements
+              Tab(text: "${AppLocalizations.of(context)!.all}"),
+              Tab(text: "${AppLocalizations.of(context)!.discounts}"),
+              Tab(text: "${AppLocalizations.of(context)!.announcements}"),
             ],
           ),
         ),

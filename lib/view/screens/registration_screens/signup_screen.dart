@@ -11,7 +11,7 @@ import 'package:salute/view/components/registration_components/sign_with_social_
 import 'package:salute/constants.dart';
 import '../../components/default_form_field.dart';
 import '../../components/registration_components/password_field.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
   static const String routeName = "SignupScreen";
@@ -35,8 +35,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (!Provider.of<AuthProvider>(context, listen: false).isTermsChecked) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Please agree to terms and conditions"),
+          SnackBar(
+          content: Text("${AppLocalizations.of(context)!.terms_agree}"
+             ),
         ),
       );
       return;
@@ -110,14 +111,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const SignWithSocialMedia(
-                  title: "Sign up with",
+                  SignWithSocialMedia(
+                  title: "${AppLocalizations.of(context)!.signup_w}"
                 ),
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  "Name",
+                  Text(
+                    "${AppLocalizations.of(context)!.name}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -130,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 DefaultFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Please enter a valid name";
+                      return "${AppLocalizations.of(context)!.name_va}";
                     }
                     return null;
                   },
@@ -140,8 +141,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  "Email",
+                  Text(
+                    "${AppLocalizations.of(context)!.email}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -154,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 DefaultFormField(
                   validator: (value) {
                     if (value!.isEmpty || !value.contains("@")) {
-                      return "Please enter a valid email";
+                      return "${AppLocalizations.of(context)!.email_va}";
                     }
                     return null;
                   },
@@ -164,8 +165,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  "Password",
+                  Text(
+                    "${AppLocalizations.of(context)!.password}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -178,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 PasswordFormField(
                   validator: (value) {
                     if (value!.isEmpty || value.length < 6) {
-                      return 'Enter a valid password has more than 6 characters';
+                      return "${AppLocalizations.of(context)!.password_va2}";
                     }
                     return null;
                   },
@@ -189,8 +190,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  "Phone Number",
+                  Text(
+                    "${AppLocalizations.of(context)!.number}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -206,10 +207,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: Color.fromARGB(255, 184, 184, 184)),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter a valid phone number';
+                      return "${AppLocalizations.of(context)!.number_va1}";
                     }
                     else if (value[0] != '+') {
-                      return "Please add your country code";
+                      return "${AppLocalizations.of(context)!.number_va2}";
                     }
                     // else if (value.length==11) {
                     //   return "Please enter a valid phone number";
@@ -223,8 +224,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const Text(
-                  "Birthday",
+                  Text(
+                    "${AppLocalizations.of(context)!.dateOfBirth}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -237,10 +238,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 DatePickerField(
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter a valid birthday date';
+                      return "${AppLocalizations.of(context)!.birthday_va1}";
                     } else if (DateTime(int.parse(value.substring(0, 3)))
                         .isAfter(DateTime(2008))) {
-                      return "You must be older than 16 years old";
+                      return "${AppLocalizations.of(context)!.birthday_va2}";
                     }
                     return null;
                   },
@@ -251,24 +252,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Row(
                   children: [
-                    const CustomCheckBox(
-                      title: "I agree to ",
+                      CustomCheckBox(
+                      title: "${AppLocalizations.of(context)!.agree}",
                     ),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        "Terms",
+                      child:   Text(
+                        "${AppLocalizations.of(context)!.terms}",
                         style: TextStyle(
                           color: kTermsAndConditionsColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const Text(" and "),
+                     Text("${AppLocalizations.of(context)!.and}",),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        "Conditions",
+                      child:  Text(
+                        "${AppLocalizations.of(context)!.conditions}" ,
                         style: TextStyle(
                           color: kTermsAndConditionsColor,
                           fontWeight: FontWeight.bold,
@@ -283,7 +284,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 isLoading
                     ? kCircularLoadingProgress
                     : DefaultButton(
-                        text: "Continue",
+                        text: "${AppLocalizations.of(context)!.continuee}",
                         onTap: signup,
                       ),
               ],

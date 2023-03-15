@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/default_form_field.dart';
 import '../../components/registration_components/under_picture_body.dart';
@@ -24,9 +25,9 @@ class EnterCodeScreen extends StatelessWidget {
             children: [
               Image.asset("assets/images/enter_code.png"),
               const Spacer(),
-              const UnderPictureBody(
-                body: "Enter the code that was sent to\n01023456789",
-                title: "Phone Verification",
+                UnderPictureBody(
+                body: "${AppLocalizations.of(context)!.cart}",//phone_verification_mass
+                title: "${AppLocalizations.of(context)!.cart}",//phone_verification
               ),
               const Spacer(),
               Padding(
@@ -117,7 +118,7 @@ class EnterCodeScreen extends StatelessWidget {
               ),
               const Spacer(),
               DefaultButton(
-                text: "Continue",
+                text: "${AppLocalizations.of(context)!.cart}",//continue
                 onTap: () {
                   // Navigator.pushAndRemoveUntil(
                   //   context,

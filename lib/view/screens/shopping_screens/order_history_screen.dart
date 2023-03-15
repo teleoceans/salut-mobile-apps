@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/components/registration_components/under_picture_body.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -14,11 +15,11 @@ class OrderHistoryScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: kArrowBack(context),
-          title: const Text(
-            "Orders",
+          title:   Text(
+            "${AppLocalizations.of(context)!.order}",
             style: kAppBarTitleStyle,
           ),
-          bottom: const TabBar(
+          bottom:   TabBar(
             unselectedLabelColor: Colors.grey,
             labelColor: kPrimaryColor,
             indicatorColor: kPrimaryColor,
@@ -29,10 +30,10 @@ class OrderHistoryScreen extends StatelessWidget {
             ),
             tabs: [
               Tab(
-                text: "Ongoing",
+                text: "${AppLocalizations.of(context)!.ongoing}",
               ),
               Tab(
-                text: "History",
+                text:"${AppLocalizations.of(context)!.history}",
               ),
             ],
           ),
@@ -48,9 +49,9 @@ class OrderHistoryScreen extends StatelessWidget {
                 children: [
                   Image.asset('assets/images/no_order_history.png'),
                   const Spacer(),
-                  const UnderPictureBody(
-                    body: 'your Ongoing orders will be placed here',
-                    title: 'No orders placed yet!',
+                    UnderPictureBody(
+                    body: "${AppLocalizations.of(context)!.mass_order1}",
+                    title:  "${AppLocalizations.of(context)!.mass_order2}",
                   ),
                   const Spacer(),
                 ],
@@ -65,9 +66,9 @@ class OrderHistoryScreen extends StatelessWidget {
                 children: [
                   Image.asset('assets/images/no_order_history.png'),
                   const Spacer(),
-                  const UnderPictureBody(
-                    body: 'your Ongoing orders will be placed here',
-                    title: 'No orders placed yet!',
+                    UnderPictureBody(
+                      body: "${AppLocalizations.of(context)!.mass_order1}",
+                      title:  "${AppLocalizations.of(context)!.mass_order2}",
                   ),
                   const Spacer(),
                 ],

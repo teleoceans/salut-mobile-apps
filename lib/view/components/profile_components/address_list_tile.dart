@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salute/data/models/address.dart';
 import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/view/screens/profile_screens/add_address_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressListTile extends StatelessWidget {
   const AddressListTile({
@@ -43,7 +44,7 @@ class AddressListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "apartment: ${address.apartmentNumber}, floor: ${address.floorNumber}, ${address.buildNumber} ${address.streetName} st.",
+                        "${AppLocalizations.of(context)!.apartment}: ${address.apartmentNumber}, ${AppLocalizations.of(context)!.floor}: ${address.floorNumber}, ${address.buildNumber} ${address.streetName} st.",
                         style: const TextStyle(
                           color: Colors.grey,
                         ),

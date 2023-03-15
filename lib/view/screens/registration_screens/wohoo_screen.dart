@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../main.dart';
 import '../../components/default_button.dart';
 import '../../components/registration_components/under_picture_body.dart';
@@ -27,13 +27,13 @@ class WohooScreen extends StatelessWidget {
                 child: Image.asset("assets/images/registration_done.png"),
               ),
               const Spacer(),
-              const UnderPictureBody(
-                body: "You have done it Registration compelete",
-                title: "Woohoo!",
+                UnderPictureBody(
+                body: "${AppLocalizations.of(context)!.reg_mass1}",
+                title: "${AppLocalizations.of(context)!.woohoo}",
               ),
               const Spacer(),
               DefaultButton(
-                text: "Next",
+                text: "${AppLocalizations.of(context)!.next}",
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,

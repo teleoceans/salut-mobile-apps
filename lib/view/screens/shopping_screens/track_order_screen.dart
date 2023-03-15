@@ -9,6 +9,7 @@ import 'package:salute/view/components/shopping_components/recieved_order_contai
 import 'package:salute/view/components/shopping_components/tracking_component.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/tracking_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrackOrderScreen extends StatefulWidget {
   const TrackOrderScreen({super.key});
@@ -80,10 +81,10 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                     body: kCircularLoadingProgress,
                   )
                 : orderStatus == null
-                    ? const Scaffold(
+                    ?   Scaffold(
                         body: Center(
                           child: Text(
-                            "No Orders has been Placed yet",
+                           "${AppLocalizations.of(context)!.mass_order3}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 30,
@@ -96,8 +97,8 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                           elevation: 0,
                           backgroundColor: Colors.transparent,
                           leading: kArrowBack(context),
-                          title: const Text(
-                            "Delivery Status",
+                          title:   Text(
+                            "${AppLocalizations.of(context)!.delivery_status}",
                             style: kAppBarTitleStyle,
                           ),
                         ),
@@ -125,7 +126,8 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                         fontSize: 24,
                                       ),
                                       children: [
-                                        const TextSpan(text: 'Order Number'),
+                                          TextSpan(text: "${AppLocalizations.of(context)!.number_order}",
+                                     ),
                                         TextSpan(
                                           text: ' #${orderStatus!.id}',
                                           style: const TextStyle(
@@ -142,13 +144,11 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                       children: [
                                         TrackingOrder(
                                           trackingModel: TrackingModel(
-                                              isActived:
-                                                  orderStatus!.statusId >= 1,
-                                              time:
-                                                  "${orderStatus!.pendingTime}",
-                                              title: "Pending",
-                                              subTitle:
-                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                              isActived: orderStatus!.statusId >= 1,
+                                              time: "${orderStatus!.pendingTime}",
+                                              title: "${AppLocalizations.of(context)!.pending}",
+                                              subTitle: "${AppLocalizations.of(context)!.consectetur}",
+                                                  ),
                                         ),
                                         const SizedBox(
                                           height: 4,
@@ -158,9 +158,10 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               isActived:
                                                   orderStatus!.statusId >= 2,
                                               time: "00:00 AM",
-                                              title: "Confirmed",
+                                              title: "${AppLocalizations.of(context)!.confirmed}",
                                               subTitle:
-                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                              "${AppLocalizations.of(context)!.consectetur}",
+                                             ),
                                         ),
                                         const SizedBox(
                                           height: 4,
@@ -170,9 +171,9 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               isActived:
                                                   orderStatus!.statusId >= 3,
                                               time: "00:00 AM",
-                                              title: "Out for delivery ",
-                                              subTitle:
-                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                              title: "${AppLocalizations.of(context)!.out_delivery}",
+                                              subTitle: "${AppLocalizations.of(context)!.consectetur}",
+                                          ),
                                         ),
                                         const SizedBox(
                                           height: 4,
@@ -182,9 +183,9 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               isActived:
                                                   orderStatus!.statusId >= 4,
                                               time: "00:00 AM",
-                                              title: "Delivered",
-                                              subTitle:
-                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                                              title: "${AppLocalizations.of(context)!.delived}",
+                                              subTitle:"${AppLocalizations.of(context)!.consectetur}",
+                                                  ),
                                         ),
                                         const SizedBox(
                                           height: 12,

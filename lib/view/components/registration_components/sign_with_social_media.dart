@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SignWithSocialMedia extends StatelessWidget {
   const SignWithSocialMedia({super.key, this.title});
   final String? title;
@@ -11,7 +11,7 @@ class SignWithSocialMedia extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            title ?? "Sign in with",
+            title ?? "${AppLocalizations.of(context)!.signup_w}",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -84,8 +84,8 @@ class SignWithSocialMedia extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            const Text(
-              "or",
+              Text(
+              "${AppLocalizations.of(context)!.or}",
               style: TextStyle(
                 color: Colors.white,
               ),

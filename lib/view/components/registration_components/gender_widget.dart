@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GenderWidget extends StatefulWidget {
   const GenderWidget({super.key, this.textColor});
@@ -24,7 +25,7 @@ class _GenderWidgetState extends State<GenderWidget> {
             height: 12,
           ),
           Text(
-            "Gender",
+            "${AppLocalizations.of(context)!.gender}",
             style: TextStyle(
               color: widget.textColor ?? Colors.white,
               fontSize: 20,
@@ -46,7 +47,7 @@ class _GenderWidgetState extends State<GenderWidget> {
                     });
                   }),
               Text(
-                "male",
+                "${AppLocalizations.of(context)!.male}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,
@@ -69,7 +70,7 @@ class _GenderWidgetState extends State<GenderWidget> {
                     });
                   }),
               Text(
-                "female",
+                 "${AppLocalizations.of(context)!.female}",
                 style: TextStyle(
                   color: widget.textColor ?? Colors.white,
                   fontSize: 18,

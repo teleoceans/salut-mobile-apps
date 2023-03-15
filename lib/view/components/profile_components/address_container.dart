@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/data/models/address.dart';
 import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddressContainer extends StatelessWidget {
   const AddressContainer({
     super.key,
@@ -33,10 +33,10 @@ class AddressContainer extends StatelessWidget {
       child: Row(
         children: [
           if (address == null)
-            const Expanded(
+              Expanded(
               child: Center(
                 child: Text(
-                  "No Added Addresses",
+                  "${AppLocalizations.of(context)!.no_addresses}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -62,7 +62,7 @@ class AddressContainer extends StatelessWidget {
                     height: 16,
                   ),
                   Text(
-                    "apartment: ${address!.apartmentNumber}, floor: ${address!.floorNumber}, ${address!.buildNumber} ${address!.streetName} st.",
+                    "${AppLocalizations.of(context)!.apartment}: ${address!.apartmentNumber}, ${AppLocalizations.of(context)!.floor}: ${address!.floorNumber}, ${address!.buildNumber} ${address!.streetName} st.",
                     style: const TextStyle(
                       color: Colors.grey,
                     ),
@@ -75,7 +75,7 @@ class AddressContainer extends StatelessWidget {
               Navigator.pushNamed(context, AddressesScreen.routeName);
             },
             child: Text(
-              suffixText ?? "Add",
+              suffixText ??  "${AppLocalizations.of(context)!.add}",
               style: const TextStyle(
                 fontSize: 18,
                 color: Colors.green,
