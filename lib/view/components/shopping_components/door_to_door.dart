@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoorToDoor extends StatelessWidget {
   const DoorToDoor({super.key});
@@ -20,7 +21,7 @@ class DoorToDoor extends StatelessWidget {
         ],
       ),
       child: Row(
-        children: const [
+        children:   [
           CircleAvatar(
             backgroundColor: Colors.green,
             radius: 15,
@@ -35,7 +36,7 @@ class DoorToDoor extends StatelessWidget {
             width: 22,
           ),
           Text(
-            "Door to door",
+            "${AppLocalizations.of(context)!.door}",
             style: TextStyle(
               color: Color.fromARGB(255, 63, 63, 63),
               fontWeight: FontWeight.bold,

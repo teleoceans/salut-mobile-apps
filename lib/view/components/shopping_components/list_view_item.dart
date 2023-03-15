@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/default_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/models/food_product.dart';
 
@@ -114,7 +115,7 @@ class _ListViewItemState extends State<ListViewItem> {
               widget.forFav
                   ? widget.product.isAddedtoCart
                       ? DefaultButton(
-                          text: "Remove",
+                          text:"${AppLocalizations.of(context)!.remove}",
                           onTap: () {
                             Provider.of<ProductsProvider>(context,
                                     listen: false)
@@ -127,7 +128,7 @@ class _ListViewItemState extends State<ListViewItem> {
                           borderColor: Colors.grey,
                         )
                       : DefaultButton(
-                          text: "Add To Cart",
+                          text: "${AppLocalizations.of(context)!.add_cart}",
                           onTap: () {
                             Provider.of<ProductsProvider>(context,
                                     listen: false)

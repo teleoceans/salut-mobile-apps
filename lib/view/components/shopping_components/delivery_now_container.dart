@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/providers/products_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeliveryNowContainer extends StatelessWidget {
   const DeliveryNowContainer({super.key});
@@ -41,7 +42,7 @@ class DeliveryNowContainer extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
-                    "Lightning Delivery",
+                    "${AppLocalizations.of(context)!.delivery_li}",
                     style: TextStyle(
                       color: Provider.of<ProductsProvider>(context).wantsNow
                           ? const Color.fromARGB(255, 63, 63, 63)
@@ -56,7 +57,7 @@ class DeliveryNowContainer extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                "        20 mins to your doorstep",
+                "${AppLocalizations.of(context)!.doorstep}",
                 style: TextStyle(
                     color: Provider.of<ProductsProvider>(context).wantsNow
                         ? const Color(0xFF666666)

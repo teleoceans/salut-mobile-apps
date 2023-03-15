@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:salute/data/helpers/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../default_button.dart';
 
@@ -17,8 +19,8 @@ class TkafolComponent extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          const Text(
-            "You have",
+            Text(
+            "${AppLocalizations.of(context)!.you_have}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,
@@ -29,7 +31,7 @@ class TkafolComponent extends StatelessWidget {
             height: 12,
           ),
           RichText(
-            text: const TextSpan(
+            text:   TextSpan(
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
@@ -37,7 +39,7 @@ class TkafolComponent extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: "200.00",
+                  text: "${SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} ",
                 ),
                 TextSpan(
                   text: "  pt",
@@ -53,8 +55,8 @@ class TkafolComponent extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Text(
-            "What is Tkafol",
+            Text(
+            "${AppLocalizations.of(context)!.wh_tkafol}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,
@@ -63,8 +65,8 @@ class TkafolComponent extends StatelessWidget {
           ),
         ],
       ),
-      content: const Text(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna non, mauris pulvinar non scelerisque nullam tellus nec.",
+      content:   Text(
+        "${AppLocalizations.of(context)!.mass_tkafol}",
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.black,
@@ -79,7 +81,7 @@ class TkafolComponent extends StatelessWidget {
             right: 50,
           ),
           child: DefaultButton(
-            text: "Get it",
+            text: "${AppLocalizations.of(context)!.get}",
             onTap: () {
               Navigator.pop(context);
             },

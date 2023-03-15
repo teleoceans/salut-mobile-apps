@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/main.dart';
@@ -135,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           prefixIcon: "assets/images/tkafol_drawer.png",
           title: "${AppLocalizations.of(context)!.tkafol}",
           fontWeight: FontWeight.bold,
-          suffixText: "200.00 pt",
+          suffixText: "${SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
         ),
         const SizedBox(
           height: 12,

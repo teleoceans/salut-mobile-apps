@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SizeChooseWidget extends StatefulWidget {
   const SizeChooseWidget({super.key});
@@ -23,8 +24,8 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
             const SizedBox(
               height: 12,
             ),
-            const Text(
-              "Choose size:",
+              Text(
+              "${AppLocalizations.of(context)!.size}",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -34,8 +35,8 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Small    ",
+                  Text(
+                 "${AppLocalizations.of(context)!.small}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -59,8 +60,8 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Medium",
+                  Text(
+                  "${AppLocalizations.of(context)!.medium}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -84,8 +85,8 @@ class _SizeChooseWidgetState extends State<SizeChooseWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Large    ",
+                  Text(
+                  "${AppLocalizations.of(context)!.large}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/shopping_components/help_alert_dialog.dart';
 import 'package:salute/view/screens/shopping_screens/bon_appetit_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecievedOrderContainer extends StatefulWidget {
   const RecievedOrderContainer({super.key});
@@ -30,8 +31,8 @@ class _RecievedOrderContainerState extends State<RecievedOrderContainer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Have you received your meal ?",
+              Text(
+                "${AppLocalizations.of(context)!.received_meal}",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 15,
@@ -55,9 +56,9 @@ class _RecievedOrderContainerState extends State<RecievedOrderContainer> {
                       Navigator.pushNamedAndRemoveUntil(context,
                           BonAppetitScreen.routeName, (route) => count++ >= 2);
                     }),
-                const Text(
-                  "yes",
-                  style: TextStyle(color: Colors.black),
+                  Text(
+                  "${AppLocalizations.of(context)!.yes}",
+                    style: TextStyle(color: Colors.black),
                 ),
               ],
             ),
@@ -77,8 +78,8 @@ class _RecievedOrderContainerState extends State<RecievedOrderContainer> {
                         builder: (context) => const HelpAlertDialog(),
                       );
                     }),
-                const Text(
-                  "no",
+                  Text(
+                 "${AppLocalizations.of(context)!.no}",
                   style: TextStyle(color: Colors.black),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salute/view/components/default_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CancelOrderReason extends StatefulWidget {
   const CancelOrderReason({super.key});
@@ -41,8 +42,8 @@ class _CancelOrderReasonState extends State<CancelOrderReason> {
                 const SizedBox(
                   width: 8,
                 ),
-                const Text(
-                  "Order took too long",
+                  Text(
+                  "${AppLocalizations.of(context)!.order_long}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -69,8 +70,8 @@ class _CancelOrderReasonState extends State<CancelOrderReason> {
                 const SizedBox(
                   width: 8,
                 ),
-                const Text(
-                  "I don’t want it anymore",
+                  Text(
+                  "${AppLocalizations.of(context)!.anymore}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -97,8 +98,8 @@ class _CancelOrderReasonState extends State<CancelOrderReason> {
                 const SizedBox(
                   width: 8,
                 ),
-                const Text(
-                  "Other",
+                 Text(
+                  "${AppLocalizations.of(context)!.order}",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -113,7 +114,7 @@ class _CancelOrderReasonState extends State<CancelOrderReason> {
               enabled: currentValue == 2,
               keyboardType:
                   currentValue == 2 ? TextInputType.none : TextInputType.text,
-              hintText: "Type Here...",
+              hintText: "${AppLocalizations.of(context)!.type_here}",
               focusColor: Colors.black,
               maxLines: 5,
               borderRadius: 12,

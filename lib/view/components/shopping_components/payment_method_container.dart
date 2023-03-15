@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentMethodsContainer extends StatelessWidget {
   const PaymentMethodsContainer({
@@ -28,8 +29,8 @@ class PaymentMethodsContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Payment Methods",
+              Text(
+              "${AppLocalizations.of(context)!.payment_m}",
               style: TextStyle(
                 color: Color.fromARGB(255, 63, 63, 63),
                 fontWeight: FontWeight.bold,
@@ -48,8 +49,8 @@ class PaymentMethodsContainer extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
-                const Text(
-                  "Cash on delivery",
+                  Text(
+                  "${AppLocalizations.of(context)!.cash}",
                   style: TextStyle(
                     color: Color(0xFF666666),
                     fontSize: 15,

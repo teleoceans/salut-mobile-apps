@@ -4,6 +4,7 @@ import 'package:salute/data/helpers/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:salute/main.dart';
 
 import '../models/user.dart';
 
@@ -120,8 +121,9 @@ class AuthProvider with ChangeNotifier {
         _user.setAuthToken = data["access_token"];
         _user.setPassword = password;
         _user.birthday = data["data"]["birthday"];
+        _user.points = data["data"]["points"];
         SharedPreferencesHelper.saveUser(_user);
-
+        Token=data["access_token"];
         notifyListeners();
       } else {
         throw data['error'];

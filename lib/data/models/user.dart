@@ -6,6 +6,7 @@ class User {
   String? gender;
   String? phoneNumber;
   String? authToken;
+  String? points;
   User({
     this.name,
     this.email,
@@ -14,6 +15,7 @@ class User {
     this.gender,
     this.phoneNumber,
     this.authToken,
+    this.points,
   });
 
   set setName(String value) {
@@ -44,12 +46,20 @@ class User {
     authToken = value;
   }
 
+  set setPoints(String value) {
+    points = value;
+  }
+
   // String get getName {
   //   return name!;
   // }
 
   String get getEmail {
     return email!;
+  }
+
+  String get getPoints {
+    return points!;
   }
 
   String get getBirthday {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salute/data/models/food_product.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderReceiptContainer extends StatelessWidget {
   const OrderReceiptContainer({
@@ -26,8 +27,8 @@ class OrderReceiptContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Order Details",
+            Text(
+            "${AppLocalizations.of(context)!.details_order}",
             style: TextStyle(
               color: Color.fromARGB(255, 63, 63, 63),
               fontWeight: FontWeight.bold,
@@ -40,9 +41,9 @@ class OrderReceiptContainer extends StatelessWidget {
           OrderList(foodProducts: foodProducts),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children:   [
               Text(
-                "Delivery",
+                "${AppLocalizations.of(context)!.delivery}",
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 16,

@@ -33,6 +33,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     phoneNumberController.text=SharedPreferencesHelper.data['phone_number'];
     birthdayController.text=SharedPreferencesHelper.data['birthday'];
     gender.text=SharedPreferencesHelper.data['gender'];
+    print(SharedPreferencesHelper.data['points']);
 
     setState(() {
 

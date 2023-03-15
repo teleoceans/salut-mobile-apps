@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HelpAlertDialog extends StatelessWidget {
   const HelpAlertDialog({super.key});
@@ -6,8 +7,8 @@ class HelpAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'Didn’t receive your meal?',
+      title:   Text(
+        "${AppLocalizations.of(context)!.receive}",
         style: TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -28,8 +29,8 @@ class HelpAlertDialog extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  const Text(
-                    "Chat with us",
+                    Text(
+                    "${AppLocalizations.of(context)!.chat}",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -50,8 +51,8 @@ class HelpAlertDialog extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  const Text(
-                    "Give us a call",
+                    Text(
+                    "${AppLocalizations.of(context)!.type_here}",//give
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   )
                 ],

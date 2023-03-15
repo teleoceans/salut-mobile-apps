@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:salute/view/components/shopping_components/horizontal_calendar.dart';
 import 'package:salute/view/components/shopping_components/time_period_row.dart';
 import 'package:salute/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/providers/products_provider.dart';
 
@@ -41,7 +42,7 @@ class ScheduleDeliveryContainer extends StatelessWidget {
                 width: 8,
               ),
               Text(
-                "Scheduale for later",
+                "${AppLocalizations.of(context)!.scheduale}",
                 style: TextStyle(
                   color: Provider.of<ProductsProvider>(context).wantsNow
                       ? kNotUsedColor
