@@ -94,6 +94,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       borderColor: Colors.white,
                       onTap: getData,
                     ),
+              const SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),

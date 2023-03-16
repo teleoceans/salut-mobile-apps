@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: [
         const SizedBox(
           height: 20,
@@ -136,13 +137,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           prefixIcon: "assets/images/tkafol_drawer.png",
           title: "${AppLocalizations.of(context)!.tkafol}",
           fontWeight: FontWeight.bold,
-          suffixText: "${SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
+          suffixText: "${Token.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
         ),
         const SizedBox(
           height: 12,
         ),
         ProfileContainer(
-          onTap: () {},
+          onTap: () {
+            LaunchUrl("https://m.me/100089473891428");
+          },
           isIcon: false,
           isShadow: true,
           prefixIcon: "assets/images/contact_us_drawer.png",
@@ -181,18 +184,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if(s.toString().toLowerCase()=="Settings".toString().toLowerCase()){
 
                 MyApp.setLocale(context, Locale("ar",""));
-                print("object1");
               }
               else{
                 MyApp.setLocale(context, Locale("en",""));
-                print("object");
               }
             });
-
-            // if (language != null) {
-            //   Locale _locale = await setLocale(language.languageCode);
-            //   MyApp.setLocale(context, _locale);
-            // }
           },
           isIcon: false,
           isShadow: true,
@@ -204,6 +200,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 16,
         ),
         const FindUsSocailMedia(),
+        const SizedBox(
+          height: 80,
+        ),
       ],
     );
   }

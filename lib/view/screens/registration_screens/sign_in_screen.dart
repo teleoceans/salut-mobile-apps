@@ -11,6 +11,8 @@ import 'package:salute/view/components/registration_components/sign_with_social_
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/registration_screens/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
   static const String routeName = "SignInScreen";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/constants.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/view/screens/faq_screen/about_us.dart';
 import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
@@ -101,6 +102,9 @@ class GlobalDrawer extends StatelessWidget {
                   assetImage: 'assets/images/contact_us_drawer.png',
                   title: "${AppLocalizations.of(context)!.contactus}",
                   nextScreen: " SettingsScreen.routeName",
+                  onTap: (){
+                      LaunchUrl("https://m.me/100089473891428");
+                  },
                 ),
                   DrawerListTile(
                   isImage: true,

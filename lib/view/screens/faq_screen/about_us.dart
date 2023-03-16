@@ -89,54 +89,45 @@ class FindUsSocailMedia extends StatelessWidget {
         Material(
           elevation: 3,
           borderRadius: BorderRadius.circular(10),
-          child: Container(
-            padding: const EdgeInsets.all(13),
-            width: 68,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F2F2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(
-              FontAwesomeIcons.facebook,
-              color: Colors.blue,
-              size: 35,
-            ),
-          ),
-        ),
-        Material(
-          elevation: 3,
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            width: 68,
-            padding: const EdgeInsets.all(13),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F2F2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(
-              FontAwesomeIcons.instagram,
-              color: Colors.orange,
-              size: 35,
-            ),
-          ),
-        ),
-        Material(
-          elevation: 3,
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            width: 68,
-            padding: const EdgeInsets.all(13),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F2F2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: Icon(
-                FontAwesomeIcons.youtube,
+          child: GestureDetector(
+            child: Container(
+              padding: const EdgeInsets.all(13),
+              width: 68,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                FontAwesomeIcons.facebook,
+                color: Colors.blue,
                 size: 35,
-                color: Colors.red,
               ),
             ),
+            onTap: (){
+              LaunchUrl("https://www.facebook.com/profile.php?id=100089473891428");
+            },
+          ),
+        ),
+        Material(
+          elevation: 3,
+          borderRadius: BorderRadius.circular(10),
+          child: GestureDetector(
+            child: Container(
+              width: 68,
+              padding: const EdgeInsets.all(13),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Icon(
+                FontAwesomeIcons.instagram,
+                color: Colors.orange,
+                size: 35,
+              ),
+            ),
+            onTap: (){
+              LaunchUrl("https://www.instagram.com/salutkitchen1/");
+            },
           ),
         ),
       ],

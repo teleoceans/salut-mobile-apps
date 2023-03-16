@@ -96,12 +96,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   getLocale().then((locale) => {setLocale(locale)});
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -218,6 +212,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int lastIndex = 0;
+  TextEditingController link = TextEditingController();
+
   final List<Widget> pages = [
     const HomeScreen(),
     const FavoritesScreen(),
@@ -229,6 +225,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void setPage(int index) {
     Provider.of<ShoppingProvider>(context, listen: false).setCurrentIndex =
         index;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    link.text="Salut Link";
   }
 
   bool isFirst = true;
@@ -299,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               GestureDetector(
                                 onTap: () async {
                                   await Clipboard.setData(
-                                    const ClipboardData(text: ""),
+                                    const ClipboardData(text: "https://tv.movie/tv-shows"),
                                   ).then(
                                     (_) {
                                       Fluttertoast.showToast(
@@ -312,10 +315,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                   );
                                 },
-                                child: const DefaultFormField(
+                                child: DefaultFormField(
                                   keyboardType: TextInputType.none,
                                   enabled: false,
                                   borderRadius: 12,
+                                  controller: link,
+                                  textColor: Colors.black,
                                   suffixIcon: Icon(Icons.copy),
                                 ),
                               ),
@@ -403,7 +408,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          LaunchUrl("https://m.me/100089473891428");
+                        },
                         iconSize: 28,
                         icon: Image.asset(
                           'assets/images/contact_us_white.png',

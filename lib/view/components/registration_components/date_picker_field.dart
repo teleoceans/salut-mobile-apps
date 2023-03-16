@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:salute/view/components/default_form_field.dart';
@@ -51,7 +52,7 @@ class _DatePickerField extends State<DatePickerField> {
       });
     }
   }
-
+  DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return DefaultFormField(
@@ -66,8 +67,46 @@ class _DatePickerField extends State<DatePickerField> {
       ),
       validator: widget.validator,
       onTap: () {
-        _selectDate(context);
+        //_selectDate(context);
+         showSheet(
+          context,
+          child: buildDatePicker(),
+          onClicked: () {
+            widget.controller?.text = DateFormat('yyyy/MM/dd').format(dateTime);
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        );
       },
     );
   }
+
+  Widget buildDatePicker() => SizedBox(
+    height: 180,
+    child: CupertinoDatePicker(
+      minimumYear: 2015,
+      maximumYear: DateTime.now().year,
+      initialDateTime: dateTime,
+      mode: CupertinoDatePickerMode.date,
+      onDateTimeChanged: (dateTime) =>
+          setState(() => this.dateTime = dateTime),
+    ),
+  );
+
+  static void showSheet(
+      BuildContext context, {
+        required Widget child,
+        required VoidCallback onClicked,
+      }) =>
+      showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          actions: [
+            child,
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Done'),
+            onPressed: onClicked,
+          ),
+        ),
+      );
 }

@@ -77,11 +77,35 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
           future: getLastOrderStatus(),
           builder: (context, snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
-                ? const Scaffold(
+                ?  Scaffold(
+                    appBar: AppBar(
+                title: Text(
+                  '${AppLocalizations.of(context)!.track_order}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                  ),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                leading: kArrowBack(context),
+              ),
                     body: kCircularLoadingProgress,
                   )
                 : orderStatus == null
                     ?   Scaffold(
+                        appBar: AppBar(
+                title: Text(
+                  '${AppLocalizations.of(context)!.track_order}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                  ),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                leading: kArrowBack(context),
+              ),
                         body: Center(
                           child: Text(
                            "${AppLocalizations.of(context)!.mass_order3}",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 
 const Color kPrimaryColor = Color(0xFF472BBE);
@@ -72,4 +73,6 @@ Widget kArrowBack(BuildContext context) {
   );
 }
 
-
+Future LaunchUrl(String url) async {
+  await launch(url);
+}
