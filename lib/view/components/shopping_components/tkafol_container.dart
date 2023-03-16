@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/main.dart';
 
 import '../default_button.dart';
@@ -40,7 +42,7 @@ class TkafolComponent extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: "${Token.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} ",
+                  text: "${Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} ",
                 ),
                 TextSpan(
                   text: "  pt",

@@ -31,9 +31,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     nameController.text=SharedPreferencesHelper.data['name'];
     emailController.text=SharedPreferencesHelper.data['email'];
     phoneNumberController.text=SharedPreferencesHelper.data['phone_number'];
-    birthdayController.text=SharedPreferencesHelper.data['birthday'];
+    birthdayController.text=SharedPreferencesHelper.data['birthday'].toString().split("T").first;
     gender.text=SharedPreferencesHelper.data['gender'];
-    print(SharedPreferencesHelper.data['points']);
 
     setState(() {
 
@@ -51,118 +50,121 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
           style: kAppBarTitleStyle,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            Text(
-              "${AppLocalizations.of(context)!.name}",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22,
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:  [
+              Text(
+                "${AppLocalizations.of(context)!.name}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DefaultFormField(
-              enabled: false,
-              controller: nameController,
-              textColor: Colors.black,
-              keyboardType: TextInputType.none,
-            ),
-            const  SizedBox(
-              height: 36,
-            ),
-            Text(
-              "${AppLocalizations.of(context)!.email}",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22,
+              const SizedBox(
+                height: 16,
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DefaultFormField(
-              enabled: false,
-              controller: emailController,
-              textColor: Colors.black,
-              keyboardType: TextInputType.none,
-            ),
-            const SizedBox(
-              height: 36,
-            ),
-            Text(
-              "${AppLocalizations.of(context)!.number}",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22,
+              DefaultFormField(
+                enabled: false,
+                controller: nameController,
+                textColor: Colors.black,
+                keyboardType: TextInputType.none,
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DefaultFormField(
-              enabled: false,
-              controller: phoneNumberController,
-              textColor: Colors.black,
-              keyboardType: TextInputType.none,
-            ),
-            const SizedBox(
-              height: 36,
-            ),
-            // GenderWidget(
-            //   textColor: Colors.black,
-            // ),
-            Text(
-             "${AppLocalizations.of(context)!.gender}",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22,
+              const  SizedBox(
+                height: 36,
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DefaultFormField(
-              enabled: false,
-              controller: gender,
-              textColor: Colors.black,
-              keyboardType: TextInputType.none,
-            ),
-            const SizedBox(
-              height: 36,
-            ),
-            Text(
-              "${AppLocalizations.of(context)!.dateOfBirth}",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22,
+              Text(
+                "${AppLocalizations.of(context)!.email}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DefaultFormField(
-              enabled: false,
-              controller: birthdayController,
-              textColor: Colors.black,
-              keyboardType: TextInputType.none,
-            ),
+              const SizedBox(
+                height: 16,
+              ),
+              DefaultFormField(
+                enabled: false,
+                controller: emailController,
+                textColor: Colors.black,
+                keyboardType: TextInputType.none,
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              Text(
+                "${AppLocalizations.of(context)!.number}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              DefaultFormField(
+                enabled: false,
+                controller: phoneNumberController,
+                textColor: Colors.black,
+                keyboardType: TextInputType.none,
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              // GenderWidget(
+              //   textColor: Colors.black,
+              // ),
+              Text(
+               "${AppLocalizations.of(context)!.gender}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              DefaultFormField(
+                enabled: false,
+                controller: gender,
+                textColor: Colors.black,
+                keyboardType: TextInputType.none,
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              Text(
+                "${AppLocalizations.of(context)!.dateOfBirth}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              DefaultFormField(
+                enabled: false,
+                controller: birthdayController,
+                textColor: Colors.black,
+                keyboardType: TextInputType.none,
+              ),
 
-            // DatePickerField(
-            //   enabled: false,
-            //   controller: birthdayController,
-            //   prefixColor: kPrimaryColor,
-            // )
-          ],
+              // DatePickerField(
+              //   enabled: false,
+              //   controller: birthdayController,
+              //   prefixColor: kPrimaryColor,
+              // )
+            ],
+          ),
         ),
       ),
     );

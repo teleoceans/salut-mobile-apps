@@ -20,25 +20,27 @@ class CartScreen extends StatelessWidget {
           horizontal: 16.0,
         ),
         child: Provider.of<ProductsProvider>(context).cartItems.isEmpty
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset("assets/images/thank_you.png"),
-                    UnderPictureBody(
-                    body:"${AppLocalizations.of(context)!.cart_not2}",
-                    title: "${AppLocalizations.of(context)!.cart_not1}",
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  DefaultButton(
-                    text: "${AppLocalizations.of(context)!.checkout}",
-                    onTap: () {},
-                    backgroundColor: Colors.grey,
-                    borderColor: Colors.grey,
-                  ),
-                ],
-              )
+            ? SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/thank_you.png"),
+                      UnderPictureBody(
+                      body:"${AppLocalizations.of(context)!.cart_not2}",
+                      title: "${AppLocalizations.of(context)!.cart_not1}",
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    DefaultButton(
+                      text: "${AppLocalizations.of(context)!.checkout}",
+                      onTap: () {},
+                      backgroundColor: Colors.grey,
+                      borderColor: Colors.grey,
+                    ),
+                  ],
+                ),
+            )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -205,12 +205,27 @@ class _CateringScreenState extends State<CateringScreen> {
                         margin: const EdgeInsets.symmetric(
                           horizontal: 8,
                         ),
-                        height: 420,
+                        height: 210,
                         child: FoodGridView(
                           isCatering: true,
                           food: Provider.of<ProductsProvider>(context)
                               .cateringProduct,
                           
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        height: 210,
+                        child: FoodGridView(
+                          isCatering: true,
+                          food: Provider.of<ProductsProvider>(context)
+                              .cateringProduct,
+
                         ),
                       ),
                       const SizedBox(

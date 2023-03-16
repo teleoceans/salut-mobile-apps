@@ -132,7 +132,7 @@ class _FoodProductItemState extends State<FoodProductItem> {
                                   text: '${widget.food.afterDiscount} LE   '),
                               TextSpan(
                                 text: '${widget.food.price} LE',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 14,
                                   decoration: TextDecoration.lineThrough,
                                 ),
@@ -156,7 +156,7 @@ class _FoodProductItemState extends State<FoodProductItem> {
                   backgroundColor: Colors.white,
                   child: IconButton(
                     onPressed: () {
-                      if(Token.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
+                      if(Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       }
                       else{

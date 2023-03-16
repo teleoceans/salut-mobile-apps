@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/data/models/food_product.dart';
 import 'package:salute/data/models/weight.dart';
+import 'package:salute/view/components/shopping_components/catering_tab_view.dart';
 
 import '../../../constants.dart';
 
@@ -53,32 +55,64 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
             ),
           ),
           const Spacer(),
-          Container(
-            width: 32,
-            height: 40,
-            decoration: BoxDecoration(
-              color: kPrimaryColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: TextButton(
-              child: const Text(
-                "-",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-              onPressed: () {
-                setState(() {
-                  if (quantity > 0) {
-                    quantity--;
-                    price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
-                    print(price);
-                  }
-                });
-              },
-            ),
+          Consumer<PriceModel>(
+              builder:(context ,m,c){
+                return  Container(
+                  width: 32,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextButton(
+                    child: const Text(
+                      "-",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (quantity > 0) {
+                          quantity--;
+                          price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+                          print(price);
+                        }
+                        m.changeprice(price);
+                      });
+
+                    },
+                  ),
+                );
+              }
           ),
+          // Container(
+          //   width: 32,
+          //   height: 40,
+          //   decoration: BoxDecoration(
+          //     color: kPrimaryColor,
+          //     borderRadius: BorderRadius.circular(12),
+          //   ),
+          //   child: TextButton(
+          //     child: const Text(
+          //       "-",
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontSize: 20,
+          //       ),
+          //     ),
+          //     onPressed: () {
+          //       setState(() {
+          //         if (quantity > 0) {
+          //           quantity--;
+          //           price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+          //           print(price);
+          //         }
+          //       });
+          //     },
+          //   ),
+          // ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 8),
             width: 40,
@@ -97,30 +131,59 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
               ),
             ),
           ),
-          Container(
-            width: 32,
-            height: 40,
-            decoration: BoxDecoration(
-              color: kPrimaryColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: TextButton(
-              child: const Text(
-                "+",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-              onPressed: () {
-                setState(() {
-                  quantity++;
-                  price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
-                  print(price);
-                });
-              },
-            ),
+          Consumer<PriceModel>(
+              builder:(context ,m,c){
+                return  Container(
+                  width: 32,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextButton(
+                    child: const Text(
+                      "+",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        quantity++;
+                        price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+                        print(price);
+                      });
+                      m.changeprice(price);
+                    },
+                  ),
+                );
+              }
           ),
+          // Container(
+          //   width: 32,
+          //   height: 40,
+          //   decoration: BoxDecoration(
+          //     color: kPrimaryColor,
+          //     borderRadius: BorderRadius.circular(12),
+          //   ),
+          //   child: TextButton(
+          //     child: const Text(
+          //       "+",
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontSize: 20,
+          //       ),
+          //     ),
+          //     onPressed: () {
+          //       setState(() {
+          //         quantity++;
+          //         price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
+          //         print(price);
+          //       });
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

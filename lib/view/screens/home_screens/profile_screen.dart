@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         const SizedBox(height: 32),
-        Token.isEmpty?Container():Padding(
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
@@ -84,10 +84,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        Token.isEmpty?Container():const SizedBox(
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():const SizedBox(
           height: 32,
         ),
-        Token.isEmpty?Padding(
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ):Container(),
-        Token.isEmpty?Container():AddressContainer(
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():AddressContainer(
           address: Provider.of<AddressesProvider>(context).currentAddress,
         ),
         const SizedBox(
@@ -137,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           prefixIcon: "assets/images/tkafol_drawer.png",
           title: "${AppLocalizations.of(context)!.tkafol}",
           fontWeight: FontWeight.bold,
-          suffixText: "${Token.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
+          suffixText: "${Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
         ),
         const SizedBox(
           height: 12,

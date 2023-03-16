@@ -26,8 +26,8 @@ class EnterCodeScreen extends StatelessWidget {
               Image.asset("assets/images/enter_code.png"),
               const Spacer(),
                 UnderPictureBody(
-                body: "${AppLocalizations.of(context)!.cart}",//phone_verification_mass
-                title: "${AppLocalizations.of(context)!.cart}",//phone_verification
+                body: "${AppLocalizations.of(context)!.phone_verification_mass}",
+                title: "${AppLocalizations.of(context)!.phone_verification}",
               ),
               const Spacer(),
               Padding(
@@ -118,7 +118,7 @@ class EnterCodeScreen extends StatelessWidget {
               ),
               const Spacer(),
               DefaultButton(
-                text: "${AppLocalizations.of(context)!.cart}",//continue
+                text: "${AppLocalizations.of(context)!.continuee}",
                 onTap: () {
                   // Navigator.pushAndRemoveUntil(
                   //   context,

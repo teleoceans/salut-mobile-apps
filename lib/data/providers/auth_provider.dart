@@ -123,7 +123,6 @@ class AuthProvider with ChangeNotifier {
         _user.birthday = data["data"]["birthday"];
         _user.points = data["data"]["points"];
         SharedPreferencesHelper.saveUser(_user);
-        Token=data["access_token"];
         notifyListeners();
       } else {
         throw data['error'];
@@ -184,6 +183,9 @@ class AuthProvider with ChangeNotifier {
 
   String get userName {
     return _user.name!;
+  }
+  String get AuthToken {
+    return _user.authToken!;
   }
 
   String get emailName {

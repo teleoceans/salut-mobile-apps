@@ -41,8 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
         .login(
       email: emailController.text,
       password: passwordController.text,
-    )
-        .catchError((error) {
+    ).catchError((error) {
       isSuccess = false;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -55,7 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
       });
 
       if (isSuccess) {
-        Navigator.pushReplacementNamed(context, MyHomePage.routeName);
+        Navigator.pushNamedAndRemoveUntil(context, MyHomePage.routeName,(r)=>false);
       }
     });
   }
@@ -90,7 +89,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                    Text(
+                  Text(
                     "${AppLocalizations.of(context)!.email}",
                     style: TextStyle(
                       color: Colors.white,
@@ -114,7 +113,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                    Text(
+                  Text(
                     "${AppLocalizations.of(context)!.password}",
                     style: TextStyle(
                       color: Colors.white,

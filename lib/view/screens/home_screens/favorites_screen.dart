@@ -71,12 +71,15 @@ class FavoritesScreen extends StatelessWidget {
                     height: 12,
                   ),
                   SizedBox(
-                    height: 420,
+                    height: 210,
                     child: FoodGridView(
                       isCatering: false,
                       food: Provider.of<ProductsProvider>(context)
                           .takeawayProducts,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 12,
                   ),
                 ],
               ),

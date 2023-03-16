@@ -54,7 +54,7 @@ import 'view/components/global_drawer.dart';
 import 'constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-String Token="";
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +64,6 @@ void main() async {
   ]);
   final String authToken = await SharedPreferencesHelper.getSavedUser();
   log(authToken);
-  Token=authToken;
   runApp(
     MyApp(
       authtoken: authToken,
@@ -228,10 +227,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
-    link.text="Salut Link";
+    link.text="Salute Link";
   }
 
   bool isFirst = true;
@@ -327,10 +325,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               const SizedBox(
                                 height: 32,
                               ),
-                              const ShareViaSocialMedia(),
-                              const SizedBox(
-                                height: 32,
-                              ),
+                              // const ShareViaSocialMedia(),
+                              // const SizedBox(
+                              //   height: 32,
+                              // ),
                               DefaultButton(
                                 margin: 16,
                                 text: "Close",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage_2/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/current_product_provider.dart';
+import 'package:salute/view/components/shopping_components/catering_tab_view.dart';
 
 class ExtrasCheckBox extends StatefulWidget {
   const ExtrasCheckBox({super.key, required this.item, required this.isAddon});
@@ -54,6 +55,7 @@ class _ExtrasCheckBoxState extends State<ExtrasCheckBox> {
               ],
             ),
           ),
+
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,
@@ -61,21 +63,35 @@ class _ExtrasCheckBoxState extends State<ExtrasCheckBox> {
                 data: ThemeData().copyWith(
                   unselectedWidgetColor: Colors.black,
                 ),
-                child: Checkbox(
-                    activeColor: Colors.green,
-                    value: currentValue,
-                    onChanged: (value) {
-                      setState(() {
-                        currentValue = value!;
-                      });
-                      if (widget.isAddon) {
-                        Provider.of<CurrentItemProvider>(context, listen: false)
-                            .addToAddons(widget.item);
-                      } else {
-                        Provider.of<CurrentItemProvider>(context, listen: false)
-                            .addToSubProducts(widget.item);
-                      }
-                    }),
+                child:Consumer<PriceModel>(
+                    builder:(context ,m,c){
+                      return Checkbox(
+                          activeColor: Colors.green,
+                          value: currentValue,
+                          onChanged: (value) {
+                            setState(() {
+                              currentValue = value!;
+                              print(currentValue);
+                            });
+                            if (widget.isAddon) {
+                              Provider.of<CurrentItemProvider>(context, listen: false)
+                                  .addToAddons(widget.item);
+                            } else {
+                              Provider.of<CurrentItemProvider>(context, listen: false)
+                                  .addToSubProducts(widget.item);
+                            }
+                            if(currentValue){
+                              m.IncPrice(widget.item.price);
+
+                            }
+                            else{
+                              m.DncPrice(widget.item.price);
+                            }
+                            print(widget.item.price);
+                          }
+                          );
+                    }
+                ),
               ),
             ),
           ),

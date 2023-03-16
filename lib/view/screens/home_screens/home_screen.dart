@@ -5,6 +5,7 @@ import 'package:salute/data/providers/auth_provider.dart';
 import 'dart:async';
 import 'package:salute/data/providers/category_provider.dart';
 import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/main.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/shopping_components/category_list_view.dart';
 import 'package:salute/view/components/shopping_components/food_grid_view.dart';
@@ -56,6 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<AuthProvider>(context, listen: false)
             .userName
             .split(' ')[0];
+    Provider.of<AuthProvider>(context, listen: false).setAuthToken =
+    await SharedPreferencesHelper.getSavedUser();
+    // ignore: use_build_context_synchronously
+    Provider.of<AuthProvider>(context, listen: false).setAuthToken =
+    // ignore: use_build_context_synchronously
+    Provider.of<AuthProvider>(context, listen: false)
+        .authToken;
+
     // ignore: use_build_context_synchronously
     if (!Provider.of<ProductsProvider>(context, listen: false).isCalled) {
       // ignore: use_build_context_synchronously
@@ -71,6 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
           .then((value) async {
         if (!Provider.of<AddressesProvider>(context, listen: false).isCalled) {
+          //Token=SharedPreferencesHelper.data['access_token'];
+
           await Provider.of<AddressesProvider>(context, listen: false)
               .fetchAddress(
                   Provider.of<AuthProvider>(context, listen: false).authToken)
@@ -78,9 +89,17 @@ class _HomeScreenState extends State<HomeScreen> {
             Provider.of<AddressesProvider>(context, listen: false).setIsCalled =
                 true;
           });
+          print("authToken");
+          print(Provider.of<AuthProvider>(context, listen: false).authToken);
         }
       });
     }
+  }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+
   }
 
   @override
@@ -93,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: kCircularLoadingProgress,
                 )
               : ListView(
-            physics: BouncingScrollPhysics(),
+                  physics: BouncingScrollPhysics(),
                   children: [
                     Container(
                       margin: const EdgeInsets.all(16),
@@ -213,9 +232,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 8,
+                        horizontal: 10,
                       ),
-                      height: 420,
+                      height: 210,
+                      child: FoodGridView(
+                        isCatering: false,
+                        food: Provider.of<ProductsProvider>(context)
+                            .takeawayProducts,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 28,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      height: 210,
                       child: FoodGridView(
                         isCatering: false,
                         food: Provider.of<ProductsProvider>(context)

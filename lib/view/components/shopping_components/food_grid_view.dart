@@ -11,16 +11,18 @@ class FoodGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       scrollDirection: Axis.horizontal,
+      physics: BouncingScrollPhysics(),
       itemCount: food.length,
       itemBuilder: (context, index) => FoodProductItem(
         food: food[index],
         isCatering: isCatering,
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 1,
         childAspectRatio: 1,
         mainAxisSpacing: 15,
       ),
     );
+
   }
 }

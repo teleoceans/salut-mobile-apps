@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salute/data/helpers/shared_preferences.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/main.dart';
 import 'package:salute/view/components/profile_components/notifaction_row.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/profile_screens/account_info_screen.dart';
+import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
 import 'package:salute/view/screens/profile_screens/change_email.dart';
 import 'package:salute/view/screens/profile_screens/change_password.dart';
+import 'package:salute/view/screens/registration_screens/sign_in_screen.dart';
 import 'package:salute/view/screens/registration_screens/welcome_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../faq_screen/about_us.dart';
@@ -36,13 +40,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-              AboutUsListTile(
+            Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?  AboutUsListTile(
+              title: "${AppLocalizations.of(context)!.login}",
+              nextRoute: SignInScreen.routeName,
+            ):AboutUsListTile(
               title: "${AppLocalizations.of(context)!.account_info}",
               nextRoute: AccountInfoScreen.routeName,
             ),
-              AboutUsListTile(
+            AboutUsListTile(
               title:  "${AppLocalizations.of(context)!.saved_addresses}",
-              nextRoute: AppFeedbackScreen.routeName,
+              nextRoute: AddressesScreen.routeName,
             ),
             // const AboutUsListTile(
             //   title: 'Change email',
@@ -84,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 });
               },
             ),
-            ListTile(
+            Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty? Container(): ListTile(
               title:   Text(
                 "${AppLocalizations.of(context)!.logout}",
                 style: TextStyle(
@@ -100,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 });
               },
             ),
-            ListTile(
+            Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty? Container(): ListTile(
               title:   Text(
                 "${AppLocalizations.of(context)!.account_delete}",
                 style: TextStyle(
