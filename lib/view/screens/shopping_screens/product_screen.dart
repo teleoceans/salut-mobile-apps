@@ -54,21 +54,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: Container(
                     margin: const EdgeInsets.all(16),
                     child: Material(
-                      elevation: 1,
+                      elevation: 5,
                       borderRadius: BorderRadius.circular(16),
-                      child: DefaultFormField(
-                        borderRadius: 16,
-                        hintText: "${AppLocalizations.of(context)!.search}",
-                        unFocusColor: Colors.black.withOpacity(0.1),
-                        focusColor: Colors.black.withOpacity(0.2),
-                        textColor: Colors.black,
-                        keyboardType: TextInputType.text,
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          size: 28,
-                          color: kPrimaryColor,
-                        ),
-                      ),
+                      child:  SearchFormField(),
                     ),
                   ),
                 ),

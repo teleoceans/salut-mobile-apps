@@ -4,7 +4,8 @@ import 'package:salute/view/components/shopping_components/product_item.dart';
 import '../../../data/models/food_product.dart';
 
 class FoodGridView extends StatelessWidget {
-  const FoodGridView({super.key, required this.food, required this.isCatering});
+  const FoodGridView({super.key, required this.food,
+    required this.isCatering});
   final bool isCatering;
   final List<FoodProduct> food;
   @override

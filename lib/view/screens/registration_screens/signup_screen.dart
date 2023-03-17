@@ -27,13 +27,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isLoading = false;
   bool isSuccess = true;
   final _formKey = GlobalKey<FormState>();
-  DateTime? alarmTime;
-  DateTime timet = DateTime.now();
   void signup() async {
+
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
     }
+    //phoneNumberController.text="+2"+phoneNumberController.text;
     _formKey.currentState!.save();
     isSuccess = true;
 
@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       email: emailController.text,
       gender: Provider.of<AuthProvider>(context, listen: false).gender,
       roleId: 2,
-      phoneNumber: phoneNumberController.text,
+      phoneNumber: "+2"+phoneNumberController.text,
       birthday: birthdayController.text,
       password: passwordController.text,
     )
@@ -115,13 +115,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                  SignWithSocialMedia(
-                  title: "${AppLocalizations.of(context)!.signup_w}"
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                  Text(
+                // SignWithSocialMedia(
+                //   title: "${AppLocalizations.of(context)!.signup_w}"
+                // ),
+                // const SizedBox(
+                //   height: 12,
+                // ),
+                Text(
                     "${AppLocalizations.of(context)!.name}",
                   style: TextStyle(
                     color: Colors.white,
@@ -145,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                  Text(
+                Text(
                     "${AppLocalizations.of(context)!.email}",
                   style: TextStyle(
                     color: Colors.white,
@@ -169,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                  Text(
+                Text(
                     "${AppLocalizations.of(context)!.password}",
                   style: TextStyle(
                     color: Colors.white,
@@ -213,8 +213,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (value!.isEmpty) {
                       return "${AppLocalizations.of(context)!.number_va1}";
                     }
-                    else if (value[0] != '+') {
-                      return "${AppLocalizations.of(context)!.number_va2}";
+                    else if (value.length==11) {
+                      return "${AppLocalizations.of(context)!.number_va1}";
                     }
                     // else if (value.length==11) {
                     //   return "Please enter a valid phone number";
@@ -296,86 +296,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  timeDialog(con,h){
-    showModalBottomSheet<void>(
-      backgroundColor: Colors.transparent,
-      context: con,
-      useRootNavigator: true,
-      clipBehavior: Clip.antiAlias,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                height: h*0.2,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: CupertinoTheme(
-                  data: CupertinoThemeData(
-                    textTheme: CupertinoTextThemeData(
-                      dateTimePickerTextStyle: TextStyle(color:Colors.black),
-                    ),
-                  ),
-                  child: CupertinoDatePicker(
-                      initialDateTime: timet,
-                      mode: CupertinoDatePickerMode.time,
-                      // backgroundColor: ColorApp.BottomSheetColor,
-                      minuteInterval: 1,
-                      //use24hFormat: true,
-                      onDateTimeChanged: (t) {
-                        this.timet = t;
-                      }),
-
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  // color: ColorApp.BottomSheetColor,
-                ),
-                child:InkWell(
-                  child: Center(
-                    child: Text('done',style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 15
-
-                    )),
-                  ),
-                  onTap: ()async{
-                    setState(() {
-                      final value =
-                      DateFormat('HH:mm').format(timet);
-                      birthdayController.text = value.toString();
-                      final now = DateTime.now();
-                      var selectedDateTime = DateTime(
-                          now.year,
-                          now.month,
-                          now.day,
-                          timet.hour,
-                          timet.minute);
-                      alarmTime = selectedDateTime;
-                      // Utils.showSnackBar(context, 'Selected "$value"');
-                    });
-                   Navigator.of(con, rootNavigator: true).pop();
-                  },
-                ) ,
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

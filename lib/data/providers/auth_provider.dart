@@ -132,9 +132,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> sendCodeToUserMailForChangePassword({
-    required String email,
-  }) async {
+  Future<void> sendCodeToUserMailForChangePassword({required String email,}) async {
     try {
       Uri url = Uri.parse("${domainName}password/email");
       var response = await http.post(

@@ -40,6 +40,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     )
         .catchError((error) {
       isSuccess = false;
+      print(error.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Something went wrong. Try again later")),
       );
@@ -51,6 +52,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         isLoading = false;
       });
       if (isSuccess) {
+        Provider.of<ProductsProvider>(context, listen: false).ClearCartItems();
         Navigator.pushReplacementNamed(
           context,
           TrackOrderScreen.routeName,

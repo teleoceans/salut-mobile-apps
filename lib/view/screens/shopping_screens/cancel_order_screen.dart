@@ -15,6 +15,25 @@ class CancelOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 30,
+            color: kPrimaryColor,
+          ),
+          onPressed: () {
+            Provider.of<ShoppingProvider>(context, listen: false).setCurrentIndex =0;
+            Navigator.pushNamedAndRemoveUntil(context, MyHomePage.routeName,(r)=>false);
+          },
+        ),
+        title:  Text(
+          "${AppLocalizations.of(context)!.cancel}",
+          style: kAppBarTitleStyle,
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),

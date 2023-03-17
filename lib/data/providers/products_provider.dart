@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/data/models/address.dart';
 import 'package:salute/data/models/food_product.dart';
@@ -208,6 +209,13 @@ class ProductsProvider with ChangeNotifier {
         .toList();
   }
 
+  ClearCartItems() {
+    for(int i=0;i<allProducts.length;i++){
+      print("index :${i} -- name${allProducts[i].title}");
+      allProducts[i].isAddedtoCart=false;
+    }
+  }
+
   double calculateFinalPrice() {
     double finalPrice = 0.0;
     for (var item in cartItems) {
@@ -301,6 +309,7 @@ class ProductsProvider with ChangeNotifier {
       Map<String, dynamic> data = jsonDecode(response.body);
       lastOrderId = data["Catering"]["id"];
       await SharedPreferencesHelper.saveLastOrderId(lastOrderId);
+
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -357,4 +366,27 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void changeWeight() {}
+  Future<void> CancelOrder({required String token, required id}) async {
+    Uri url = Uri.parse('https://admin.salutme.com/api/orders/cancel-order/${id}');
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      );
+      if(response.statusCode==200){
+        print(response.body);
+      }
+      else{
+        print("error");
+        print(response.body);
+      }
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

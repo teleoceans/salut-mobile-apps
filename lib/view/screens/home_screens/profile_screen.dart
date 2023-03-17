@@ -39,19 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Material(
             elevation: 5,
             borderRadius: BorderRadius.circular(16),
-            child: DefaultFormField(
-              borderRadius: 16,
-              hintText: "${AppLocalizations.of(context)!.search}",
-              unFocusColor: Colors.transparent,
-              focusColor: Colors.black.withOpacity(0.2),
-              textColor: Colors.black,
-              keyboardType: TextInputType.text,
-              prefixIcon: const Icon(
-                Icons.search,
-                size: 28,
-                color: kPrimaryColor,
-              ),
-            ),
+            child:  SearchFormField(),
           ),
         ),
         const SizedBox(height: 32),

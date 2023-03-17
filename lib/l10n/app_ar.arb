@@ -146,6 +146,8 @@
   "number_order": "رقم الطلب",
   "pending": "في انتظار المراجعة",
   "confirmed": "مؤكد",
+  "cancel":  "الغاء الطلب",
+  "cancel_mass":  "هل أنت متأكد أنك تريد إلغاء طلبك ؟",
   "out_delivery": "خارج للتوصيل",
   "delived":"تم التسليم",
   "consectetur": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

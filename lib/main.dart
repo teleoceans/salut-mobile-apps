@@ -12,6 +12,7 @@ import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/data/providers/shopping_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/default_form_field.dart';
+import 'package:salute/view/components/shopping_components/catering_tab_view.dart';
 import 'package:salute/view/components/shopping_components/social_media_container.dart';
 import 'package:salute/view/components/shopping_components/tkafol_container.dart';
 import 'package:salute/view/screens/faq_screen/about_us.dart';
@@ -48,6 +49,7 @@ import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_details_screen.dart';
 import 'package:salute/view/screens/shopping_screens/order_history_screen.dart';
 import 'package:salute/view/screens/shopping_screens/product_screen.dart';
+import 'package:salute/view/screens/shopping_screens/search_screen.dart';
 import 'package:salute/view/screens/shopping_screens/track_order_screen.dart';
 import 'data/providers/auth_provider.dart';
 import 'view/components/global_drawer.dart';
@@ -103,6 +105,9 @@ class _MyAppState extends State<MyApp> {
           create: (_) => CurrentItemProvider(),
         ),
         ChangeNotifierProvider(
+          create: (_) => PriceModel(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => ProductsProvider(),
         ),
         ChangeNotifierProvider(
@@ -150,25 +155,18 @@ class _MyAppState extends State<MyApp> {
           ProfileScreen.routeName: (context) => const ProfileScreen(),
           FavoritesScreen.routeName: (context) => const FavoritesScreen(),
           SignInScreen.routeName: (context) => const SignInScreen(),
-          ForgetPasswordScreen.routeName: (context) =>
-              const ForgetPasswordScreen(),
-          CheckYourEmailScreen.routeName: (context) =>
-              const CheckYourEmailScreen(),
+          ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
+          CheckYourEmailScreen.routeName: (context) => const CheckYourEmailScreen(),
           EnterCodeScreen.routeName: (context) => const EnterCodeScreen(),
           SignUpScreen.routeName: (context) => const SignUpScreen(),
-          OrderAnywhereScreen.routeName: (context) =>
-              const OrderAnywhereScreen(),
-          HelpWithTkafolScreen.routeName: (context) =>
-              const HelpWithTkafolScreen(),
-          FacingProblemScreen.routeName: (context) =>
-              const FacingProblemScreen(),
+          OrderAnywhereScreen.routeName: (context) => const OrderAnywhereScreen(),
+          HelpWithTkafolScreen.routeName: (context) => const HelpWithTkafolScreen(),
+          FacingProblemScreen.routeName: (context) => const FacingProblemScreen(),
           WohooScreen.routeName: (context) => const WohooScreen(),
-          MyHomePage.routeName: (context) => MyHomePage(
-                authToken: widget.authtoken!,
-              ),
-          CateringProductScreen.routeName: (context) =>
-              const CateringProductScreen(),
+          MyHomePage.routeName: (context) => MyHomePage(authToken: widget.authtoken!,),
+          CateringProductScreen.routeName: (context) => const CateringProductScreen(),
           FaqScreen.routeName: (context) => const FaqScreen(),
+          SearchScreen.routeName: (context) => const SearchScreen(),
           AboutUsScreen.routeName: (context) => const AboutUsScreen(),
           TermsOfUseScreen.routeName: (context) => const TermsOfUseScreen(),
           PolicyScreen.routeName: (context) => const PolicyScreen(),

@@ -76,3 +76,8 @@ Widget kArrowBack(BuildContext context) {
 Future LaunchUrl(String url) async {
   await launch(url);
 }
+Future openPhoneCall({required String phoneNumber}) async {
+  final url = 'tel:$phoneNumber';
+
+  await LaunchUrl(url);
+}

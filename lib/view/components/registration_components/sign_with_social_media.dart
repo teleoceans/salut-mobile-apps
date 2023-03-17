@@ -11,7 +11,7 @@ class SignWithSocialMedia extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            title ?? "${AppLocalizations.of(context)!.signup_w}",
+            title ?? "Sign in with",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 22,

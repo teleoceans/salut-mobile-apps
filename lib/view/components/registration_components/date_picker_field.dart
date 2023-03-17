@@ -83,7 +83,6 @@ class _DatePickerField extends State<DatePickerField> {
   Widget buildDatePicker() => SizedBox(
     height: 180,
     child: CupertinoDatePicker(
-      minimumYear: 2015,
       maximumYear: DateTime.now().year,
       initialDateTime: dateTime,
       mode: CupertinoDatePickerMode.date,

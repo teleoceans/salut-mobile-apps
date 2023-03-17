@@ -11,6 +11,7 @@ class FavoritesScreen extends StatelessWidget {
   static const String routeName = "FavoritesScreen";
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(

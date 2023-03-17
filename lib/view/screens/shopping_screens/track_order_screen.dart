@@ -5,6 +5,9 @@ import 'package:salute/data/models/order_status.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/data/providers/shopping_provider.dart';
+import 'package:salute/main.dart';
+import 'package:salute/view/components/default_button.dart';
+import 'package:salute/view/components/shopping_components/cancel_order_dilog.dart';
 import 'package:salute/view/components/shopping_components/recieved_order_container.dart';
 import 'package:salute/view/components/shopping_components/tracking_component.dart';
 import 'package:salute/constants.dart';
@@ -51,6 +54,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
     }
   }
 
+
   @override
   void didChangeDependencies() {
     if (first) {
@@ -93,7 +97,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                     body: kCircularLoadingProgress,
                   )
                 : orderStatus == null
-                    ?   Scaffold(
+                    ? Scaffold(
                         appBar: AppBar(
                 title: Text(
                   '${AppLocalizations.of(context)!.track_order}',
@@ -120,8 +124,18 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                         appBar: AppBar(
                           elevation: 0,
                           backgroundColor: Colors.transparent,
-                          leading: kArrowBack(context),
-                          title:   Text(
+                          leading: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              size: 30,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () {
+                              Provider.of<ShoppingProvider>(context, listen: false).setCurrentIndex =0;
+                              Navigator.pushNamedAndRemoveUntil(context, MyHomePage.routeName,(r)=>false);
+                            },
+                          ),
+                          title:  Text(
                             "${AppLocalizations.of(context)!.delivery_status}",
                             style: kAppBarTitleStyle,
                           ),
@@ -165,6 +179,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                   ),
                                   Expanded(
                                     child: ListView(
+                                      physics: BouncingScrollPhysics(),
                                       children: [
                                         TrackingOrder(
                                           trackingModel: TrackingModel(
@@ -212,11 +227,26 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                                   ),
                                         ),
                                         const SizedBox(
-                                          height: 12,
+                                          height: 20,
                                         ),
-                                        const RecievedOrderContainer(),
+                                        orderStatus!.statusId >= 4? RecievedOrderContainer():Container(),
+                                        orderStatus!.statusId == 1? Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                                          child: DefaultButton(
+                                            text: "${AppLocalizations.of(context)!.cancel}",
+                                            backgroundColor: Colors.transparent,
+                                            textColor: kPrimaryColor,
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => CancelOrderDialog(id: orderStatus!.id,),
+                                              );
+
+                                            },
+                                          ),
+                                        ):Container(),
                                         const SizedBox(
-                                          height: 12,
+                                          height: 50,
                                         ),
                                       ],
                                     ),

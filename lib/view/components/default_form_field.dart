@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:salute/constants.dart';
+import 'package:salute/view/screens/profile_screens/settings_screen.dart';
+import 'package:salute/view/screens/shopping_screens/search_screen.dart';
 
 class DefaultFormField extends StatelessWidget {
   const DefaultFormField({
@@ -94,6 +98,32 @@ class DefaultFormField extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SearchFormField extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: DefaultFormField(
+        borderRadius: 16,
+        hintText: "${AppLocalizations.of(context)!.search}",
+        unFocusColor: Colors.transparent,
+        focusColor: Colors.black.withOpacity(0.2),
+        textColor: Colors.black,
+        enabled: false,
+        keyboardType: TextInputType.text,
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 28,
+          color: kPrimaryColor,
+        ),
+
+      ),
+      onTap: () =>Navigator.pushNamed(context, SearchScreen.routeName),
     );
   }
 }

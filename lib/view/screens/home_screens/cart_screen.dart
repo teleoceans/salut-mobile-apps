@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/data/providers/products_provider.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/shopping_components/cart_list_view.dart';
+import 'package:salute/view/screens/profile_screens/addresses_screen.dart';
+import 'package:salute/view/screens/registration_screens/sign_in_screen.dart';
 import 'package:salute/view/screens/shopping_screens/checkout_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../data/providers/addresses_provider.dart';
@@ -93,13 +96,31 @@ class CartScreen extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          Text(
-                            "${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.streetName}",
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                            ),
-                          ),
+                          Provider.of<AddressesProvider>(context, listen: false).currentAddress == null
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, AddressesScreen.routeName);
+                                  },
+                                  child: Text(
+                                    Provider.of<AddressesProvider>(context)
+                                                .currentAddress ==
+                                            null
+                                        ? "${AppLocalizations.of(context)!.add_addresses}"
+                                        : "${Provider.of<AddressesProvider>(context).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context).currentAddress!.streetName}",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  "${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.buildNumber}, ${Provider.of<AddressesProvider>(context, listen: false).currentAddress!.streetName}",
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
                         ],
                       ),
                       const SizedBox(
@@ -108,8 +129,14 @@ class CartScreen extends StatelessWidget {
                       DefaultButton(
                         text: "${AppLocalizations.of(context)!.checkout}",
                         onTap: () {
-                          Navigator.pushNamed(
-                              context, CheckoutScreen.routeName);
+                          if (Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty) {
+                            Navigator.pushNamed(
+                                context, SignInScreen.routeName);
+                          } else {
+                            Navigator.pushNamed(
+                                context, CheckoutScreen.routeName);
+                          }
+
                         },
                       ),
                       const SizedBox(

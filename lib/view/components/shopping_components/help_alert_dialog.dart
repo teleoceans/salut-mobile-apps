@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:salute/constants.dart';
 
 class HelpAlertDialog extends StatelessWidget {
   const HelpAlertDialog({super.key});
@@ -29,13 +30,18 @@ class HelpAlertDialog extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                    Text(
-                    "${AppLocalizations.of(context)!.chat}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                  )
+                    GestureDetector(
+                      child: Text(
+                      "${AppLocalizations.of(context)!.chat}",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                  ),
+                      onTap: (){
+                        LaunchUrl("https://m.me/100089473891428");
+                      },
+                    )
                 ],
               ),
               const SizedBox(
@@ -51,10 +57,15 @@ class HelpAlertDialog extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                    Text(
-                    "${AppLocalizations.of(context)!.type_here}",//give
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  )
+                    GestureDetector(
+                      child: Text(
+                      "${AppLocalizations.of(context)!.give}",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                      onTap: (){
+                        openPhoneCall( phoneNumber: '0120120120');
+                      },
+                    )
                 ],
               ),
             ],

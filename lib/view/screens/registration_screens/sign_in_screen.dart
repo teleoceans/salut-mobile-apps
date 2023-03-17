@@ -81,14 +81,17 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Align(
                     alignment: Alignment.center,
                     child: Image.asset('assets/images/salute_logo.png'),
                   ),
-                  const SignWithSocialMedia(),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  // const SignWithSocialMedia(),
+                  // const SizedBox(
+                  //   height: 12,
+                  // ),
                   Text(
                     "${AppLocalizations.of(context)!.email}",
                     style: TextStyle(

@@ -10,7 +10,7 @@ class CartListView extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) => ListViewItem(
         product: cartItems[index],
-        forFav: false,
+        forFav: true,
       ),
       itemCount: cartItems.length,
     );

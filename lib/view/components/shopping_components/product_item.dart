@@ -156,13 +156,15 @@ class _FoodProductItemState extends State<FoodProductItem> {
                   backgroundColor: Colors.white,
                   child: IconButton(
                     onPressed: () {
-                      if(Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
-                        Navigator.pushNamed(context, SignInScreen.routeName);
-                      }
-                      else{
-                        Provider.of<ProductsProvider>(context, listen: false)
-                            .toggleCartStatus(widget.food);
-                      }
+                      // if(Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
+                      //   Navigator.pushNamed(context, SignInScreen.routeName);
+                      // }
+                      // else{
+                      //   Provider.of<ProductsProvider>(context, listen: false)
+                      //       .toggleCartStatus(widget.food);
+                      // }
+                      Provider.of<ProductsProvider>(context, listen: false)
+                          .toggleCartStatus(widget.food);
                     },
                     icon: Icon(
                       Icons.add_shopping_cart_rounded,
