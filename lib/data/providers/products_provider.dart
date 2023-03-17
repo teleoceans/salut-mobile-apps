@@ -12,6 +12,7 @@ import 'package:salute/data/models/order_status.dart';
 
 class ProductsProvider with ChangeNotifier {
   List<FoodProduct> allProducts = [];
+  List<FoodProduct> SearchFood=[];
   List<FoodProduct> get takeawayProducts {
     return allProducts
         .where((element) => element.productType == ProductType.takeaway)
@@ -385,6 +386,35 @@ class ProductsProvider with ChangeNotifier {
         print(response.body);
       }
       notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future SearchItem({required String text}) async {
+    var data;
+    Uri url = Uri.parse('https://admin.salutme.com/api/products/search');
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: {
+          "name":"${text}",
+        }
+      );
+      if(response.statusCode==200){
+        print(response.body);
+         data = jsonDecode(response.body);
+      }
+      else{
+        print("error");
+        print(response.body);
+      }
+      notifyListeners();
+      return data;
     } catch (error) {
       rethrow;
     }

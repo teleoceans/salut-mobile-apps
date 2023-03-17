@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/data/models/food_product.dart';
 import 'package:salute/data/providers/products_provider.dart';
+import 'package:salute/data/providers/shopping_provider.dart';
 import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/screens/shopping_screens/catering_product_screen.dart';
 import 'package:salute/view/screens/shopping_screens/product_screen.dart';
@@ -20,6 +21,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  List<FoodProduct> Search=[];
+  bool isSuccess=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,19 +44,43 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
-              child: DefaultFormField(
-                borderRadius: 16,
-                hintText: "${AppLocalizations.of(context)!.search}",
-                unFocusColor: Colors.transparent,
-                focusColor: Colors.black.withOpacity(0.2),
-                textColor: Colors.black,
-                keyboardType: TextInputType.text,
-                prefixIcon: const Icon(
-                  Icons.search,
-                  size: 28,
-                  color: kPrimaryColor,
+              child:  TextFormField(
+                style: TextStyle(color: Colors.black),
+                maxLines:  1,
+                keyboardType:TextInputType.text,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                        16
+                    ),
+                  ),
+                  alignLabelWithHint: true,
+                  hintText: "${AppLocalizations.of(context)!.search}",
+                  labelStyle: const TextStyle(color: Colors.black),
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color: Colors.black.withOpacity(0.2),
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  prefixIcon:  const Icon(
+                    Icons.search,
+                    size: 28,
+                    color: kPrimaryColor,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color:  Colors.transparent,
+                      width: 1.0,
+                    ),
+                  ),
                 ),
-
+                onChanged: (v){
+                  SearchItem(v.toString());
+                },
               ),
             ),
             Padding(
@@ -67,7 +94,8 @@ class _SearchScreenState extends State<SearchScreen> {
             const SizedBox(height: 10,),
             Container(
               height: MediaQuery.of(context).size.height *0.8,
-              child: buildListView(false,
+              child: Search.isNotEmpty?buildListView(false,
+                  Search):buildListView(false,
                 Provider.of<ProductsProvider>(context).takeawayProducts,),
             ),
           ],
@@ -75,7 +103,12 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
-
+  void SearchItem(String input){
+    setState(() {
+      Search=Provider.of<ProductsProvider>(context, listen: false).allProducts.
+      where((element) => element.title.toLowerCase().startsWith(input)).toList();
+    });
+  }
   Widget buildListView(bool isCatering, List<FoodProduct> food) {
    return GridView.builder(
       scrollDirection: Axis.vertical,
