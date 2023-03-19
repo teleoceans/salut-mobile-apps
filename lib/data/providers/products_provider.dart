@@ -354,6 +354,7 @@ class ProductsProvider with ChangeNotifier {
                 dateString: formatDate(data["created_at"]),
                 id: id,
                 statusId: data["status"]["id"],
+                confirmedTime: data["order_number"],
                 pendingTime: formateTime(data["status"]["created_at"]));
           }
           if (_orderStatus!.pendingTime!.length == 7) {

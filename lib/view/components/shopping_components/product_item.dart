@@ -143,7 +143,8 @@ class _FoodProductItemState extends State<FoodProductItem> {
                       : Text(
                           '${widget.food.price} LE',
                           style: const TextStyle(
-                            color: Colors.grey,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                 ],
@@ -165,6 +166,7 @@ class _FoodProductItemState extends State<FoodProductItem> {
                       // }
                       Provider.of<ProductsProvider>(context, listen: false)
                           .toggleCartStatus(widget.food);
+                      ToastShow(context,"item has been added to cart");
                     },
                     icon: Icon(
                       Icons.add_shopping_cart_rounded,

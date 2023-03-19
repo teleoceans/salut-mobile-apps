@@ -25,6 +25,7 @@ dependencies:
   shared_preferences: ^2.0.17
   flutter_advanced_networkimage_2: ^2.0.1
 #  flutter_localization: ^0.1.10
+  toast: ^0.3.0
   url_launcher: ^6.1.5
   flutter_localizations:
     sdk: flutter

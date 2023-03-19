@@ -28,11 +28,14 @@ class CateringTabView extends StatefulWidget {
 class _CateringTabViewState extends State<CateringTabView> {
   FoodProduct? food;
   bool isFirst = true;
+  bool iscart = false;
+
 
   @override
   void initState() {
     widget.cateringProduct.weight = Weight(mass: 1, quantity: 1);
     super.initState();
+
   }
 
   @override
@@ -68,14 +71,14 @@ class _CateringTabViewState extends State<CateringTabView> {
                           fontSize: 24,
                         ),
                       ),
-                      Text(
-                        "${widget.cateringProduct.price} LE/KG",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                        ),
-                      ),
+                      // Text(
+                      //   "${m.price==0?"":m.price} LE/KG",
+                      //   style: const TextStyle(
+                      //     color: Colors.black,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 24,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -218,7 +221,23 @@ class _CateringTabViewState extends State<CateringTabView> {
           ),
           Consumer<PriceModel>(
               builder:(context ,m,c){
-                return DefaultButton(
+                return iscart
+                    ? DefaultButton(
+                  textColor: Colors.white,
+                  backgroundColor: Colors.grey,
+                  borderColor: Colors.grey,
+                  padding: 16,
+                  margin: 16,
+                  text: "${AppLocalizations.of(context)!.add_cart}",
+                  onTap: () {
+                    // Provider.of<ProductsProvider>(context, listen: false)
+                    //     .toggleCartStatus(widget.cateringProduct);
+                    // setState(() {
+                    //   iscart = false;
+                    // });
+                  },
+                )
+                    :DefaultButton(
                   padding: 16,
                   margin: 16,
                   text: "${AppLocalizations.of(context)!.add_cart}",
@@ -231,14 +250,14 @@ class _CateringTabViewState extends State<CateringTabView> {
                       //     .toggleCartStatus(widget.cateringProduct!);
                       if(widget.cateringProduct!.quantity!=0){
                         print(widget.cateringProduct!.discount?.toInt());
-                        print(price==0?widget.cateringProduct!.price:price);
+                        print(m.price==0?widget.cateringProduct!.price:m.price);
                         Provider.of<ProductsProvider>(context, listen: false).allProducts.
                         add(FoodProduct(
                             productType: widget.cateringProduct!.productType,
                             categoryId: widget.cateringProduct!.categoryId,
                             id: widget.cateringProduct!.id,
                             title: widget.cateringProduct!.title,
-                            price: price==0?widget.cateringProduct!.price:price,
+                            price: m.price==0?widget.cateringProduct!.price:m.price,
                             isAddedtoCart: true,
                             discount: widget.cateringProduct!.discount,
                             availableDiscount: widget.cateringProduct!.availableDiscount,
@@ -250,7 +269,14 @@ class _CateringTabViewState extends State<CateringTabView> {
                             subProducts: widget.cateringProduct!.subProducts,
                             description: widget.cateringProduct!.description)
                         );
+                        ToastShow(context,"item has been added to cart");
                       }
+                      setState(() {
+                        iscart = true;
+                      });
+                      // print(Provider.of<ProductsProvider>(context)
+                      //     .findProductById(widget.cateringProduct.id)
+                      //     .isAddedtoCart);
                     }
                   },
                   child: Row(
@@ -265,8 +291,7 @@ class _CateringTabViewState extends State<CateringTabView> {
                         ),
                       ),
                       Text(
-                        "${m.price==0?widget.cateringProduct.price:m.price} LE",
-                        //"${m.price} LE",
+                        "${m.price==0?"":"${m.price} LE"}",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

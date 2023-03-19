@@ -17,15 +17,13 @@ class WeightQuantityWidget extends StatefulWidget {
   @override
   State<WeightQuantityWidget> createState() => _WeightQuantityWidget();
 }
-double price=0;
 class _WeightQuantityWidget extends State<WeightQuantityWidget> {
   int quantity = 0;
-
+  double p=0;
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
-    price=0;
   }
 
   @override
@@ -48,7 +46,7 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
           ),
           const Spacer(),
           Text(
-            "${price} LE",
+            "${p} LE",
             style: const TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -76,10 +74,9 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
                       setState(() {
                         if (quantity > 0) {
                           quantity--;
-                          price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
-                          print(price);
+                          p=widget.cateringProduct.price * widget.mass * quantity;
+                          m.DncPrice(widget.cateringProduct.price * widget.mass);
                         }
-                        m.changeprice(price);
                       });
 
                     },
@@ -151,10 +148,10 @@ class _WeightQuantityWidget extends State<WeightQuantityWidget> {
                     onPressed: () {
                       setState(() {
                         quantity++;
-                        price=widget.cateringProduct.price * widget.cateringProduct.weight!.mass * quantity;
-                        print(price);
+                        p=widget.cateringProduct.price * widget.mass * quantity;
+                        m.IncPrice(widget.cateringProduct.price * widget.mass);
+
                       });
-                      m.changeprice(price);
                     },
                   ),
                 );

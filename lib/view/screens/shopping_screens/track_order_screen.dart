@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/helpers/shared_preferences.dart';
@@ -28,6 +30,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   OrderStatus? orderStatus;
   ProductsProvider? lastOrderProvider;
   bool first = true;
+  int i=0;
   Future<void> getLastOrderStatus() async {
     isSuccess = true;
     setState(() {
@@ -67,6 +70,15 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
   void dispose() {
     lastOrderProvider!.setIsLastOrderCalled = false;
     super.dispose();
+  }
+
+  void time(){
+    Timer(Duration(seconds: 10), () {
+      setState(() {
+        i++;
+      });
+    });
+    print("time $i");
   }
 
   @override
@@ -167,7 +179,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                           TextSpan(text: "${AppLocalizations.of(context)!.number_order}",
                                      ),
                                         TextSpan(
-                                          text: ' #${orderStatus!.id}',
+                                          text: ' #${orderStatus!.confirmedTime}',
                                           style: const TextStyle(
                                               color: kPrimaryColor),
                                         ),
@@ -187,6 +199,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               time: "${orderStatus!.pendingTime}",
                                               title: "${AppLocalizations.of(context)!.pending}",
                                               subTitle: "${AppLocalizations.of(context)!.consectetur}",
+                                              step: 1
                                                   ),
                                         ),
                                         const SizedBox(
@@ -200,6 +213,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               title: "${AppLocalizations.of(context)!.confirmed}",
                                               subTitle:
                                               "${AppLocalizations.of(context)!.consectetur}",
+                                              step: 2
                                              ),
                                         ),
                                         const SizedBox(
@@ -212,6 +226,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               time: "00:00 AM",
                                               title: "${AppLocalizations.of(context)!.out_delivery}",
                                               subTitle: "${AppLocalizations.of(context)!.consectetur}",
+                                              step: 3
                                           ),
                                         ),
                                         const SizedBox(
@@ -224,6 +239,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                               time: "00:00 AM",
                                               title: "${AppLocalizations.of(context)!.delived}",
                                               subTitle:"${AppLocalizations.of(context)!.consectetur}",
+                                            step: 4
                                                   ),
                                         ),
                                         const SizedBox(

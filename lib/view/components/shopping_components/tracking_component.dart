@@ -10,14 +10,14 @@ class TrackingOrder extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          trackingModel.isActived ? trackingModel.time : "00:00 AM",
-          style: TextStyle(
-            color: trackingModel.isActived ? Colors.black : Colors.transparent,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+        // Text(
+        //   trackingModel.time ,
+        //   style: TextStyle(
+        //     color: Colors.black ,
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 20,
+        //   ),
+        // ),
         Expanded(
           child: Column(
             children: [
@@ -44,7 +44,7 @@ class TrackingOrder extends StatelessWidget {
               const SizedBox(
                 height: 3,
               ),
-              Container(
+              trackingModel.step==4?Container():Container(
                 width: trackingModel.isActived ? 2 : 1,
                 height: 120,
                 color: trackingModel.isActived

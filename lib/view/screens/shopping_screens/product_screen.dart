@@ -187,6 +187,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     onTap: () {
                       Provider.of<ProductsProvider>(context, listen: false)
                           .toggleCartStatus(food!);
+                      ToastShow(context,"item has been added to cart");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

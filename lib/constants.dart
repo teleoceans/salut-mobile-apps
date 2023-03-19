@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 
@@ -80,4 +81,9 @@ Future openPhoneCall({required String phoneNumber}) async {
   final url = 'tel:$phoneNumber';
 
   await LaunchUrl(url);
+}
+
+ToastShow(cc,s){
+  ToastContext().init(cc);
+  Toast.show(s,gravity: Toast.center,duration: Toast.lengthLong);
 }
