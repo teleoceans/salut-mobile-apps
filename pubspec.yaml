@@ -13,7 +13,6 @@ dependencies:
 
   flutter:
     sdk: flutter
-  localization: ^2.1.0
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
   animate_icons: ^2.0.0
@@ -21,10 +20,8 @@ dependencies:
   provider: ^6.0.5
   fluttertoast: ^8.1.2
   http: ^0.13.5
-  location: ^4.4.0
   shared_preferences: ^2.0.17
   flutter_advanced_networkimage_2: ^2.0.1
-#  flutter_localization: ^0.1.10
   toast: ^0.3.0
   url_launcher: ^6.1.5
   flutter_localizations:
