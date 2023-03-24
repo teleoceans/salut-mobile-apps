@@ -30,12 +30,10 @@ class _CateringTabViewState extends State<CateringTabView> {
   bool isFirst = true;
   bool iscart = false;
 
-
   @override
   void initState() {
     widget.cateringProduct.weight = Weight(mass: 1, quantity: 1);
     super.initState();
-
   }
 
   @override
@@ -49,7 +47,7 @@ class _CateringTabViewState extends State<CateringTabView> {
           .setCurrentFoodProduct = food!;
     }
     return ChangeNotifierProvider(
-      create: (context) =>PriceModel(),
+      create: (context) => PriceModel(),
       child: Column(
         children: [
           Expanded(
@@ -57,9 +55,12 @@ class _CateringTabViewState extends State<CateringTabView> {
               physics: BouncingScrollPhysics(),
               children: [
                 Image.asset(widget.cateringProduct.imageUrl),
-                const  SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 32),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -219,91 +220,102 @@ class _CateringTabViewState extends State<CateringTabView> {
           const SizedBox(
             height: 16,
           ),
-          Consumer<PriceModel>(
-              builder:(context ,m,c){
-                return iscart
-                    ? DefaultButton(
-                  textColor: Colors.white,
-                  backgroundColor: Colors.grey,
-                  borderColor: Colors.grey,
-                  padding: 16,
-                  margin: 16,
-                  text: "${AppLocalizations.of(context)!.add_cart}",
-                  onTap: () {
-                    // Provider.of<ProductsProvider>(context, listen: false)
-                    //     .toggleCartStatus(widget.cateringProduct);
-                    // setState(() {
-                    //   iscart = false;
-                    // });
-                  },
-                )
-                    :DefaultButton(
-                  padding: 16,
-                  margin: 16,
-                  text: "${AppLocalizations.of(context)!.add_cart}",
-                  onTap: () {
-                    if(Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty || Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty){
-                      Navigator.pushNamed(context, SignInScreen.routeName);
-                    }
-                    else{
+          Consumer<PriceModel>(builder: (context, m, c) {
+            return iscart
+                ? DefaultButton(
+                    textColor: Colors.white,
+                    backgroundColor: Colors.grey,
+                    borderColor: Colors.grey,
+                    padding: 16,
+                    margin: 16,
+                    text: "${AppLocalizations.of(context)!.add_cart}",
+                    onTap: () {
                       // Provider.of<ProductsProvider>(context, listen: false)
-                      //     .toggleCartStatus(widget.cateringProduct!);
-                      if(widget.cateringProduct!.quantity!=0){
-                        print(widget.cateringProduct!.discount?.toInt());
-                        print(m.price==0?widget.cateringProduct!.price:m.price);
-                        Provider.of<ProductsProvider>(context, listen: false).allProducts.
-                        add(FoodProduct(
-                            productType: widget.cateringProduct!.productType,
-                            categoryId: widget.cateringProduct!.categoryId,
-                            id: widget.cateringProduct!.id,
-                            title: widget.cateringProduct!.title,
-                            price: m.price==0?widget.cateringProduct!.price:m.price,
-                            isAddedtoCart: true,
-                            discount: widget.cateringProduct!.discount,
-                            availableDiscount: widget.cateringProduct!.availableDiscount,
-                            imageUrl: widget.cateringProduct!.imageUrl,
-                            quantity: widget.cateringProduct!.quantity,
-                            isFav: widget.cateringProduct!.isFav,
-                            addons: widget.cateringProduct!.addons,
-                            afterDiscount: widget.cateringProduct!.afterDiscount,
-                            subProducts: widget.cateringProduct!.subProducts,
-                            description: widget.cateringProduct!.description)
-                        );
-                        ToastShow(context,"item has been added to cart");
+                      //     .toggleCartStatus(widget.cateringProduct);
+                      // setState(() {
+                      //   iscart = false;
+                      // });
+                    },
+                  )
+                : DefaultButton(
+                    padding: 16,
+                    margin: 16,
+                    text: "${AppLocalizations.of(context)!.add_cart}",
+                    onTap: () {
+                      if (Provider.of<AuthProvider>(context, listen: false)
+                              .authToken
+                              .isEmpty ||
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .authToken
+                              .isEmpty) {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      } else {
+                        // Provider.of<ProductsProvider>(context, listen: false)
+                        //     .toggleCartStatus(widget.cateringProduct!);
+                        if (widget.cateringProduct.quantity != 0) {
+                          print(widget.cateringProduct.discount?.toInt());
+                          print(m.price == 0
+                              ? widget.cateringProduct.price
+                              : m.price);
+                          Provider.of<ProductsProvider>(context, listen: false)
+                              .allProducts
+                              .add(FoodProduct(
+                                  productType:
+                                      widget.cateringProduct.productType,
+                                  categoryId: widget.cateringProduct.categoryId,
+                                  id: widget.cateringProduct.id,
+                                  title: widget.cateringProduct.title,
+                                  price: m.price == 0
+                                      ? widget.cateringProduct.price
+                                      : m.price,
+                                  isAddedtoCart: true,
+                                  discount: widget.cateringProduct.discount,
+                                  availableDiscount:
+                                      widget.cateringProduct.availableDiscount,
+                                  imageUrl: widget.cateringProduct.imageUrl,
+                                  quantity: widget.cateringProduct.quantity,
+                                  isFav: widget.cateringProduct.isFav,
+                                  addons: widget.cateringProduct.addons,
+                                  afterDiscount:
+                                      widget.cateringProduct.afterDiscount,
+                                  subProducts:
+                                      widget.cateringProduct.subProducts,
+                                  description:
+                                      widget.cateringProduct.description));
+                          ToastShow(context, "item has been added to cart");
+                        }
+                        setState(() {
+                          iscart = true;
+                        });
+                        // print(Provider.of<ProductsProvider>(context)
+                        //     .findProductById(widget.cateringProduct.id)
+                        //     .isAddedtoCart);
                       }
-                      setState(() {
-                        iscart = true;
-                      });
-                      // print(Provider.of<ProductsProvider>(context)
-                      //     .findProductById(widget.cateringProduct.id)
-                      //     .isAddedtoCart);
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "${AppLocalizations.of(context)!.add_cart}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${AppLocalizations.of(context)!.add_cart}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "${m.price==0?"":"${m.price} LE"}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                        Text(
+                          "${m.price == 0 ? "" : "${m.price} LE"}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
-                      ),
-                      //Icon(Icons.add_shopping_cart,color: Colors.white,)
-                    ],
-                  ),
-                );
-              }
-          ),
+                        //Icon(Icons.add_shopping_cart,color: Colors.white,)
+                      ],
+                    ),
+                  );
+          }),
           const SizedBox(
             height: 20,
           ),
@@ -312,22 +324,22 @@ class _CateringTabViewState extends State<CateringTabView> {
     );
   }
 }
-class PriceModel extends ChangeNotifier{
-  double price=0;
 
-  changeprice(p){
-    price=p;
+class PriceModel extends ChangeNotifier {
+  double price = 0;
+
+  changeprice(p) {
+    price = p;
     notifyListeners();
   }
 
-  IncPrice(p){
-    price=price+p;
+  IncPrice(p) {
+    price = price + p;
     notifyListeners();
   }
 
-  DncPrice(p){
-    price=price-p;
+  DncPrice(p) {
+    price = price - p;
     notifyListeners();
   }
-
 }

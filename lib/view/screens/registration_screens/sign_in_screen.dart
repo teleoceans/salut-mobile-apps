@@ -7,7 +7,6 @@ import 'package:salute/view/components/default_form_field.dart';
 import 'package:salute/view/components/registration_components/password_field.dart';
 import 'package:salute/view/screens/registration_screens/forget_password.dart';
 import 'package:salute/view/components/registration_components/custom_check_box.dart';
-import 'package:salute/view/components/registration_components/sign_with_social_media.dart';
 import 'package:salute/constants.dart';
 import 'package:salute/view/screens/registration_screens/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

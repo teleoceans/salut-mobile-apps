@@ -1,15 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/data/providers/category_provider.dart';
 import 'package:salute/main.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/registration_components/custom_check_box.dart';
-import 'package:salute/view/components/registration_components/date_picker_field.dart';
-import 'package:salute/view/components/registration_components/gender_widget.dart';
-import 'package:salute/view/components/registration_components/sign_with_social_media.dart';
 import 'package:salute/constants.dart';
 import '../../components/default_form_field.dart';
 import '../../components/registration_components/password_field.dart';
@@ -28,7 +23,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isSuccess = true;
   final _formKey = GlobalKey<FormState>();
   void signup() async {
-
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -39,9 +33,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (!Provider.of<AuthProvider>(context, listen: false).isTermsChecked) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-          content: Text("${AppLocalizations.of(context)!.terms_agree}"
-             ),
+        SnackBar(
+          content: Text("${AppLocalizations.of(context)!.terms_agree}"),
         ),
       );
       return;
@@ -54,10 +47,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         .createUser(
       name: nameController.text,
       email: emailController.text,
-      gender: Provider.of<AuthProvider>(context, listen: false).gender,
+      gender: "not required",
       roleId: 2,
-      phoneNumber: "+2"+phoneNumberController.text,
-      birthday: birthdayController.text,
+      phoneNumber: "+2" + phoneNumberController.text,
+      birthday: DateTime.now().toIso8601String(),
       password: passwordController.text,
     )
         .catchError((error) {
@@ -76,14 +69,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         await Provider.of<CategoryProvider>(context, listen: false)
             .getTakeawayCategoriesFromApi()
             .then((_) {
-          Navigator.pushReplacementNamed(
-              context, MyHomePage.routeName);
+          Navigator.pushReplacementNamed(context, MyHomePage.routeName);
         });
       }
     });
   }
 
-  final TextEditingController birthdayController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -122,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 //   height: 12,
                 // ),
                 Text(
-                    "${AppLocalizations.of(context)!.name}",
+                  "${AppLocalizations.of(context)!.name}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -146,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 12,
                 ),
                 Text(
-                    "${AppLocalizations.of(context)!.email}",
+                  "${AppLocalizations.of(context)!.email}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -170,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 12,
                 ),
                 Text(
-                    "${AppLocalizations.of(context)!.password}",
+                  "${AppLocalizations.of(context)!.password}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -195,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 12,
                 ),
                 Text(
-                    "${AppLocalizations.of(context)!.number}",
+                  "${AppLocalizations.of(context)!.number}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -212,8 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "${AppLocalizations.of(context)!.number_va1}";
-                    }
-                    else if (value.length==11) {
+                    } else if (value.length == 11) {
                       return "${AppLocalizations.of(context)!.number_va1}";
                     }
                     // else if (value.length==11) {
@@ -224,44 +214,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: phoneNumberController,
                   keyboardType: TextInputType.phone,
                 ),
-                const GenderWidget(),
                 const SizedBox(
                   height: 12,
                 ),
-                Text(
-                    "${AppLocalizations.of(context)!.dateOfBirth}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                DatePickerField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "${AppLocalizations.of(context)!.birthday_va1}";
-                    } else if (DateTime(int.parse(value.substring(0, 3)))
-                        .isAfter(DateTime(2008))) {
-                      return "${AppLocalizations.of(context)!.birthday_va2}";
-                    }
-                    return null;
-                  },
-                  controller: birthdayController,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
+
                 Row(
                   children: [
-                      CustomCheckBox(
+                    CustomCheckBox(
                       title: "${AppLocalizations.of(context)!.agree}",
                     ),
                     GestureDetector(
                       onTap: () {},
-                      child:   Text(
+                      child: Text(
                         "${AppLocalizations.of(context)!.terms}",
                         style: TextStyle(
                           color: kTermsAndConditionsColor,
@@ -269,11 +233,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                     Text("${AppLocalizations.of(context)!.and}",),
+                    Text(
+                      "${AppLocalizations.of(context)!.and}",
+                    ),
                     GestureDetector(
                       onTap: () {},
-                      child:  Text(
-                        "${AppLocalizations.of(context)!.conditions}" ,
+                      child: Text(
+                        "${AppLocalizations.of(context)!.conditions}",
                         style: TextStyle(
                           color: kTermsAndConditionsColor,
                           fontWeight: FontWeight.bold,
