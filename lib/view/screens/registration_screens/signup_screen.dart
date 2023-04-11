@@ -197,15 +197,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 12,
                 ),
                 DefaultFormField(
-                  hintText: "+20102345678",
+                  hintText: "+20102345678 (optional)",
                   hintStyle: const TextStyle(
                       color: Color.fromARGB(255, 184, 184, 184)),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "${AppLocalizations.of(context)!.number_va1}";
-                    } else if (value.length == 11) {
-                      return "${AppLocalizations.of(context)!.number_va1}";
-                    }
+                    // if (value!.length == 11) {
+                    //   return "${AppLocalizations.of(context)!.number_va1}";
+                    // }
                     // else if (value.length==11) {
                     //   return "Please enter a valid phone number";
                     // }
