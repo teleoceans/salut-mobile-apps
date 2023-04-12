@@ -85,13 +85,13 @@ class GlobalDrawer extends StatelessWidget {
                   onTap: inviteOnTap,
                   nextScreen: "",
                 ),
-                DrawerListTile(
-                  isImage: true,
-                  assetImage: 'assets/images/tkafol_drawer.png',
-                  title: "${AppLocalizations.of(context)!.tkafol}",
-                  onTap: tkafolOnTap,
-                  nextScreen: '',
-                ),
+                // DrawerListTile(
+                //   isImage: true,
+                //   assetImage: 'assets/images/tkafol_drawer.png',
+                //   title: "${AppLocalizations.of(context)!.tkafol}",
+                //   onTap: tkafolOnTap,
+                //   nextScreen: '',
+                // ),
                   DrawerListTile(
                   isImage: false,
                   icon: Icons.settings,

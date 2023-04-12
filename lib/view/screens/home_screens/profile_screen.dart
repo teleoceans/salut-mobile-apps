@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salute/data/helpers/shared_preferences.dart';
 import 'package:salute/data/providers/addresses_provider.dart';
 import 'package:salute/data/providers/auth_provider.dart';
 import 'package:salute/main.dart';
 import 'package:salute/view/components/default_button.dart';
 import 'package:salute/view/components/profile_components/address_container.dart';
 import 'package:salute/view/components/profile_components/profile_container.dart';
-import 'package:salute/view/components/shopping_components/tkafol_container.dart';
 import 'package:salute/view/screens/faq_screen/about_us.dart';
 import 'package:salute/view/screens/faq_screen/terms_of_use_screen.dart';
 import 'package:salute/view/screens/profile_screens/settings_screen.dart';
@@ -39,97 +37,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Material(
             elevation: 5,
             borderRadius: BorderRadius.circular(16),
-            child:  SearchFormField(),
+            child: SearchFormField(),
           ),
         ),
         const SizedBox(height: 32),
-        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  Provider.of<AuthProvider>(context, listen: false).userName,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        Provider.of<AuthProvider>(context, listen: false)
+                            .userName,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    DefaultButton(
+                      borderColor: kPrimaryColor,
+                      backgroundColor: Colors.white,
+                      text: "${AppLocalizations.of(context)!.edit}",
+                      textSize: 16,
+                      textColor: kPrimaryColor,
+                      fontWeight: FontWeight.normal,
+                      width: 120,
+                      onTap: () {
+                        Navigator.pushNamed(context, SettingsScreen.routeName);
+                      },
+                    ),
+                  ],
                 ),
               ),
-              DefaultButton(
-                borderColor: kPrimaryColor,
-                backgroundColor: Colors.white,
-                text: "${AppLocalizations.of(context)!.edit}",
-                textSize: 16,
-                textColor: kPrimaryColor,
-                fontWeight: FontWeight.normal,
-                width: 120,
-                onTap: () {
-                  Navigator.pushNamed(context, SettingsScreen.routeName);
-                },
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty
+            ? Container()
+            : const SizedBox(
+                height: 32,
               ),
-            ],
-          ),
-        ),
-        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():const SizedBox(
-          height: 32,
-        ),
-        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  Provider.of<AuthProvider>(context, listen: false).userName,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        Provider.of<AuthProvider>(context, listen: false)
+                            .userName,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    DefaultButton(
+                      borderColor: kPrimaryColor,
+                      backgroundColor: Colors.white,
+                      text: "${AppLocalizations.of(context)!.login}",
+                      textSize: 16,
+                      textColor: kPrimaryColor,
+                      fontWeight: FontWeight.normal,
+                      width: 120,
+                      onTap: () {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      },
+                    ),
+                  ],
                 ),
+              )
+            : Container(),
+        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty
+            ? Container()
+            : AddressContainer(
+                address: Provider.of<AddressesProvider>(context).currentAddress,
               ),
-              DefaultButton(
-                borderColor: kPrimaryColor,
-                backgroundColor: Colors.white,
-                text: "${AppLocalizations.of(context)!.login}",
-                textSize: 16,
-                textColor: kPrimaryColor,
-                fontWeight: FontWeight.normal,
-                width: 120,
-                onTap: () {
-                  Navigator.pushNamed(context, SignInScreen.routeName);
-                },
-              ),
-            ],
-          ),
-        ):Container(),
-        Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?Container():AddressContainer(
-          address: Provider.of<AddressesProvider>(context).currentAddress,
-        ),
         const SizedBox(
           height: 32,
         ),
         // const SizedBox(
         //   height: 12,
         // ),
-        ProfileContainer(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => const TkafolComponent(),
-            );
-          },
-          isShadow: true,
-          isIcon: false,
-          prefixIcon: "assets/images/tkafol_drawer.png",
-          title: "${AppLocalizations.of(context)!.tkafol}",
-          fontWeight: FontWeight.bold,
-          suffixText: "${Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
-        ),
-        const SizedBox(
-          height: 12,
-        ),
+        // ProfileContainer(
+        //   onTap: () {
+        //     showDialog(
+        //       context: context,
+        //       builder: (context) => const TkafolComponent(),
+        //     );
+        //   },
+        //   isShadow: true,
+        //   isIcon: false,
+        //   prefixIcon: "assets/images/tkafol_drawer.png",
+        //   title: "${AppLocalizations.of(context)!.tkafol}",
+        //   fontWeight: FontWeight.bold,
+        //   suffixText: "${Provider.of<AuthProvider>(context, listen: false).authToken.isEmpty?0:SharedPreferencesHelper.data['points']==null?0:SharedPreferencesHelper.data['points']} pt",
+        // ),
+        // const SizedBox(
+        //   height: 12,
+        // ),
         ProfileContainer(
           onTap: () {
             LaunchUrl("https://m.me/100089473891428");
@@ -165,16 +173,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 12,
         ),
         ProfileContainer(
-          onTap: () async{
-
+          onTap: () async {
             setState(() {
-              String s=AppLocalizations.of(context)!.settings;
-              if(s.toString().toLowerCase()=="Settings".toString().toLowerCase()){
-
-                MyApp.setLocale(context, Locale("ar",""));
-              }
-              else{
-                MyApp.setLocale(context, Locale("en",""));
+              String s = AppLocalizations.of(context)!.settings;
+              if (s.toString().toLowerCase() ==
+                  "Settings".toString().toLowerCase()) {
+                MyApp.setLocale(context, Locale("ar", ""));
+              } else {
+                MyApp.setLocale(context, Locale("en", ""));
               }
             });
           },
